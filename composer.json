@@ -1,0 +1,41 @@
+{
+	"name": "message/cog-mothership-file-manager",
+	"description": "Cog module for file/asset management in Mothership",
+	"keywords": ["file", "mothership", "asset", "assets", "files", "upload", "uploads", "image", "images", "cog"],
+	"homepage": "http://message.co.uk",
+	"authors": [
+		{
+			"name" : "The Message Development Team",
+			"email": "dev@message.co.uk"
+		}
+	],
+	"support": {
+		"wiki"  : "http://server.local/wiki/projects/cog",
+		"issues": "http://server.local:3000/cog/cog-cms/issues"
+	},
+	"autoload": {
+		"psr-0": {
+			"Message\\Mothership\\FileManager"      : "src",
+			"Message\\Mothership\\FileManager\\Test": "tests"
+		}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url" : "git@server.local:cog/cog.git"
+		},
+		{
+			"type": "vcs",
+			"url" : "git@server.local:cog/cog-mothership-cp.git"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=5.3.0",
+
+		"message/cog"              : "dev-master",
+		"message/cog-mothership-cp": "dev-master"
+	},
+	"suggest": {
+	}
+}
