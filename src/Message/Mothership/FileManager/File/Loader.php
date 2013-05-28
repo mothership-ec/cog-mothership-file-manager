@@ -139,6 +139,13 @@ class Loader
 		return $this;
 	}
 
+	/**
+	 * Loads the file data out of the table and loads in into a File Object.
+	 *
+	 * @param  int $fileID fileId of the file to be loaded
+	 *
+	 * @return File|false return instance of the file is loaded else false
+	 */
 	protected function _load($fileID)
 	{
 		$result = $this->_query->run('
