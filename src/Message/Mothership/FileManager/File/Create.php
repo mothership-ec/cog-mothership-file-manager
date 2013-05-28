@@ -2,6 +2,9 @@
 
 namespace Message\Mothership\FileManager\File;
 
+use Message\Mothership\FileManager\Event\Event;
+use Message\Mothership\FileManager\Event\FileEvent;
+
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\Mothership\FileManager\File\Loader;
@@ -11,12 +14,25 @@ class Create
 
 	protected $_query;
 
+	/**
+	 * Initiallise the object and load dependancies.
+	 *
+	 * @param DBQuery             $query run the DB queries
+	 * @param DispatcherInterface $eventDispatcher fire an event
+	 */
 	public function __construct(DBQuery $query, DispatcherInterface $eventDispatcher)
 	{
 		$this->_query = $query;
 		$this->_eventDispatcher = $eventDispatcher;
 	}
 
+	/**
+	 * Save the passed through data into the database and return a new instance
+	 * of the saved file object and return it.
+	 *
+	 * @param  array 	$file data to be saved
+	 * @return File 	return the saved File object
+	 */
 	public function save(array $file)
 	{
 		$result = $this->_query->run('
@@ -50,9 +66,24 @@ class Create
 			$file['duration'],
 		));
 
+		// Get the fileID from the insertID
 		$fileID = $result->id();
+
+		// Load the file we just saved as an object and return it.
 		$file = new Loader('gb',$this->_query);
-		return $file->getByID($fileID);
+		$file = $file->getByID($fileID);
+
+		// Initiate the event file
+		$event = new FileEvent($file);
+
+		// Dispatch the file created event
+		$this->_eventDispatcher->dispatch(
+			FileEvent::CREATE,
+			$event
+		);
+
+		// Return the object
+		return $file;
 
 	}
 }
