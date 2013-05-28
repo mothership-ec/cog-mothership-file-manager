@@ -2,7 +2,12 @@
 
 namespace Message\Mothership\FileManager\File;
 
-class File {
+/**
+ * Represents the properties of a single File.
+ *
+ * @author Danny Hannah <danny@message.co.uk> */
+class File
+{
 
 	public $fileID;
 	public $url;
