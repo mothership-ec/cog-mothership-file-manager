@@ -2,7 +2,8 @@
 
 namespace Message\Mothership\FileManager\File;
 
-class Edit {
+class Edit
+{
 
 	public function __construct()
 	{

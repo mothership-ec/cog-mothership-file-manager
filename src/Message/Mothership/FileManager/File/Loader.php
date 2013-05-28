@@ -4,16 +4,17 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
 
-class Loader {
-	
+class Loader
+{
+
 	protected $_locale;
 	protected $_query;
 
 	/**
 	 * var to toggle the loading of deleted files
-	 * 
+	 *
 	 * (default value: false)
-	 * 
+	 *
 	 * @var bool
 	 */
 	protected $_loadDeleted = false;
@@ -26,7 +27,7 @@ class Loader {
 
 	/**
 	 * Return an array of, or singular File object
-	 * 
+	 *
 	 * @param  int|array $fileID
 	 * @return array|File 	File object
 	 */
@@ -45,9 +46,9 @@ class Loader {
 		return array_filter($return);
 	}
 
-	/** 
+	/**
 	 * Returns all the files of a certain file type id
-	 * 
+	 *
 	 * @param  int 	$typeID
 	 * @return array|File 	Array of File objects, or a single File object
 	 */
@@ -56,7 +57,7 @@ class Loader {
 		$this->_query->run('
 			SELECT
 				file_id
-			FROM 
+			FROM
 				file
 			WHERE
 				type_id = ?i',
@@ -77,7 +78,7 @@ class Loader {
 
 	/**
 	 * Return all files in an array
-	 * @return Array|File|false - 	returns either an array of File objects, a 
+	 * @return Array|File|false - 	returns either an array of File objects, a
 	 * 								single file object or false
 	 */
 	public function getAll()
@@ -85,7 +86,7 @@ class Loader {
 		$this->_query->run('
 			SELECT
 				file_id
-			FROM 
+			FROM
 				file
 		');
 
@@ -128,7 +129,7 @@ class Loader {
 
 	/**
 	 * Toggle whether or not to load deleted files
-	 * 
+	 *
 	 * @param bool $bool 	true / false as to whether to include deleted items
 	 * @return 	$this 		Loader object in order to chain the methods
 	 */
@@ -160,7 +161,7 @@ class Loader {
 				file.dimension_y AS dimensionY,
 				file.alt_text AS altText,
 				file.duration AS duration
-			FROM 
+			FROM
 				file
 			WHERE
 				file.file_id = ?', array($fileID)
@@ -169,7 +170,7 @@ class Loader {
 		if (count($result)) {
 			$file = new File;
 			$file = $result->bind($file);
-			
+
 			if ($file->deletedAt && !$this->_loadDeleted) {
 				return false;
 			}

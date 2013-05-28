@@ -5,7 +5,8 @@ namespace Message\Mothership\FileManager\File;
 use Message\Mothership\FileManager\File;
 use Message\Cog\DB\Query;
 
-class Delete {
+class Delete
+{
 
 	protected $_file;
 

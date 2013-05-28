@@ -6,7 +6,8 @@ use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\Mothership\FileManager\File\Loader;
 
-class Create {
+class Create
+{
 
 	protected $_query;
 
