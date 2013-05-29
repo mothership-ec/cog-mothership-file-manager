@@ -13,16 +13,19 @@ use Message\Cog\DB\Query;
 	 * Saves who deleted a file and when.
 	 *
 	 * @todo remove dummy user
+	 * @todo merge real user
 	 */
 class Delete
 {
 
 	/**
-	 * @access protected 
+	 * @var string
+	 * @access protected
 	 */
 	protected $_file;
 
 	/**
+	 * @var string
 	 * @access protected 
 	 */
 	protected $_query;
@@ -43,15 +46,16 @@ class Delete
 	 *
 	 * @return $this->_file
 	 * @access public
+	 * @param $user
 	 */
-	public function delete()
+	public function delete($user)
 	{
 
 		/** new Datatime */
 		$date = new \Datetime;
 
 		/** Dummy user */
-		$user = 1;
+		$this->user = $user;
 
 		/** Query to set deletion info */
 		$result = $this->_query->run("
@@ -66,9 +70,9 @@ class Delete
 				file_id = ?i
 		", array(
 				$date,
-				$user,
+				$this->user,
 				$date,
-				$user,
+				$this->user,
 				$this->_file->id
 			));
 

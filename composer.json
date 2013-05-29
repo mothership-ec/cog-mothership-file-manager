@@ -22,11 +22,11 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url" : "git@server.local:cog/cog.git"
+			"url" : "https://github.com/messagedigital/cog.git"
 		},
 		{
 			"type": "vcs",
-			"url" : "git@server.local:cog/cog-mothership-cp.git"
+			"url" : "https://github.com/messagedigital/cog-mothership-cp.git"
 		}
 	],
 	"minimum-stability": "dev",

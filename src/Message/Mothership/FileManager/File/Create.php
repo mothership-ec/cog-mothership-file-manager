@@ -2,7 +2,8 @@
 
 namespace Message\Mothership\FileManager\File;
 
-class Create {
+class Create 
+{
 
 	public function __construct()
 	{
