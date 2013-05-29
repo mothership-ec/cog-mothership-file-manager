@@ -1,22 +1,16 @@
 <?php
 
-class FileTest extends \PHPUnit_Extensions_Database_TestCase
+namespace Message\Mothership\FileManager\Test\File;
+
+use Message\Mothership\FileManager\File\File;
+
+class FileTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
-     */
-    public function getConnection()
+    protected $_page;
+
+    public function setUp()
     {
-        $pdo = new PDO('sqlite::memory:');
-        return $this->createDefaultDBConnection($pdo, ':memory:');
+        $this->_file = new File;
     }
 
-    /**
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
-     */
-    public function getDataSet()
-    {
-        $dataSet = new \PHPUnit_Extensions_Database_DataSet_CsvDataSet();
-        $dataSet->addTable('guestbook', dirname(__FILE__)."/_files/guestbook.csv");
-        return $dataSet;    }
 }
