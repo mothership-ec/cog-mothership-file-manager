@@ -4,7 +4,8 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
 
-class Loader {
+class Loader 
+{
 	
 	protected $_locale;
 	protected $_query;
