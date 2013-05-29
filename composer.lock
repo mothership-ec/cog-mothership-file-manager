@@ -1,0 +1,585 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "cae13a2f0466800e26840b3e623cc325",
+    "packages": [
+        {
+            "name": "message/cog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@server.local:cog/cog.git",
+                "reference": "155080c4a1f5446ed58e77059ca6b43d45161ac9"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-gd": "*",
+                "ext-json": "*",
+                "ext-mysqli": "*",
+                "ext-simplexml": "*",
+                "mtdowling/cron-expression": "1.0.*",
+                "php": ">=5.3.0",
+                "pimple/pimple": "1.0.1",
+                "symfony/console": "2.1.*",
+                "symfony/event-dispatcher": "2.1.*",
+                "symfony/http-foundation": "2.1.*",
+                "symfony/process": "2.1.*",
+                "symfony/routing": "2.1.*",
+                "symfony/templating": "2.1.*",
+                "symfony/yaml": "2.1.*",
+                "treasure-chest/treasure-chest": "0.1.*"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.1.*"
+            },
+            "suggest": {
+                "ext-apc": "The preferred caching system in Cog",
+                "ext-imagemagick": "Provides faster and more powerful image manipulation libraries",
+                "message/cog-maintenance": "A cog module that provides maintenance mode functionality",
+                "message/cog-raven": "A cog module that logs errors, exceptions and messages to Sentry"
+            },
+            "bin": [
+                "bin/cog",
+                "bin/cog-console"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Message\\Cog": "src",
+                    "Message\\Cog\\Test": "tests"
+                }
+            },
+            "authors": [
+                {
+                    "name": "The Message Development Team",
+                    "email": "dev@message.co.uk"
+                }
+            ],
+            "description": "Message's powerful PHP5 framework",
+            "homepage": "http://message.co.uk",
+            "keywords": [
+                "cog",
+                "framework"
+            ],
+            "support": {
+                "wiki": "http://server.local/wiki/projects/cog",
+                "issues": "http://server.local:3000/cog/issues"
+            },
+            "time": "2013-05-23 19:22:02"
+        },
+        {
+            "name": "message/cog-mothership-cp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:messagedigital/cog-mothership-cp.git",
+                "reference": "ef95573fa8c99df08e61b56968848aed024340dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/messagedigital/cog-mothership-cp/zipball/ef95573fa8c99df08e61b56968848aed024340dd",
+                "reference": "ef95573fa8c99df08e61b56968848aed024340dd",
+                "shasum": ""
+            },
+            "require": {
+                "message/cog": "dev-master",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Message\\Mothership\\ControlPanel": "src",
+                    "Message\\Mothership\\ControlPanel\\Test": "tests"
+                }
+            },
+            "authors": [
+                {
+                    "name": "The Message Development Team",
+                    "email": "dev@message.co.uk"
+                }
+            ],
+            "description": "Cog module for the Mothership Control Panel",
+            "homepage": "http://message.co.uk",
+            "keywords": [
+                "admin",
+                "cog",
+                "control panel",
+                "cp",
+                "mothership"
+            ],
+            "support": {
+                "wiki": "http://server.local/wiki/projects/cog",
+                "issues": "http://server.local:3000/cog/cog-mothership-cp/issues",
+                "source": "https://github.com/messagedigital/cog-mothership-cp/tree/master"
+            },
+            "time": "2013-05-23 16:54:40"
+        },
+        {
+            "name": "mtdowling/cron-expression",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mtdowling/cron-expression.git",
+                "reference": "v1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/v1.0.2",
+                "reference": "v1.0.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cron": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "CRON for PHP: Calculate the next or previous run date and determine if a CRON expression is due",
+            "keywords": [
+                "cron",
+                "schedule"
+            ],
+            "time": "2013-04-05 18:55:56"
+        },
+        {
+            "name": "pimple/pimple",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Pimple.git",
+                "reference": "v1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Pimple/archive/v1.0.1.zip",
+                "reference": "v1.0.1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Pimple": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Pimple is a simple Dependency Injection Container for PHP 5.3",
+            "homepage": "http://pimple.sensiolabs.org",
+            "keywords": [
+                "container",
+                "dependency injection"
+            ],
+            "time": "2012-11-11 08:32:34"
+        },
+        {
+            "name": "symfony/console",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "4709ede4eb34e02d9349b6bf2809bd76be008404"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/4709ede4eb34e02d9349b6bf2809bd76be008404",
+                "reference": "4709ede4eb34e02d9349b6bf2809bd76be008404",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-26 18:42:07"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "v2.1.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.1.10",
+                "reference": "v2.1.10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "2.1.*"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "2.1.*",
+                "symfony/http-kernel": "2.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-02-11 11:26:14"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "ec37bba974eda2a33dc6082bcff21c466a7211e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/ec37bba974eda2a33dc6082bcff21c466a7211e3",
+                "reference": "ec37bba974eda2a33dc6082bcff21c466a7211e3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation": "",
+                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-26 18:42:07"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v2.1.9",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "v2.1.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.1.9",
+                "reference": "v2.1.9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-03-23 07:44:01"
+        },
+        {
+            "name": "symfony/routing",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Routing",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Routing.git",
+                "reference": "v2.1.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.1.10",
+                "reference": "v2.1.10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.2,<3.0",
+                "symfony/config": "2.1.*",
+                "symfony/http-kernel": "2.1.*",
+                "symfony/yaml": "2.1.*"
+            },
+            "suggest": {
+                "doctrine/common": "~2.2",
+                "symfony/config": "2.1.*",
+                "symfony/yaml": "2.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Routing": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-06 10:48:41"
+        },
+        {
+            "name": "symfony/templating",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Templating",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Templating.git",
+                "reference": "v2.1.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Templating/zipball/v2.1.10",
+                "reference": "v2.1.10",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Templating": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Templating Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-04-09 14:11:33"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "2.1.x-dev",
+            "target-dir": "Symfony/Component/Yaml",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "347a7a02204433c6926ecc3f13e805bdc30e8f9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/347a7a02204433c6926ecc3f13e805bdc30e8f9f",
+                "reference": "347a7a02204433c6926ecc3f13e805bdc30e8f9f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Yaml": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-10 00:09:46"
+        },
+        {
+            "name": "treasure-chest/treasure-chest",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:jamesmoss/treasure-chest.git",
+                "reference": "0.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/jamesmoss/treasure-chest/archive/0.1.5.zip",
+                "reference": "0.1.5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "ext-apc": "Install to use the APC datastore",
+                "ext-memcache": "Install to use the memcached datastore"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "TreasureChest": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Moss",
+                    "email": "email@jamesmoss.co.uk",
+                    "homepage": "http://jamesmoss.co.uk"
+                }
+            ],
+            "description": "A simple key/value store with namespace support and backends for memcached, apc, and more.",
+            "homepage": "http://github.com/jamesmoss/treasure-chest",
+            "keywords": [
+                "apc",
+                "cache",
+                "caching",
+                "memcached"
+            ],
+            "time": "2013-01-25 17:27:49"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "message/cog": 20,
+        "message/cog-mothership-cp": 20
+    },
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": [
+
+    ]
+}

@@ -2,7 +2,7 @@
 
 namespace Message\Mothership\FileManager\File;
 
-use Message\Mothership\FileManager\File;
+use Message\Mothership\FileManager\File\File;
 use Message\Cog\DB\Query;
 
 	/**
