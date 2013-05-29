@@ -50,10 +50,6 @@ class Delete
 	 */
 	public function delete($user)
 	{
-
-		/** new Datatime */
-		$date = new \Datetime;
-
 		/** Dummy user */
 		$this->user = $user;
 
@@ -69,11 +65,11 @@ class Delete
 			WHERE
 				file_id = ?i
 		", array(
-				$date,
+				$date->getTimestamp(),
 				$this->user,
-				$date,
+				$date->getTimestamp(),
 				$this->user,
-				$this->_file->id
+				$this->_file->fileID
 			));
 
 		/** Returns deletion date */
