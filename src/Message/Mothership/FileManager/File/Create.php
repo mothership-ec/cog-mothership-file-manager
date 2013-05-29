@@ -13,6 +13,7 @@ class Create
 {
 
 	protected $_query;
+	protected $_eventDispatcher;
 
 	/**
 	 * Initiallise the object and load dependancies.
