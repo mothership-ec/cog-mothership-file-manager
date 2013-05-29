@@ -13,24 +13,30 @@ class Edit
 	protected $_query;
 	protected $_eventDispatcher;
 
+	/**
+	 * Populate the class with the dependencies.
+	 *
+	 * @param DBQuery             $query to run the DB queries
+	 * @param DispatcherInterface $eventDispatcher To fire the events
+	 */
 	public function __construct(DBQuery $query, DispatcherInterface $eventDispatcher)
 	{
 		$this->_query = $query;
 		$this->_eventDispatcher = $eventDispatcher;
 	}
 
-/**
- * Update changes to a file object into the DB. Method also fires FileEvent
- *
- * @todo make $userID an instance of User; $data could also be cloned instance of File too
- * which would make it easier when passing in the data?
- *
- * @param  File   $file 	The $file object that needs to be updated
- * @param  [type] $data 	An array of changes that have been made
- * @param  [type] $userID 	The userId who made the change
- *
- * @return [type]
- */
+	/**
+	 * Update changes to a file object into the DB. Method also fires FileEvent
+	 *
+	 * @todo make $userID an instance of User; $data could also be cloned instance of File too
+	 * which would make it easier when passing in the data?
+	 *
+	 * @param  File   $file The $file object that needs to be updated
+	 * @param  array $data 	An array of changes that have been made
+	 * @param  int $userID 	The userId who made the change
+	 *
+	 * @return File|false 	updated instance of the $file or false is the file couldn't be updated
+	 */
 	public function save(File $file, $data, $userID = 1)
 	{
 		// Update any properties that have changed and update them on the
