@@ -171,7 +171,7 @@ class Loader
 			FROM
 				file
 			WHERE
-				file.file_id = ?', array($fileID)
+				file.file_id = ?i', array($fileID)
 		);
 
 		if (count($result)) {
