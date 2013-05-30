@@ -18,11 +18,13 @@ class Create
 	/**
 	 * Initiallise the object and load dependancies.
 	 *
+	 * @param Loader             $loader load the File
 	 * @param DBQuery             $query run the DB queries
 	 * @param DispatcherInterface $eventDispatcher fire an event
 	 */
-	public function __construct(DBQuery $query, DispatcherInterface $eventDispatcher)
+	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher)
 	{
+		$this->_loader = $loader;
 		$this->_query = $query;
 		$this->_eventDispatcher = $eventDispatcher;
 	}
@@ -71,8 +73,7 @@ class Create
 		$fileID = $result->id();
 
 		// Load the file we just saved as an object and return it.
-		$file = new Loader('gb',$this->_query);
-		$file = $file->getByID($fileID);
+		$file = $this->_loader->getByID($fileID);
 
 		// Initiate the event file
 		$event = new FileEvent($file);
