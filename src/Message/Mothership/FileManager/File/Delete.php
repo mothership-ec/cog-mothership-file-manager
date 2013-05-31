@@ -50,12 +50,12 @@ class Delete
 			UPDATE
 				file
 			SET
-				updated_at = up_at?i,
-				updated_by = up_by?i,
-				deleted_at = dl_at?i,
-				deleted_by = dl_by?i
+				updated_at = :up_at?i,
+				updated_by = :up_by?i,
+				deleted_at = :dl_at?i,
+				deleted_by = :dl_by?i
 			WHERE
-				file_id = file_id?i
+				file_id = :file_id?i
 		', array(
 				'up_at' 	=> $file->authorship->updatedAt()->getTimestamp(),
 				'up_by' 	=> $file->authorship->updatedBy(),
@@ -81,8 +81,8 @@ class Delete
 			UPDATE 
 				file
 			SET
-				updated_at = up_at?i,
-				updated_by = up_by?i,
+				updated_at = :up_at?i,
+				updated_by = :up_by?i,
 				deleted_at = NULL,
 				deleted_by = NULL
 			WHERE
@@ -93,7 +93,7 @@ class Delete
 				'file_id' 	=> $file-id,
 			));
 
-		$this->_evenDispatcher->dispatch(
+		$this->_eventDispatcher->dispatch(
 			FileEvent::RESTORE,
 			new FileEvent($file)
 		);
