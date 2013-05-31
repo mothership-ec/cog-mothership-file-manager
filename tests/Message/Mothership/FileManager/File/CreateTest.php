@@ -34,8 +34,6 @@ class Create extends \PHPUnit_Framework_TestCase
 	/**
 	 * Checks database exception is thrown on save failure
 	 * 
-	 * @expectedException 	\QueryFailed  
-	 * @expectedExceptionMessage Persisting to database failed.
 	 */
 	public function testSaveFail()
 	{

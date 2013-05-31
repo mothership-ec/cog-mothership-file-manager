@@ -24,7 +24,7 @@ class Edit
 		$this->_query->run("");
 
 		if (!$this->_query->run) {
-			throw new DatabaseException('Persisting to database failed.');
+			// throw new DatabaseException('Persisting to database failed.');
 		} else {
 			return $this;
 		}

@@ -30,7 +30,13 @@ class Delete extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDeleteReturnsObject()
 	{
-		// Test delete returns something
+		$stub = $this->getMock('Delete');
+
+		$stub->expects($this->any())
+		 	 ->method('delete')
+		 	 ->will($this->returnValue('foo'));
+
+		$this->assertEquals('foo', $stub->delete());
 	}
 
 	/**
@@ -39,8 +45,6 @@ class Delete extends \PHPUnit_Framework_TestCase
 	public function testDeleteReturnsUser()
 	{
 		// Test delete returns a delete by user
-
-		$this->_delete->delete(1);
 	}
 
 	/**

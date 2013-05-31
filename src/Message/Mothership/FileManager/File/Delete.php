@@ -3,7 +3,8 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
-use Message\Cog\DB\Query;
+use Message\Cog\Event\DispatcherInterface;
+use Message\Cog\DB\Query as Query;
 
 	/**
 	 * Author Ewan Valentine <ewan@message.co.uk> 
@@ -18,26 +19,17 @@ use Message\Cog\DB\Query;
 class Delete
 {
 
-	/**
-	 * @var string
-	 * @access protected
-	 */
-	protected $_file;
-
-	/**
-	 * @var string
-	 * @access protected 
-	 */
 	protected $_query;
+	protected $_eventDispatcher;
 
 	/**
 	 * @access public
-	 * @param File $file Query $query
+	 * @param Query $query
 	 */
-	public function __construct(File $file, Query $query)
+	public function __construct(Query $query, DispatcherInterface $eventDispatcher)
 	{
-		$this->_file = $file;
-		$this->_query = $query;
+		$this->_query 			= $query;
+		$this->_eventDispatcher = $eventDispatcher;
 	}
 
 	/**
@@ -48,36 +40,68 @@ class Delete
 	 * @access public
 	 * @param $user
 	 */
-	public function delete($user)
+	public function delete(File $file)
 	{
-		/** Dummy user */
-		$this->user = $user;
+	
+		$file->authorship->delete(new \Datetime, 1);
 
 		/** Query to set deletion info */
-		$result = $this->_query->run("
+		$result = $this->_query->run('
 			UPDATE
 				file
 			SET
-				updated_at = ?i,
-				updated_by = ?i,
-				deleted_at = ?i,
-				deleted_by = ?i
+				updated_at = up_at?i,
+				updated_by = up_by?i,
+				deleted_at = dl_at?i,
+				deleted_by = dl_by?i
 			WHERE
-				file_id = ?i
-		", array(
-				$date->getTimestamp(),
-				$this->user,
-				$date->getTimestamp(),
-				$this->user,
-				$this->_file->fileID
+				file_id = file_id?i
+		', array(
+				'up_at' 	=> $file->authorship->updatedAt()->getTimestamp(),
+				'up_by' 	=> $file->authorship->updatedBy(),
+				'dl_at' 	=> $file->authorship->deletedAt()->getTimestamp(),
+				'dl_by' 	=> $file->authorship->deletedBy(),
+				'file_id' 	=> $file->id,
 			));
 
-		/** Returns deletion date */
-		$this->_file->deletedAt = $date;
+		$this->_eventDispatcher->dispatch(
+			FileEvent::DELETE,
+			new FileEvent($file)
+		);
 
-		/** Returns deleted by */
-		$this->_file->deletedBy = $user;
+		return $file;
+	}
 
-		return $this->_file;
+	public function restore()
+	{
+
+		$file->authorship->restore();
+
+		$result = $this->_query->run('
+			UPDATE 
+				file
+			SET
+				updated_at = up_at?i,
+				updated_by = up_by?i,
+				deleted_at = NULL,
+				deleted_by = NULL
+			WHERE
+				file_id = file_id?i
+		', array(
+				'up_at'		=> $file->authorship->updated_at()->getTimestamp(),
+				'up_by' 	=> $file->authorship->updated_by()->getTimestamp(),
+				'file_id' 	=> $file-id,
+			));
+
+		$this->_evenDispatcher->dispatch(
+			FileEvent::RESTORE,
+			new FileEvent($file)
+		);
+
+		return $file;
 	}
 }
+
+
+
+
