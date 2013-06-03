@@ -54,7 +54,7 @@ class Loader
 	 */
 	public function getByType($typeID)
 	{
-		$this->_query->run('
+		$result = $this->_query->run('
 			SELECT
 				file_id
 			FROM
@@ -83,7 +83,7 @@ class Loader
 	 */
 	public function getAll()
 	{
-		$this->_query->run('
+		$result = $this->_query->run('
 			SELECT
 				file_id
 			FROM
@@ -193,7 +193,6 @@ class Loader
 			}
 			return $file;
 		}
-
 		return false;
 
 	}
