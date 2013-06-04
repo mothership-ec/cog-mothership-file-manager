@@ -16,6 +16,7 @@ use Message\Cog\DB\Query as Query;
 class Delete
 {
 
+
 	protected $_query;
 	protected $_eventDispatcher;
 
@@ -23,8 +24,9 @@ class Delete
 	 * @access public
 	 * @param Query $query
 	 */
-	public function __construct(Query $query, DispatcherInterface $eventDispatcher)
+	public function __construct(Loader $loader, Query $query, DispatcherInterface $eventDispatcher)
 	{
+		$this->_loader			= $loader;
 		$this->_query 			= $query;
 		$this->_eventDispatcher = $eventDispatcher;
 	}

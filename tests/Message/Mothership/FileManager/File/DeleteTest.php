@@ -1,59 +1,63 @@
 <?php 
 
-namespace Message\Mothership\FileManager\File;
+namespace Message\Mothership\FileManager\Test\File;
 
+use Message\Mothership\FileManager\File\Delete;
 use Message\Mothership\FileManager\File\File;
-use Message\Cog\DB\Adapter\Faux\Connection as FauxConnection;
-use Message\Cog\Test\Event\FauxConnection;
+use Message\Mothership\FileManager\File\Loader;
 
-class Delete extends \PHPUnit_Framework_TestCase
+use Message\Cog\Test\Event\FauxDispatcher;
+use Message\Cog\DB\Adapter\Faux\Connection as FauxConnection;
+use Message\Cog\DB\Query;
+use Message\Cog\ValueObject\Authorship;
+
+class DeleteTest extends \PHPUnit_Framework_TestCase
 {
 
-	/**
-	 * @var string
-	 * @access protected
-	 */
+	const FILE_ID = 4;
+
+	protected $_file;
+
+	protected $_eventDispatcher;
+	protected $_query;
+
+	protected $_loader;
 	protected $_delete;
 
-	/**
-	 * Setup.
-	 *
-	 * Mock a use case. User a deletes file b
-	 * Delete expects `user` (int)
-	 */
 	public function setUp()
 	{
 		$this->_eventDispatcher = new FauxDispatcher;
-		$this->_delete = $this->getMock('Message\Cog\DB\Query', array('query'),array(
-			new FauxDispatcher(array('deleteId' => 4))
+		$this->_query           = $this->getMock('Message\Cog\DB\Query', array('query'), array(
+			new FauxConnection(array('affectedRows' => 1))
 		));
+		$this->_loader = $this->getMock('Message\Mothership\FileManager\File\Loader', array('getByID'), array(), '', false);
+		$this->_delete = new Delete(
+			$this->_query,
+			$this->_eventDispatcher
+		);
 
-		$this->_nestedSetHelper = $this->getMock('Message\Cog\DB\NestedSetHelper', array('getById'));
+		$this->_file = new File;
+		$this->_file->fileID = self::FILE_ID;
+		$this->_file->authorship = new Authorship;
 
+		$this->_loader
+			 ->expects($this->any())
+			 ->method('save')
+			 ->with(self::FILE_ID)
+			 ->will($this->returnValue($this->_file));
 	}
 
-	/**
-	 * Tests delete returns an object
-	 */
-	public function testDeleteReturnsObject()
+	public function testDelete()
 	{
+		$deletedFile = $this->_delete->delete($this->_loader->getByID(self::FILE_ID));
 
-	}
+		$dateTime = new \DateTime;
 
-	/**
-	 * Test delete returns a username
-	 */
-	public function testDeleteReturnsUser()
-	{
-		// Test delete returns a delete by user
-	}
-
-	/**
-	 * Test delete returns a date
-	 */
-	public function testDeleteReturnsDeletionDate()
-	{
-		// Test delete returns a deletion date
+		$this->assertEquals($deletedFile->authorship->deletedAt()->getTimestamp(),
+			$dateTime->getTime(), 2
+		);
+		$this->assertTrue(!is_null($deletedFile->authorship->deletedBy()));
+		$this->assertTrue($deletedFile->fileID == self::FILE_ID);
 	}
 }
 
