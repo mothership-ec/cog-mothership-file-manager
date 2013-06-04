@@ -3,7 +3,8 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
-use Message\Cog\DB\Query;
+use Message\Cog\DB\Adapter\Faux\Connection as FauxConnection;
+use Message\Cog\Test\Event\FauxConnection;
 
 class Delete extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +23,13 @@ class Delete extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$this->_delete = new Delete();
+		$this->_eventDispatcher = new FauxDispatcher;
+		$this->_delete = $this->getMock('Message\Cog\DB\Query', array('query'),array(
+			new FauxDispatcher(array('deleteId' => 4))
+		));
+
+		$this->_nestedSetHelper = $this->getMock('Message\Cog\DB\NestedSetHelper', array('getById'));
+
 	}
 
 	/**
@@ -30,13 +37,7 @@ class Delete extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDeleteReturnsObject()
 	{
-		$stub = $this->getMock('Delete');
 
-		$stub->expects($this->any())
-		 	 ->method('delete')
-		 	 ->will($this->returnValue('foo'));
-
-		$this->assertEquals('foo', $stub->delete());
 	}
 
 	/**
@@ -55,3 +56,4 @@ class Delete extends \PHPUnit_Framework_TestCase
 		// Test delete returns a deletion date
 	}
 }
+

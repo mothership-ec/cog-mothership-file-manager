@@ -3,7 +3,9 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
-use Message\Cog\DB\Query;
+
+use Message\Cog\DB\Adapter\Faux\Connection as FauxConnection;
+use Message\Cog\Test\Event\FauxDispatcher;
 
 	/**
 	 * @author Ewan Valentine <ewan@message.co.uk>

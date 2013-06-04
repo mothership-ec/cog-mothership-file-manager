@@ -12,9 +12,6 @@ use Message\Cog\DB\Query as Query;
 	 *
 	 * Basic file deletion class for database records
 	 * Saves who deleted a file and when.
-	 *
-	 * @todo remove dummy user
-	 * @todo merge real user
 	 */
 class Delete
 {
@@ -50,15 +47,11 @@ class Delete
 			UPDATE
 				file
 			SET
-				updated_at = :up_at?i,
-				updated_by = :up_by?i,
 				deleted_at = :dl_at?i,
 				deleted_by = :dl_by?i
 			WHERE
 				file_id = :file_id?i
 		', array(
-				'up_at' 	=> $file->authorship->updatedAt()->getTimestamp(),
-				'up_by' 	=> $file->authorship->updatedBy(),
 				'dl_at' 	=> $file->authorship->deletedAt()->getTimestamp(),
 				'dl_by' 	=> $file->authorship->deletedBy(),
 				'file_id' 	=> $file->id,
@@ -69,7 +62,7 @@ class Delete
 			new FileEvent($file)
 		);
 
-		return $file;
+		return $eventDispatcher->getFile();
 	}
 
 	public function restore()
@@ -98,10 +91,9 @@ class Delete
 			new FileEvent($file)
 		);
 
-		return $file;
+		return $eventDispatcher->getFile();
 	}
 }
-
 
 
 
