@@ -74,8 +74,6 @@ class Delete
 			UPDATE 
 				file
 			SET
-				updated_at = :up_at?i,
-				updated_by = :up_by?i,
 				deleted_at = NULL,
 				deleted_by = NULL
 			WHERE
