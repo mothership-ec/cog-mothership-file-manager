@@ -12,14 +12,9 @@ class File
 	public $fileID;
 	public $url;
 	public $name;
+	public $authorship;
 	public $extension;
 	public $fileSize;
-	public $createdAt;
-	public $createdBy;
-	public $updatedAt;
-	public $updatedBy;
-	public $deletedAt;
-	public $deletedBy;
 	public $typeID;
 	public $checksum;
 	public $previewUrl;

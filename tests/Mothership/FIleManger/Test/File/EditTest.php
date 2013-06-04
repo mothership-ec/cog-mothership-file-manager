@@ -9,6 +9,7 @@ use Message\Mothership\FileManager\File\Loader;
 use Message\Cog\Test\Event\FauxDispatcher;
 use Message\Cog\DB\Adapter\Faux\Connection AS FauxConnection;
 use Message\Cog\DB\Query;
+use Message\Cog\ValueObject\Authorship;
 
 class EditTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,8 +37,7 @@ class EditTest extends \PHPUnit_Framework_TestCase
 
 		$this->_file = new File;
 		$this->_file->fileID = self::FILE_ID;
-		$this->_file->updatedAt = null;
-		$this->_file->updatedBy = null;
+		$this->_file->authorship = new Authorship;
 
 		$this->_loader
 			->expects($this->any())
@@ -57,8 +57,8 @@ class EditTest extends \PHPUnit_Framework_TestCase
 	{
 		$updatedFile = $this->_edit->save($this->_loader->getByID(self::FILE_ID));
 		$dateTime = new \DateTime;
-		$this->assertEquals($updatedFile->updatedAt, $dateTime->getTimestamp(), 2);
-		$this->assertTrue(!is_null($updatedFile->updatedBy));
+		$this->assertEquals($updatedFile->authorship->updatedAt()->getTimestamp(), $dateTime->getTimestamp(), 2);
+		$this->assertTrue(!is_null($updatedFile->authorship->updatedBy()));
 		$this->assertTrue($updatedFile->fileID == self::FILE_ID);
     }
 

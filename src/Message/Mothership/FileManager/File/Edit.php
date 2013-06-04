@@ -41,8 +41,7 @@ class Edit
 
 		// Set the updated date on the object
 		$date = new \DateTime;
-		$file->updatedAt = $date->getTimestamp();
-		$file->updatedBy = $userID;
+		$file->authorship->update($date, $userID);
 
 		$result = $this->_query->run('
 			UPDATE
@@ -68,8 +67,8 @@ class Edit
 			'name' 			=> $file->name,
 			'extension' 	=> $file->extension,
 			'fileSize' 		=> $file->fileSize,
-			'updatedAt' 	=> $file->updatedAt,
-			'updateBy' 		=> $file->updatedBy,
+			'updatedAt' 	=> $file->authorship->updatedAt()->getTimestamp(),
+			'updatedBy' 	=> $file->authorship->updatedBy(),
 			'typeID' 		=> $file->typeID,
 			'checksum' 		=> $file->checksum,
 			'previewUrl' 	=> $file->previewUrl,

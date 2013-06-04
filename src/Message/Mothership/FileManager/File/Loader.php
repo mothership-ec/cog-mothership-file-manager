@@ -3,6 +3,7 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
+use Message\Cog\ValueObject\Authorship;
 
 class Loader
 {
@@ -177,19 +178,21 @@ class Loader
 		if (count($result)) {
 			$file = new File;
 			$file = $result->bind($file);
+			$result = $result->first();
+			$file->authorship = new Authorship;
 
-			if ($file->deletedAt && !$this->_loadDeleted) {
+			if ($result->deletedAt && !$this->_loadDeleted) {
 				return false;
 			}
 
-			$file->createdAt = new \DateTime(date('c',$file->createdAt));
+			$file->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
 
-			if ($file->updatedAt) {
-				$file->updatedAt = new \DateTime(date('c',$file->updatedAt));
+			if ($result->updatedAt) {
+				$file->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
 			}
 
-			if ($file->deletedAt) {
-				$file->deletedAt = new \DateTime(date('c',$file->deletedAt));
+			if ($result->deletedAt) {
+				$file->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
 			}
 			return $file;
 		}
