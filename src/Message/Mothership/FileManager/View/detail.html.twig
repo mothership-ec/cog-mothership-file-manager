@@ -1,7 +1,7 @@
 <h1>File Detail</h1>
 <img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}"/>
 <ul>
-
+	<li>Name: {{ file.name }}</li>
 	<li>Type: {{ file.typeID }}</li>
 	<li>Size: {{ file.size }}</li>
 	<li>Dimensions: {{ file.dimensionsX }} x {{ file.dimensionsY }}</li>
@@ -13,14 +13,13 @@
 	<button type="submit" name="insert" id="insert" value="Insert">Insert</button>
 </form>
 
-<form action="" method="post">
+<form action="/files/detail/{{ file.fileID }}/edit" method="post">
 	<label for="file-tags">Tags</label>
-	<textarea id="file-tags" name="file_tags">
-{% for tag in file.tags %}
-{{ tag }},
-{% endfor %}
-	</textarea>
+	<textarea id="file-tags" name="file[tags]">{% for tag in file.tags %}
+{{ tag }}{% if loop.last != true %}, {% endif %}
+{% endfor %}</textarea>
 
 	<label for="file-alt-text">Alt Text</label>
-	<input id="file-alt-text" type="text" name="file_alt_text" value="{{ file.altText }}" />
+	<input id="file-alt-text" type="text" name="file[alt_text]" value="{{ file.altText }}" />
+	<button name="update" type="submit" value="Submit">Update</button>
 </form>

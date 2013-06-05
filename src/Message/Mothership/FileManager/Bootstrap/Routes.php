@@ -10,6 +10,8 @@ class Routes implements RoutesInterface
 	{
 		$router->add('filemanager.listing', '/files/view', '::Controller:Listing#index');
 		$router->add('filemanager.detail', '/files/detail/{fileID}', '::Controller:Detail#index')
+			   ->setRequirement('fileID', '\d+');
+		$router->add('filemanager.edit', '/files/detail/{fileID}/edit', '::Controller:Detail#edit')
 			   ->setRequirement('fileID', '\d+');;
 
 	}

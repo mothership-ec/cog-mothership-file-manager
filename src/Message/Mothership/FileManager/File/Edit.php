@@ -47,37 +47,46 @@ class Edit
 			UPDATE
 				file
 			SET
-				url = :url?s,
-				name = :name?s,
-				extension = :extension?s,
-				file_size = :fileSize?s,
 				updated_at = :updatedAt?i,
 				updated_by = :updatedBy?i,
-				type_id = :typeID?i,
-				checksum = :checksum?s,
-				preview_url = :previewUrl?s,
-				dimension_x = :dimensionX?i,
-				dimension_y = :dimensionY?i,
-				alt_text = :altText?s,
-				duration = :duration?i
+				alt_text = :altText?s
 			WHERE
 				file_id = :fileID?i
 		', array(
-			'url' 			=> $file->url,
-			'name' 			=> $file->name,
-			'extension' 	=> $file->extension,
-			'fileSize' 		=> $file->fileSize,
-			'updatedAt' 	=> $file->authorship->updatedAt()->getTimestamp(),
-			'updatedBy' 	=> $file->authorship->updatedBy(),
-			'typeID' 		=> $file->typeID,
-			'checksum' 		=> $file->checksum,
-			'previewUrl' 	=> $file->previewUrl,
-			'dimensionX' 	=> $file->dimensionX,
-			'dimensionY' 	=> $file->dimensionY,
-			'altText' 		=> $file->altText,
-			'duration' 		=> $file->duration,
-			'fileID' 		=> $file->fileID,
+			'updatedAt' => $file->authorship->updatedAt()->getTimestamp(),
+			'updatedBy' => $file->authorship->updatedBy(),
+			'altText' 	=> $file->altText,
+			'fileID'	=> $file->fileID,
 		));
+
+		// Delete all the tags and then add the new ones in
+		if ($file->tags) {
+			$result = $this->_query->run('
+				DELETE FROM
+					file_tag
+				WHERE
+					file_id = ?',
+				array($file->fileID)
+			);
+
+			$inserts = array();
+			$values = '';
+			end($file->tags);
+			$lastKey = key($file->tags);
+			foreach ($file->tags as $k => $tagName) {
+				$values .= '(?i, ?s)'.($lastKey == $k ? '' : ',');
+				$inserts[] = $file->fileID;
+				$inserts[] = $tagName;
+			}
+
+			$result = $this->_query->run('
+				INSERT INTO
+					file_tag (file_id, tag_name)
+				VALUES
+					'.$values.'',
+				$inserts
+			);
+		}
 
 		// Initiate the event file
 		$event = new FileEvent($file);
