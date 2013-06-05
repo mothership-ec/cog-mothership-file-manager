@@ -13,7 +13,9 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function index()
 	{
 		$allFiles = $this->_services['filesystem.file.loader']->getAll();
-
-		return $this->render('::listing', array('files' => $allFiles, 'bob' => 'hello'));
+		$data = array(
+			'files' => $allFiles,
+		);
+		return $this->render('::listing', $data);
 	}
 }

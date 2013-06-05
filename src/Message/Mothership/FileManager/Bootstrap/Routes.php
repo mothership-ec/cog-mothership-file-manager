@@ -9,5 +9,8 @@ class Routes implements RoutesInterface
 	public function registerRoutes($router)
 	{
 		$router->add('filemanager.listing', '/files/view', '::Controller:Listing#index');
+		$router->add('filemanager.detail', '/files/detail/{fileID}', '::Controller:Detail#index')
+			   ->setRequirement('fileID', '\d+');;
+
 	}
 }

@@ -1,0 +1,26 @@
+<h1>File Detail</h1>
+<img src="{{ file.url }}" alt="{{ file.altText }}"/>
+<ul>
+	<li>Type: {{ file.typeID }}</li>
+	<li>Size: {{ file.size }}</li>
+	<li>Dimensions: {{ file.dimensionsX }} x {{ file.dimensionsY }}</li>
+	<li>Uplodaed By: {{ file.authorship.createdBy }} at {{ file.authorship.createdAt|date }}</li>
+	<li>Editied By: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
+</ul>
+
+<form action="" method="post">
+	<button type="submit" name="insert" id="insert" value="Insert">Insert</button>
+</form>
+
+<form action="" method="post">
+	<label for="file-name">Name</label>
+	<input id="file-name" type="text" name="file_name" value="{{ file.name }}" />
+
+	<label for="file-tags">Tags</label>
+	<textarea id="file-tags" name="file_tags">
+		{{ files.tags }}
+	</textarea>
+
+	<label for="file-alt-text">Alt Text</label>
+	<input id="file-alt-text" type="text" name="file_alt_text" value="{{ file.altText }}" />
+</form>
