@@ -16,7 +16,9 @@
 <form action="" method="post">
 	<label for="file-tags">Tags</label>
 	<textarea id="file-tags" name="file_tags">
-		{{ files.tags }}
+{% for tag in file.tags %}
+{{ tag }},
+{% endfor %}
 	</textarea>
 
 	<label for="file-alt-text">Alt Text</label>
