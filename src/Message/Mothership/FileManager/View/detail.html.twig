@@ -18,8 +18,11 @@
 	<textarea id="file-tags" name="file[tags]">{% for tag in file.tags %}
 {{ tag }}{% if loop.last != true %}, {% endif %}
 {% endfor %}</textarea>
-
 	<label for="file-alt-text">Alt Text</label>
 	<input id="file-alt-text" type="text" name="file[alt_text]" value="{{ file.altText }}" />
 	<button name="update" type="submit" value="Submit">Update</button>
+</form>
+
+<form action="/files/detail/{{ file.fileID }}/delete" method="post">
+	<button name="delete[delete]" value="delete" id="delete" type="submit">Delete</button>
 </form>
