@@ -4,6 +4,7 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
 use Message\Cog\ValueObject\Authorship;
+use Message\Cog\Filesystem\File as FileSystemFile;
 
 class Loader
 {
@@ -196,7 +197,8 @@ class Loader
 			}
 
 			$file->tags = $this->_loadTags($file);
-			var_dump($file); exit;
+			$file->file = new FileSystemFile($file->url);
+
 			return $file;
 		}
 		return false;

@@ -13,6 +13,7 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function index()
 	{
 		$allFiles = $this->_services['filesystem.file.loader']->getAll();
+
 		$data = array(
 			'files' => $allFiles,
 		);

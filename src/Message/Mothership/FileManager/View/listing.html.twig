@@ -14,5 +14,5 @@
 </form>
 
 {% for file in files %}
-	<a href="/files/detail/{{ file.fileID }}"><img src="{{ file.url }}" alt="{{ file.altText }}" /></a>
+	<a href="/files/detail/{{ file.fileID }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
 {% endfor %}

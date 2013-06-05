@@ -1,6 +1,7 @@
 <h1>File Detail</h1>
-<img src="{{ file.url }}" alt="{{ file.altText }}"/>
+<img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}"/>
 <ul>
+
 	<li>Type: {{ file.typeID }}</li>
 	<li>Size: {{ file.size }}</li>
 	<li>Dimensions: {{ file.dimensionsX }} x {{ file.dimensionsY }}</li>
