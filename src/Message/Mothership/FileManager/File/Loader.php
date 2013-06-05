@@ -194,9 +194,33 @@ class Loader
 			if ($result->deletedAt) {
 				$file->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
 			}
+
+			$file->tags = $this->_loadTags($file);
+			var_dump($file); exit;
 			return $file;
 		}
 		return false;
+
+	}
+
+	protected function _loadTags(File $file)
+	{
+		$tags = array();
+
+		$result = $this->_query->run('
+			SELECT
+				file_tag.tag_name
+			FROM
+				file_tag
+			WHERE
+				file_tag.file_id = ?i', array($file->fileID)
+		);
+
+		if (count($result)) {
+			$tags = $result->flatten();
+		}
+
+		return $tags;
 
 	}
 

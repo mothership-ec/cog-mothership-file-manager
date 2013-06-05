@@ -22,4 +22,5 @@ class File
 	public $dimensionY;
 	public $altText;
 	public $duration;
+	public $tags;
 }
