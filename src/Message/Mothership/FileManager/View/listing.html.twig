@@ -1,4 +1,18 @@
-<h1>Hello 1</h1>
+<h1>File Manager</h1>
+
+<form action="" method="post">
+	<input type="file" name="upload" />
+	<select name="filter">
+		<option value="">Sort by...</option>
+	</select>
+
+	<select name="sort">
+		<option value="">Filter by...</option>
+	</select>
+
+	<input type="search" name="search" placeholder="Search" />
+</form>
+
 {% for file in files %}
 	<img src="{{ file.url }}" />
 {% endfor %}
