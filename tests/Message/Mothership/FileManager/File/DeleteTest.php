@@ -49,6 +49,9 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
 	public function testDelete()
 	{
+
+		var_dump($this->_loader->getByID(self::FILE_ID));
+
 		$deletedFile = $this->_delete->delete($this->_loader->getByID(self::FILE_ID));
 
 		$dateTime = new \DateTime;
