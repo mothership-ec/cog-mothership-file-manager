@@ -4,10 +4,11 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\Event\Event;
 use Message\Mothership\FileManager\Event\FileEvent;
+use Message\Mothership\FileManager\File\Loader;
 
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
-use Message\Mothership\FileManager\File\Loader;
+use Message\Cog\Filesystem\File as FilesystemFile;
 
 class Create
 {
@@ -25,7 +26,7 @@ class Create
 	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher)
 	{
 		$this->_loader = $loader;
-		$this->_query = $query;
+		$this->_query  = $query;
 		$this->_eventDispatcher = $eventDispatcher;
 	}
 
@@ -36,37 +37,42 @@ class Create
 	 * @param  array 	$file data to be saved
 	 * @return File 	return the saved File object
 	 */
-	public function save(array $file)
+	public function save(FilesystemFile $file)
 	{
+		// Instead of allowing the file to be uploaded again we thrown an exception
+		if($id = $this->existsInFileManager($file)) {
+			throw new Exception\FileExists('File already exists in File Manager', $id);
+		}
+
 		$result = $this->_query->run('
 			INSERT INTO
 				file
 			SET
-				url = ?s,
-				name = ?s,
-				extension = ?s,
-				file_size = ?s,
-				created_at = UNIX_TIMESTAMP(),
-				created_by = 1,
-				type_id = ?i,
-				checksum = ?s,
-				preview_url = ?s,
+				url         = ?s,
+				name        = ?s,
+				extension   = ?s,
+				file_size   = ?s,
+				created_at  = UNIX_TIMESTAMP(),
+				created_by  = 1,
+				type_id     = ?i,
+				checksum    = ?s,
+				preview_url = ?sn,
 				dimension_x = ?i,
 				dimension_y = ?i,
-				alt_text = ?s,
-				duration = ?i
+				alt_text    = ?s,
+				duration    = ?in
 		', array(
-			$file['url'],
-			$file['name'],
-			$file['extension'],
-			$file['file_size'],
-			$file['type_id'],
-			$file['checksum'],
-			$file['preview_url'],
-			$file['dimension_x'],
-			$file['dimension_y'],
-			$file['alt_text'],
-			$file['duration'],
+			$file->getPathname(),
+			$file->getFilename(),
+			$file->getExtension(),
+			$file->getSize(),
+			1,
+			$file->getChecksum(),
+			null, // Preview image for videos
+			100, // Image or video dimensions in x
+			100, // Image or video dimensions in y
+			'', // Alt text is always empty
+			null, // Duration in seconds for videos
 		));
 
 		// Get the fileID from the insertID
@@ -75,6 +81,31 @@ class Create
 		// Load the file we just saved as an object and return it.
 		$file = $this->_loader->getByID($fileID);
 
+		$this->_dispatchEvents($file);
+
+		// Return the object
+		return $file;
+	}
+
+	public function existsInFileManager(FilesystemFile $file)
+	{
+		$checksum = $file->getChecksum();
+
+		$result = $this->_query->run('
+			SELECT
+				file_id
+			FROM
+				file
+			WHERE
+				checksum = ?s
+			LIMIT 1
+		', $checksum);
+
+		return count($result) ? $result->value() : false;
+	}
+
+	protected function _dispatchEvents($file)
+	{
 		// Initiate the event file
 		$event = new FileEvent($file);
 
@@ -83,9 +114,5 @@ class Create
 			FileEvent::CREATE,
 			$event
 		);
-
-		// Return the object
-		return $file;
-
 	}
 }
