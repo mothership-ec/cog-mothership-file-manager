@@ -6,6 +6,7 @@ use Message\Mothership\FileManager\Event\FileEvent;
 
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
+use Message\User\User;
 
 class Edit
 {
