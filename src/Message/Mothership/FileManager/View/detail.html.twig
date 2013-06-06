@@ -1,11 +1,11 @@
 <h1>File Detail</h1>
-<img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}"/>
+<img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="max-width: 300px; height: auto;" />
 <ul>
 	<li>Name: {{ file.name }}</li>
 	<li>Type: {{ file.typeID }}</li>
 	<li>Size: {{ file.size }}</li>
 	<li>Dimensions: {{ file.dimensionsX }} x {{ file.dimensionsY }}</li>
-	<li>Uplodaed By: {{ file.authorship.createdBy }} at {{ file.authorship.createdAt|date }}</li>
+	<li>Uplodaed By: {{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
 	<li>Editied By: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
 </ul>
 

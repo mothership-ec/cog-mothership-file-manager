@@ -17,21 +17,27 @@ class Services implements ServicesInterface
 		});
 
 		$serviceContainer['filesystem.file.loader'] = $serviceContainer->share(function($c) {
-			return new \Message\Mothership\FileManager\File\Loader('Locale class', $c['db.query']);
+			return new \Message\Mothership\FileManager\File\Loader(
+				'Locale class',
+				$c['db.query'],
+				$c['user.current']
+			);
 		});
 
 		$serviceContainer['filesystem.file.create'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Create(
-				$c['cms.page.loader'],
+				$c['filesystem.file.loader'],
 				$c['db.query'],
-				$c['event.dispatcher']
+				$c['event.dispatcher'],
+				$c['user.current']
 			);
 		});
 
 		$serviceContainer['filesystem.file.edit'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Edit(
 				$c['db.query'],
-				$c['event.dispatcher']
+				$c['event.dispatcher'],
+				$c['user.current']
 			);
 		});
 

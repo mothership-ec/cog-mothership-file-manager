@@ -9,6 +9,7 @@ use Message\Mothership\FileManager\File\Loader;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\Cog\Filesystem\File as FilesystemFile;
+use Message\User\User;
 
 class Create
 {
@@ -23,11 +24,12 @@ class Create
 	 * @param DBQuery             $query run the DB queries
 	 * @param DispatcherInterface $eventDispatcher fire an event
 	 */
-	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher)
+	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher, User $user)
 	{
 		$this->_loader = $loader;
 		$this->_query  = $query;
 		$this->_eventDispatcher = $eventDispatcher;
+		$this->_user = $user;
 	}
 
 	/**
@@ -53,7 +55,7 @@ class Create
 				extension   = ?s,
 				file_size   = ?s,
 				created_at  = UNIX_TIMESTAMP(),
-				created_by  = 1,
+				created_by  = ?i,
 				type_id     = ?i,
 				checksum    = ?s,
 				preview_url = ?sn,
@@ -66,6 +68,7 @@ class Create
 			$file->getFilename(),
 			$file->getExtension(),
 			$file->getSize(),
+			$this->_user->id,
 			1,
 			$file->getChecksum(),
 			null, // Preview image for videos

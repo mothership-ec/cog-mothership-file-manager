@@ -1,7 +1,6 @@
 <?php
 
 namespace Message\Mothership\FileManager\Controller;
-
 /**
  * Controller listing files from file manager
  *
@@ -9,14 +8,14 @@ namespace Message\Mothership\FileManager\Controller;
  */
 class Detail extends \Message\Cog\Controller\Controller
 {
-	protected $_file;
 
 	public function index($fileID)
 	{
 		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
-
+		$author = $this->_services['user.loader']->getByID($file->authorship->createdBy());
 		$data = array(
 			'file' => $file,
+			'author' => $author,
 		);
 		return $this->render('::detail', $data);
 	}

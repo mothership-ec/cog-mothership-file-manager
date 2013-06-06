@@ -17,6 +17,7 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function index()
 	{
+
 		$allFiles = $this->_services['filesystem.file.loader']->getAll();
 
 		$data = array(
@@ -27,6 +28,7 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function upload()
 	{
+
 		$files = $this->get('request')->files;
 
 		if(!$files->has('upload')) {
@@ -34,11 +36,7 @@ class Listing extends \Message\Cog\Controller\Controller
 		}
 
 		// create a new file
-		$create = new Create(
-			new Loader('en_GB', $this->get('db')),
-			$this->get('db'),
-			$this->get('event.dispatcher')
-		);
+		$create = $this->_services['filesystem.file.create'];
 
 		foreach($files->get('upload') as $upload) {
 
@@ -46,7 +44,7 @@ class Listing extends \Message\Cog\Controller\Controller
 				// Move the file to the public dir and save it to the DB
 				$filePath = 'cog://public/files/';
 				$fileName = $upload->getClientOriginalName();
-				
+
 				// Check that the file doesnt exist in the destination
 				if(file_exists($filePath.$fileName)) {
 					// make a new (probably) unique filename
@@ -65,9 +63,9 @@ class Listing extends \Message\Cog\Controller\Controller
 					unlink($filePath.$fileName);
 				}
 			}
-			
+
 		}
-		
+
 		return $this->redirect($this->generateUrl('filemanager.listing'));
 	}
 }
