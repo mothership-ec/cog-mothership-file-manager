@@ -15,7 +15,7 @@
 	<button type="submit" name="insert" id="insert" value="Insert">Insert</button>
 </form>
 
-<form action="/files/detail/{{ file.fileID }}/edit" method="post">
+<form action="{{ url('filemanager.edit', {fileID: file.fileID}) }}" method="post">
 	<label for="file-tags">Tags</label>
 	<textarea id="file-tags" name="file[tags]">{% for tag in file.tags %}
 {{ tag }}{% if loop.last != true %}, {% endif %}
@@ -25,6 +25,6 @@
 	<button name="update" type="submit" value="Submit">Update</button>
 </form>
 
-<form action="/files/detail/{{ file.fileID }}/delete" method="post">
+<form action="{{ url('filemanager.delete', {fileID: file.fileID}) }}" method="post">
 	<button name="delete[delete]" value="delete" id="delete" type="submit">Delete</button>
 </form>

@@ -8,16 +8,18 @@ class Routes implements RoutesInterface
 {
 	public function registerRoutes($router)
 	{
-		$router->add('filemanager.upload', '/files/view', '::Controller:Upload#index')->setMethod('POST');
-		$router->add('filemanager.listing', '/files/view', '::Controller:Listing#index');
+		$router['files']->add('filemanager.upload', '/', '::Controller:Upload#index')->setMethod('POST');
+		$router['files']->add('filemanager.listing', '/', '::Controller:Listing#index');
 
-		$router->add('filemanager.detail', '/files/detail/{fileID}', '::Controller:Detail#index')
+		$router['files']->add('filemanager.detail', '/{fileID}', '::Controller:Detail#index')
 			   ->setRequirement('fileID', '\d+');
 
-		$router->add('filemanager.edit', '/files/detail/{fileID}/edit', '::Controller:Detail#edit')
+		$router['files']->add('filemanager.edit', '/{fileID}/edit', '::Controller:Detail#edit')
 			   ->setRequirement('fileID', '\d+');
 
-		$router->add('filemanager.delete', '/files/detail/{fileID}/delete', '::Controller:Detail#delete')
+		$router['files']->add('filemanager.delete', '/{fileID}/delete', '::Controller:Detail#delete')
 			   ->setRequirement('fileID', '\d+');
+
+		$router['files']->setPrefix('/file');
 	}
 }

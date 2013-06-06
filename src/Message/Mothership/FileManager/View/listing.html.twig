@@ -2,11 +2,11 @@
 
 {% for types in flash %}
 	{% for message in types %}
-		<p>{{ message }}</p>
+		<p>{{ message|raw }}</p>
 	{% endfor %}
 {% endfor %}
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="{{ url('filemanager.upload') }}" method="post" enctype="multipart/form-data">
 	<input type="file" name="upload[]" multiple />
 	<input type="submit" name="submit" value="Upload" />
 
@@ -19,11 +19,11 @@
 	</select>
 </form>
 
-<form action="/files/view" method="get">
+<form action="{{ url('filemanager.listing') }}" method="get">
 	<input type="search" name="search" placeholder="Search" value="{{ search }}" />
 	<button type="submit">Search</button>
 </form>
 
 {% for file in files %}
-	<a href="/files/detail/{{ file.fileID }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
+	<a href="{{ url('filemanager.detail', {fileID: file.fileID}) }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
 {% endfor %}
