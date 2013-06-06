@@ -18,40 +18,18 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function index()
 	{
 		if ($searchTerm = $this->get('request')->query->get('search')) {
-			$files = $this->_services['filesystem.file.loader']->getBySearchTerm($searchTerm);
+			$files = $this->get('filesystem.file.loader')->getBySearchTerm($searchTerm);
 			$search = $searchTerm;
 		} else {
-			$files = $this->_services['filesystem.file.loader']->getAll();
+			$files = $this->get('filesystem.file.loader')->getAll();
 		}
 
 		$data = array(
 			'files' => $files,
 			'search' => isset($search) ? $search : '',
+			'flash' => $this->get('http.session')->getFlashBag()->all(),
 		);
+
 		return $this->render('::listing', $data);
-	}
-
-	public function upload()
-	{
-
-		$files = $this->get('request')->files;
-
-		if(!$files->has('upload')) {
-			return $this->redirect($this->generateUrl('filemanager.listing'));
-		}
-
-		// create a new file
-		$create = $this->_services['filesystem.file.create'];
-
-		foreach($files->get('upload') as $upload) {
-			try {
-				$file = $create->move($upload);
-				$file = $create->save($file);
-			} catch(\Exception $e) {
-				$create->cleanup($file);
-			}
-		}
-
-		return $this->redirect($this->generateUrl('filemanager.listing'));
 	}
 }

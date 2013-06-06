@@ -8,7 +8,7 @@ class Routes implements RoutesInterface
 {
 	public function registerRoutes($router)
 	{
-		$router->add('filemanager.upload', '/files/view', '::Controller:Listing#upload')->setMethod('POST');
+		$router->add('filemanager.upload', '/files/view', '::Controller:Upload#index')->setMethod('POST');
 		$router->add('filemanager.listing', '/files/view', '::Controller:Listing#index');
 
 		$router->add('filemanager.detail', '/files/detail/{fileID}', '::Controller:Detail#index')

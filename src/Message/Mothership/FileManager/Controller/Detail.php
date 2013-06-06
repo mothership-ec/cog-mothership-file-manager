@@ -45,6 +45,9 @@ class Detail extends \Message\Cog\Controller\Controller
 		if ($delete = $this->_services['request']->get('delete')) {
 			$file = $this->_services['filesystem.file.delete']->delete($file);
 		}
+
+		$this->get('http.session')->getFlashBag()->add('notice', $file->file->getBasename().' was deleted. <a href="">Undo</a>');
+
 		return $this->redirect($this->generateUrl('filemanager.listing'));
 	}
 }

@@ -12,6 +12,7 @@ use Message\Cog\Filesystem\File as FilesystemFile;
 use Message\User\User;
 
 use Symfony\Component\HttpFoundation\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Create
 {
@@ -105,7 +106,7 @@ class Create
 		return $file;
 	}
 
-	public function move($upload)
+	public function move(UploadedFile $upload)
 	{
 		// Move the file to the public dir and save it to the DB
 		$filePath = 'cog://public/files/';
@@ -121,7 +122,7 @@ class Create
 		// Move her into position
 		$upload->move($filePath, $fileName);
 
-		$file = new FileSystemFile($filePath.$fileName);
+		return new FileSystemFile($filePath.$fileName);
 	}
 
 	/**
@@ -132,7 +133,7 @@ class Create
 	 *
 	 * @return void
 	 */
-	public function cleanup($file)
+	public function cleanup(\SplFileInfo $file)
 	{
 		if(file_exists($file->getPathname())) {
 			unlink($file->getPathname());
