@@ -36,7 +36,7 @@ class Loader
 	 */
 	public function getByID($fileID)
 	{
-		return $this->_load($fileID);
+		return $this->_load($fileID, is_array($fileID));
 	}
 
 	/**
@@ -179,9 +179,10 @@ class Loader
 	 *
 	 * @return File|false return instance of the file is loaded else false
 	 */
-	protected function _load($fileID)
+	protected function _load($fileID, $returnAsArray)
 	{
 		$fileIDs = (array) $fileID;
+
 		$result = $this->_query->run('
 			SELECT
 				file.file_id AS fileID,
@@ -212,7 +213,7 @@ class Loader
 		);
 
 		if (count($result)) {
-			return $this->_loadPage($result);
+			return $this->_loadPage($result, $returnAsArray);
 		}
 		return false;
 
@@ -224,7 +225,7 @@ class Loader
 	 * @param  Result $results 	results of files that need to be loaded
 	 * @return array|File 		array or single Page object if only one result
 	 */
-	protected function _loadPage(Result $results)
+	protected function _loadPage(Result $results, $returnAsArray)
 	{
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
@@ -250,7 +251,7 @@ class Loader
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
 		}
 
-		return count($files) == 1 ? $files[0] : $files;
+		return count($files) == 1 && !$returnAsArray ? $files[0] : $files;
 
 	}
 
