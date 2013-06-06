@@ -3,12 +3,6 @@
 {% block main %}
 <h1>File Manager</h1>
 
-{% for types in flash %}
-	{% for message in types %}
-		<p>{{ message|raw }}</p>
-	{% endfor %}
-{% endfor %}
-
 <form action="{{ url('ms.file_manager.upload') }}" method="post" enctype="multipart/form-data">
 	<input type="file" name="upload[]" multiple />
 	<input type="submit" name="submit" value="Upload" />
