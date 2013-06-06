@@ -12,6 +12,7 @@ class Loader
 
 	protected $_locale;
 	protected $_query;
+	protected $_returnAsArray;
 
 	/**
 	 * var to toggle the loading of deleted files
@@ -36,7 +37,8 @@ class Loader
 	 */
 	public function getByID($fileID)
 	{
-		return $this->_load($fileID, is_array($fileID));
+		$this->_returnAsArray =  is_array($fileID);
+		return $this->_load($fileID);
 	}
 
 	/**
@@ -179,7 +181,7 @@ class Loader
 	 *
 	 * @return File|false return instance of the file is loaded else false
 	 */
-	protected function _load($fileID, $returnAsArray)
+	protected function _load($fileID)
 	{
 		$fileIDs = (array) $fileID;
 
@@ -206,14 +208,16 @@ class Loader
 			FROM
 				file
 			WHERE
-				file.file_id IN (?ij)',
+				file.file_id IN (?ij)
+			GROUP BY
+				created_at DESC',
 				array(
 					$fileIDs
 				)
 		);
 
 		if (count($result)) {
-			return $this->_loadPage($result, $returnAsArray);
+			return $this->_loadPage($result);
 		}
 		return false;
 
@@ -225,7 +229,7 @@ class Loader
 	 * @param  Result $results 	results of files that need to be loaded
 	 * @return array|File 		array or single Page object if only one result
 	 */
-	protected function _loadPage(Result $results, $returnAsArray)
+	protected function _loadPage(Result $results)
 	{
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
@@ -251,7 +255,7 @@ class Loader
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
 		}
 
-		return count($files) == 1 && !$returnAsArray ? $files[0] : $files;
+		return count($files) == 1 && !$this->_returnAsArray ? $files[0] : $files;
 
 	}
 

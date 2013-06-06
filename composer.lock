@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e1c2ec73dd9f6b763c55c40cfc67a029",
+    "hash": "4e31430397597176120ee4ff589da36a",
     "packages": [
         {
             "name": "message/cog",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog.git",
-                "reference": "b048d16d851dae6066aa1aaddcca4588697ecc2e"
+                "reference": "8d7df37330e5a72a046980f46ff1cfcd00cb5d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog/zipball/b048d16d851dae6066aa1aaddcca4588697ecc2e",
-                "reference": "b048d16d851dae6066aa1aaddcca4588697ecc2e",
+                "url": "https://api.github.com/repos/messagedigital/cog/zipball/8d7df37330e5a72a046980f46ff1cfcd00cb5d0a",
+                "reference": "8d7df37330e5a72a046980f46ff1cfcd00cb5d0a",
                 "shasum": ""
             },
             "require": {
@@ -30,12 +30,15 @@
                 "pimple/pimple": "1.0.1",
                 "symfony/console": "2.1.*",
                 "symfony/event-dispatcher": "2.1.*",
-                "symfony/http-foundation": "2.1.*",
+                "symfony/filesystem": "2.2.*",
+                "symfony/finder": "2.2.*",
+                "symfony/http-kernel": "2.3.*",
                 "symfony/process": "2.1.*",
-                "symfony/routing": "2.1.*",
+                "symfony/routing": "2.3.*",
                 "symfony/templating": "2.1.*",
                 "symfony/yaml": "2.1.*",
-                "treasure-chest/treasure-chest": "0.1.*"
+                "treasure-chest/treasure-chest": "0.1.*",
+                "twig/twig": "1.13.*"
             },
             "require-dev": {
                 "mikey179/vfsstream": "1.1.*"
@@ -72,9 +75,9 @@
             "support": {
                 "wiki": "http://server.local/wiki/projects/cog",
                 "issues": "http://server.local:3000/cog/issues",
-                "source": "https://github.com/messagedigital/cog/tree/master"
+                "source": "https://github.com/messagedigital/cog/tree/image-resizer"
             },
-            "time": "2013-05-28 12:50:36"
+            "time": "2013-06-06 16:49:54"
         },
         {
             "name": "message/cog-mothership-cp",
@@ -82,16 +85,17 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog-mothership-cp.git",
-                "reference": "ef95573fa8c99df08e61b56968848aed024340dd"
+                "reference": "b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog-mothership-cp/zipball/ef95573fa8c99df08e61b56968848aed024340dd",
-                "reference": "ef95573fa8c99df08e61b56968848aed024340dd",
+                "url": "https://api.github.com/repos/messagedigital/cog-mothership-cp/zipball/b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45",
+                "reference": "b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45",
                 "shasum": ""
             },
             "require": {
                 "message/cog": "dev-master",
+                "message/cog-user": "dev-master",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -121,7 +125,54 @@
                 "issues": "http://server.local:3000/cog/cog-mothership-cp/issues",
                 "source": "https://github.com/messagedigital/cog-mothership-cp/tree/master"
             },
-            "time": "2013-05-23 16:54:40"
+            "time": "2013-06-06 17:30:14"
+        },
+        {
+            "name": "message/cog-user",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:messagedigital/cog-user.git",
+                "reference": "d256e324f59fb0fbf8d996c40c3c55cca4761847"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/messagedigital/cog-user/zipball/d256e324f59fb0fbf8d996c40c3c55cca4761847",
+                "reference": "d256e324f59fb0fbf8d996c40c3c55cca4761847",
+                "shasum": ""
+            },
+            "require": {
+                "message/cog": "dev-master",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Message\\User": "src",
+                    "Message\\User\\Test": "tests"
+                }
+            },
+            "authors": [
+                {
+                    "name": "The Message Development Team",
+                    "email": "dev@message.co.uk"
+                }
+            ],
+            "description": "Cog module for a very basic and extensible user system",
+            "homepage": "http://message.co.uk",
+            "keywords": [
+                "account",
+                "accounts",
+                "cog",
+                "user",
+                "users"
+            ],
+            "support": {
+                "wiki": "http://server.local/wiki/projects/cog",
+                "issues": "http://server.local:3000/cog/cog-user/issues",
+                "source": "https://github.com/messagedigital/cog-user/tree/master"
+            },
+            "time": "2013-06-06 15:23:04"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -211,18 +262,56 @@
             "time": "2012-11-11 08:32:34"
         },
         {
+            "name": "psr/log",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
+        },
+        {
             "name": "symfony/console",
             "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "4709ede4eb34e02d9349b6bf2809bd76be008404"
+                "reference": "036bcb3ec280f664489a9523c8939d404973c0b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/4709ede4eb34e02d9349b6bf2809bd76be008404",
-                "reference": "4709ede4eb34e02d9349b6bf2809bd76be008404",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/036bcb3ec280f664489a9523c8939d404973c0b4",
+                "reference": "036bcb3ec280f664489a9523c8939d404973c0b4",
                 "shasum": ""
             },
             "require": {
@@ -250,7 +339,63 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-26 18:42:07"
+            "time": "2013-06-04 14:58:25"
+        },
+        {
+            "name": "symfony/debug",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Debug",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Debug.git",
+                "reference": "bcf326c347d9e2ccafde5e30fb938e09255f6c1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/bcf326c347d9e2ccafde5e30fb938e09255f6c1a",
+                "reference": "bcf326c347d9e2ccafde5e30fb938e09255f6c1a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/http-foundation": ">=2.1,<3.0",
+                "symfony/http-kernel": ">=2.1,<3.0"
+            },
+            "suggest": {
+                "symfony/class-loader": "",
+                "symfony/http-foundation": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Debug\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Debug Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-06-02 12:05:59"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -259,12 +404,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "v2.1.10"
+                "reference": "v2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.1.10",
-                "reference": "v2.1.10",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.1.11",
+                "reference": "v2.1.11",
                 "shasum": ""
             },
             "require": {
@@ -302,29 +447,130 @@
             "time": "2013-02-11 11:26:14"
         },
         {
-            "name": "symfony/http-foundation",
-            "version": "2.1.x-dev",
-            "target-dir": "Symfony/Component/HttpFoundation",
+            "name": "symfony/filesystem",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "ec37bba974eda2a33dc6082bcff21c466a7211e3"
+                "url": "https://github.com/symfony/Filesystem.git",
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/ec37bba974eda2a33dc6082bcff21c466a7211e3",
-                "reference": "ec37bba974eda2a33dc6082bcff21c466a7211e3",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\HttpFoundation": "",
-                    "SessionHandlerInterface": "Symfony/Component/HttpFoundation/Resources/stubs"
+                    "Symfony\\Component\\Filesystem\\": ""
                 }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-06 20:02:13"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "v2.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/v2.2.2",
+                "reference": "v2.2.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-05-27 20:26:32"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation.git",
+                "reference": "f484475d926fe5dad901c559ef1bef395385b3a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/f484475d926fe5dad901c559ef1bef395385b3a9",
+                "reference": "f484475d926fe5dad901c559ef1bef395385b3a9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -342,21 +588,91 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-26 18:42:07"
+            "time": "2013-06-04 15:12:29"
+        },
+        {
+            "name": "symfony/http-kernel",
+            "version": "2.3.x-dev",
+            "target-dir": "Symfony/Component/HttpKernel",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpKernel.git",
+                "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
+                "reference": "4f0f6485abe0e2e8b8a94369fb98b8447fb1e3cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "psr/log": ">=1.0,<2.0",
+                "symfony/debug": ">=2.3,<3.0",
+                "symfony/event-dispatcher": ">=2.1,<3.0",
+                "symfony/http-foundation": ">=2.2,<3.0"
+            },
+            "require-dev": {
+                "symfony/browser-kit": "2.2.*",
+                "symfony/class-loader": ">=2.1,<3.0",
+                "symfony/config": ">=2.0,<3.0",
+                "symfony/console": "2.2.*",
+                "symfony/dependency-injection": ">=2.0,<3.0",
+                "symfony/finder": ">=2.0,<3.0",
+                "symfony/process": ">=2.0,<3.0",
+                "symfony/routing": ">=2.2,<3.0",
+                "symfony/stopwatch": ">=2.2,<3.0"
+            },
+            "suggest": {
+                "symfony/browser-kit": "",
+                "symfony/class-loader": "",
+                "symfony/config": "",
+                "symfony/console": "",
+                "symfony/dependency-injection": "",
+                "symfony/finder": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpKernel\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpKernel Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-06-03 15:11:57"
         },
         {
             "name": "symfony/process",
-            "version": "v2.1.9",
+            "version": "2.1.x-dev",
             "target-dir": "Symfony/Component/Process",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "v2.1.9"
+                "reference": "v2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.1.9",
-                "reference": "v2.1.9",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/v2.1.11",
+                "reference": "v2.1.11",
                 "shasum": ""
             },
             "require": {
@@ -384,21 +700,21 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-03-23 07:44:01"
+            "time": "2013-05-06 10:21:56"
         },
         {
             "name": "symfony/routing",
-            "version": "2.1.x-dev",
+            "version": "2.3.x-dev",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "v2.1.10"
+                "reference": "v2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.1.10",
-                "reference": "v2.1.10",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.0",
+                "reference": "v2.3.0",
                 "shasum": ""
             },
             "require": {
@@ -406,19 +722,24 @@
             },
             "require-dev": {
                 "doctrine/common": ">=2.2,<3.0",
-                "symfony/config": "2.1.*",
-                "symfony/http-kernel": "2.1.*",
-                "symfony/yaml": "2.1.*"
+                "psr/log": ">=1.0,<2.0",
+                "symfony/config": ">=2.2,<3.0",
+                "symfony/yaml": ">=2.0,<3.0"
             },
             "suggest": {
-                "doctrine/common": "~2.2",
-                "symfony/config": "2.1.*",
-                "symfony/yaml": "2.1.*"
+                "doctrine/common": "",
+                "symfony/config": "",
+                "symfony/yaml": ""
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\Routing": ""
+                    "Symfony\\Component\\Routing\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -437,7 +758,7 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-06 10:48:41"
+            "time": "2013-05-20 08:57:26"
         },
         {
             "name": "symfony/templating",
@@ -446,12 +767,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Templating.git",
-                "reference": "v2.1.10"
+                "reference": "v2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Templating/zipball/v2.1.10",
-                "reference": "v2.1.10",
+                "url": "https://api.github.com/repos/symfony/Templating/zipball/v2.1.11",
+                "reference": "v2.1.11",
                 "shasum": ""
             },
             "require": {
@@ -488,12 +809,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "347a7a02204433c6926ecc3f13e805bdc30e8f9f"
+                "reference": "v2.1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/347a7a02204433c6926ecc3f13e805bdc30e8f9f",
-                "reference": "347a7a02204433c6926ecc3f13e805bdc30e8f9f",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.1.11",
+                "reference": "v2.1.11",
                 "shasum": ""
             },
             "require": {
@@ -570,6 +891,55 @@
                 "memcached"
             ],
             "time": "2013-01-25 17:27:49"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "a14bcf6a4950a98f678f568a7b24d9c308e3a1a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/a14bcf6a4950a98f678f568a7b24d9c308e3a1a8",
+                "reference": "a14bcf6a4950a98f678f568a7b24d9c308e3a1a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2013-06-06 08:57:56"
         }
     ],
     "packages-dev": [
@@ -581,7 +951,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "message/cog": 20,
-        "message/cog-mothership-cp": 20
+        "message/cog-mothership-cp": 20,
+        "message/cog-mothership-file-manager": 20
     },
     "platform": {
         "php": ">=5.3.0"
