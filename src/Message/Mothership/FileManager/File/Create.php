@@ -11,6 +11,8 @@ use Message\Cog\DB\Query as DBQuery;
 use Message\Cog\Filesystem\File as FilesystemFile;
 use Message\User\User;
 
+use Symfony\Component\HttpFoundation\File;
+
 class Create
 {
 
@@ -101,6 +103,40 @@ class Create
 
 		// Return the object
 		return $file;
+	}
+
+	public function move($upload)
+	{
+		// Move the file to the public dir and save it to the DB
+		$filePath = 'cog://public/files/';
+		$fileName = $upload->getClientOriginalName();
+
+		// Check that the file doesnt exist in the destination
+		if(file_exists($filePath.$fileName)) {
+			// make a new (probably) unique filename
+			$parts = pathinfo($fileName);
+			$fileName = $parts['filename'].'-'.substr(uniqid(), 0, 8).'.'.$parts['extension'];
+		}
+
+		// Move her into position
+		$upload->move($filePath, $fileName);
+
+		$file = new FileSystemFile($filePath.$fileName);
+	}
+
+	/**
+	 * Remove any files that got moved into the file directory but we
+	 * couldnt save to the database.
+	 *
+	 * @param  \SplFileInfo $file The file that should have been saved to the DB
+	 *
+	 * @return void
+	 */
+	public function cleanup($file)
+	{
+		if(file_exists($file->getPathname())) {
+			unlink($file->getPathname());
+		}
 	}
 
 	/**

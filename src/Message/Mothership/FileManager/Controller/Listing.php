@@ -44,31 +44,12 @@ class Listing extends \Message\Cog\Controller\Controller
 		$create = $this->_services['filesystem.file.create'];
 
 		foreach($files->get('upload') as $upload) {
-
 			try {
-				// Move the file to the public dir and save it to the DB
-				$filePath = 'cog://public/files/';
-				$fileName = $upload->getClientOriginalName();
-
-				// Check that the file doesnt exist in the destination
-				if(file_exists($filePath.$fileName)) {
-					// make a new (probably) unique filename
-					$parts = pathinfo($fileName);
-					$fileName = $parts['filename'].'-'.substr(uniqid(), 0, 8).'.'.$parts['extension'];
-				}
-
-				// Move her into position
-				$upload->move($filePath, $fileName);
-
-				$file = new FileSystemFile($filePath.$fileName);
-				$create->save($file);
+				$file = $create->move($upload);
+				$file = $create->save($file);
 			} catch(\Exception $e) {
-				// Clean up any files we couldnt save to the database
-				if(file_exists($filePath.$fileName)) {
-					unlink($filePath.$fileName);
-				}
+				$create->cleanup($file);
 			}
-
 		}
 
 		return $this->redirect($this->generateUrl('filemanager.listing'));
