@@ -33,7 +33,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			// Save the file
 			$file = $this->_services['filesystem.file.edit']->save($file);
 		}
-		// Redriect the page to where is was
+		// Redirect the page to where is was
 		return $this->redirect($this->generateUrl('filemanager.detail',array('fileID' => $file->fileID)));
 	}
 
