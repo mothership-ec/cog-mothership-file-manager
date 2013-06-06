@@ -46,6 +46,19 @@ class Create
 			throw new Exception\FileExists('File already exists in File Manager', $id);
 		}
 
+		// detect the type
+		$type = new Type;
+		$typeID = $type->guess($file);
+
+		$dimensionX = null;
+		$dimensionY = null;
+
+		// This should be abstracted at some point.
+		if($typeID === Type::IMAGE) {
+			// get the dimensions for an image
+			list($dimensionX, $dimensionY) = getimagesize($file->getPathname());
+		}
+
 		$result = $this->_query->run('
 			INSERT INTO
 				file
@@ -59,8 +72,8 @@ class Create
 				type_id     = ?i,
 				checksum    = ?s,
 				preview_url = ?sn,
-				dimension_x = ?i,
-				dimension_y = ?i,
+				dimension_x = ?in,
+				dimension_y = ?in,
 				alt_text    = ?s,
 				duration    = ?in
 		', array(
@@ -69,11 +82,11 @@ class Create
 			$file->getExtension(),
 			$file->getSize(),
 			$this->_user->id,
-			1,
+			$typeID,
 			$file->getChecksum(),
 			null, // Preview image for videos
-			100, // Image or video dimensions in x
-			100, // Image or video dimensions in y
+			$dimensionX, // Image or video dimensions in x
+			$dimensionY, // Image or video dimensions in y
 			'', // Alt text is always empty
 			null, // Duration in seconds for videos
 		));
@@ -90,6 +103,14 @@ class Create
 		return $file;
 	}
 
+	/**
+	 * Checks to see if a file is already in the system based on it's checksum.
+	 *
+	 * @param  Filesystem\File $file The file to check
+	 *
+	 * @return boolean|int          Returns the file ID if the checksum already 
+	 *                              exists, false if it doesn't.
+	 */
 	public function existsInFileManager(FilesystemFile $file)
 	{
 		$checksum = $file->getChecksum();
@@ -107,6 +128,13 @@ class Create
 		return count($result) ? $result->value() : false;
 	}
 
+	/**
+	 * Fires off file create events
+	 *
+	 * @param  FileSystem\File $file The newly create file
+	 *
+	 * @return void
+	 */
 	protected function _dispatchEvents($file)
 	{
 		// Initiate the event file
@@ -117,5 +145,13 @@ class Create
 			FileEvent::CREATE,
 			$event
 		);
+	}
+
+	protected function _detectType(FilesystemFile $file)
+	{
+		// Get the files mimetype
+		
+
+
 	}
 }
