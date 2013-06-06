@@ -72,8 +72,33 @@ class Loader
 
 	}
 
+	/**
+	 * Find results based on the search term
+	 *
+	 * @param  string $term search terms
+	 * @return array|File 	Array of File objects, or a single File object
+	 */
 	public function getBySearchTerm($term)
 	{
+		// Turn the terms into an array
+		$terms = explode(' ',$term);
+
+		// Set a bunch of arrays which are used below, seems a lot but it's
+		// becasue we have to pass through an array to the sql query so we have to do it twice
+		$whereName = array();
+		$whereTag = array();
+		$whereTerms = array();
+
+		// Loop over the terms and add them to an array to implode in the query
+		foreach ($terms as $term) {
+			$whereName[] = ' name SOUNDS LIKE "%?%"';
+			$whereTag[] = ' tag_name SOUNDS LIKE "%?%"';
+			$whereTerms[] = $term;
+		}
+		// Duplciate and add the same array again and merge it to one, this is
+		// because we are looking at both the name and tag name in the query
+		$where = array_merge($whereTerms, $whereTerms);
+
 		$result = $this->_query->run('
 			SELECT
 				file.file_id
@@ -82,14 +107,13 @@ class Loader
 			LEFT JOIN
 				file_tag USING (file_id)
 			WHERE
-				`name` SOUNDS LIKE "% ? %"
-				OR tag_name SOUNDS LIKE "% ? %"',
-			array(
-				$term,
-				$term
-			)
+				('.implode(' OR',$whereName).')
+				OR
+				('.implode(' OR',$whereTag).')',
+			$where
 		);
 
+		// Return the array of results.
 		return count($result) ? $this->getByID($result->flatten()) : false;
 
 	}
