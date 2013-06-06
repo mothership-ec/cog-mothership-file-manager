@@ -93,7 +93,7 @@ class Loader
 		foreach ($terms as $term) {
 			$whereName[] = ' name SOUNDS LIKE "%?%"';
 			$whereTag[] = ' tag_name SOUNDS LIKE "%?%"';
-			$whereTerms[] = $term;
+			$whereTerms[] = trim($term);
 		}
 		// Duplciate and add the same array again and merge it to one, this is
 		// because we are looking at both the name and tag name in the query
