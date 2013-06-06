@@ -34,7 +34,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			$file = $this->_services['filesystem.file.edit']->save($file);
 		}
 		// Redirect the page to where is was
-		return $this->redirect($this->generateUrl('filemanager.detail',array('fileID' => $file->fileID)));
+		return $this->redirect($this->generateUrl('ms.file_manager.detail',array('fileID' => $file->fileID)));
 	}
 
 	public function delete($fileID)
@@ -48,6 +48,6 @@ class Detail extends \Message\Cog\Controller\Controller
 
 		$this->get('http.session')->getFlashBag()->add('notice', $file->file->getBasename().' was deleted. <a href="">Undo</a>');
 
-		return $this->redirect($this->generateUrl('filemanager.listing'));
+		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
 	}
 }

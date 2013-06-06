@@ -22,7 +22,7 @@ class Upload extends \Message\Cog\Controller\Controller
 		$files = $this->get('request')->files;
 
 		if(!$files->has('upload')) {
-			return $this->redirect($this->generateUrl('filemanager.listing'));
+			return $this->redirect($this->generateUrl('ms.file_manager.listing'));
 		}
 
 		// create a new file
@@ -43,7 +43,7 @@ class Upload extends \Message\Cog\Controller\Controller
 				$messages[] = array('error', $file->getBasename().' is a banned file type.');
 			} catch(FileExists $e) {
 				$create->cleanup($file);
-				$url = $this->generateUrl('filemanager.detail', array('fileID' => $e->getFileId()));
+				$url = $this->generateUrl('ms.file_manager.detail', array('fileID' => $e->getFileId()));
 				$messages[] = array('error', $file->getBasename().' already exists. <a href="'.$url.'">edit</a>');
 			}
 		}
@@ -51,7 +51,7 @@ class Upload extends \Message\Cog\Controller\Controller
 		foreach($messages as $message) {
 			$this->get('http.session')->getFlashBag()->add($message[0], $message[1]);
 		}
-		
-		return $this->redirect($this->generateUrl('filemanager.listing'));
+
+		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
 	}
 }

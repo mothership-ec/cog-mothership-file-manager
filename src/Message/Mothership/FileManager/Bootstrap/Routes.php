@@ -10,18 +10,18 @@ class Routes implements RoutesInterface
 	{
 		$router['files']->setPrefix('/files')->setParent('ms.cp');
 
-		$router['files']->add('filemanager.listing', '/', '::Controller:Listing#index');
+		$router['files']->add('ms.file_manager.listing', '/', '::Controller:Listing#index');
 
-		$router['files']->add('filemanager.upload', '/', '::Controller:Upload#index')
+		$router['files']->add('ms.file_manager.upload', '/', '::Controller:Upload#index')
 			->setMethod('POST');
 
-		$router['files']->add('filemanager.detail', '/{fileID}', '::Controller:Detail#index')
-			   ->setRequirement('fileID', '\d+');
+		$router['files']->add('ms.file_manager.detail', '/{fileID}', '::Controller:Detail#index')
+			->setRequirement('fileID', '\d+');
 
-		$router['files']->add('filemanager.edit', '/{fileID}/edit', '::Controller:Detail#edit')
-			   ->setRequirement('fileID', '\d+');
+		$router['files']->add('ms.file_manager.edit', '/{fileID}/edit', '::Controller:Detail#edit')
+			->setRequirement('fileID', '\d+');
 
-		$router['files']->add('filemanager.delete', '/{fileID}/delete', '::Controller:Detail#delete')
-			   ->setRequirement('fileID', '\d+');
+		$router['files']->add('ms.file_manager.delete', '/{fileID}/delete', '::Controller:Detail#delete')
+			->setRequirement('fileID', '\d+');
 	}
 }

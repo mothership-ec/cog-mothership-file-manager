@@ -11,10 +11,10 @@ use Message\Mothership\FileManager\File\File;
  */
 class FileEvent extends Event
 {
-	const CREATE  = 'filemanager.file.create';
-	const EDIT    = 'filemanager.file.edit';
-	const DELETE  = 'filemanager.file.delete';
-	const RESTORE = 'filemanager.file.restore';
+	const CREATE  = 'file_manager.file.create';
+	const EDIT    = 'file_manager.file.edit';
+	const DELETE  = 'file_manager.file.delete';
+	const RESTORE = 'file_manager.file.restore';
 
 	protected $_file;
 

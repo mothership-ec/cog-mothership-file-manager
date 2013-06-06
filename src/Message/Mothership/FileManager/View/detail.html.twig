@@ -1,3 +1,6 @@
+{% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
+
+{% block main %}
 <h1>File Detail</h1>
 <img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="max-width: 300px; height: auto;" />
 <ul>
@@ -15,7 +18,7 @@
 	<button type="submit" name="insert" id="insert" value="Insert">Insert</button>
 </form>
 
-<form action="{{ url('filemanager.edit', {fileID: file.fileID}) }}" method="post">
+<form action="{{ url('ms.file_manager.edit', {fileID: file.fileID}) }}" method="post">
 	<label for="file-tags">Tags</label>
 	<textarea id="file-tags" name="file[tags]">{% for tag in file.tags %}
 {{ tag }}{% if loop.last != true %}, {% endif %}
@@ -25,6 +28,7 @@
 	<button name="update" type="submit" value="Submit">Update</button>
 </form>
 
-<form action="{{ url('filemanager.delete', {fileID: file.fileID}) }}" method="post">
+<form action="{{ url('ms.file_manager.delete', {fileID: file.fileID}) }}" method="post">
 	<button name="delete[delete]" value="delete" id="delete" type="submit">Delete</button>
 </form>
+{% endblock %}

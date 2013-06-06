@@ -1,3 +1,6 @@
+{% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
+
+{% block main %}
 <h1>File Manager</h1>
 
 {% for types in flash %}
@@ -6,7 +9,7 @@
 	{% endfor %}
 {% endfor %}
 
-<form action="{{ url('filemanager.upload') }}" method="post" enctype="multipart/form-data">
+<form action="{{ url('ms.file_manager.upload') }}" method="post" enctype="multipart/form-data">
 	<input type="file" name="upload[]" multiple />
 	<input type="submit" name="submit" value="Upload" />
 
@@ -19,11 +22,12 @@
 	</select>
 </form>
 
-<form action="{{ url('filemanager.listing') }}" method="get">
+<form action="{{ url('ms.file_manager.listing') }}" method="get">
 	<input type="search" name="search" placeholder="Search" value="{{ search }}" />
 	<button type="submit">Search</button>
 </form>
 
 {% for file in files %}
-	<a href="{{ url('filemanager.detail', {fileID: file.fileID}) }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
+	<a href="{{ url('ms.file_manager.detail', {fileID: file.fileID}) }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
 {% endfor %}
+{% endblock %}
