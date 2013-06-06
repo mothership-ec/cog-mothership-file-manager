@@ -237,7 +237,10 @@ class Loader
 
 			$files[$key]->authorship = new Authorship;
 
+			// Remove the file if it is deleted unless we are loading deleted
+			// files
 			if ($result->deletedAt && !$this->_loadDeleted) {
+				unset($files[$key]);
 				continue;
 			}
 
