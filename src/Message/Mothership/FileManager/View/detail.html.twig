@@ -5,8 +5,10 @@
 	<li>Type: {{ file.typeID }}</li>
 	<li>Size: {{ file.size }}</li>
 	<li>Dimensions: {{ file.dimensionsX }} x {{ file.dimensionsY }}</li>
-	<li>Uplodaed By: {{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
-	<li>Editied By: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
+	<li>Uploaded By: {{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
+	{% if file.authorship.updatedAt != NULL %}
+		<li>Editied By: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt }}</li>
+	{% endif %}
 </ul>
 
 <form action="" method="post">

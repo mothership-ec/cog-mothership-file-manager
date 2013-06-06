@@ -16,5 +16,8 @@ class Routes implements RoutesInterface
 
 		$router->add('filemanager.edit', '/files/detail/{fileID}/edit', '::Controller:Detail#edit')
 			   ->setRequirement('fileID', '\d+');
+
+		$router->add('filemanager.delete', '/files/detail/{fileID}/delete', '::Controller:Detail#delete')
+			   ->setRequirement('fileID', '\d+');
 	}
 }

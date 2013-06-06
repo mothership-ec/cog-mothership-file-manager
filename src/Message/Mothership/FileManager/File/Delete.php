@@ -6,9 +6,10 @@ use Message\Mothership\FileManager\File\File;
 use Message\Mothership\FileManager\Event\FileEvent;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as Query;
+use Message\User\User;
 
 	/**
-	 * Author Ewan Valentine <ewan@message.co.uk> 
+	 * Author Ewan Valentine <ewan@message.co.uk>
 	 * Copyright Message 2013
 	 *
 	 * Basic file deletion class for database records
@@ -19,15 +20,17 @@ class Delete
 
 	protected $_query;
 	protected $_eventDispatcher;
+	protected $_user;
 
 	/**
 	 * @access public
 	 * @param Query $query
 	 */
-	public function __construct(Query $query, DispatcherInterface $eventDispatcher)
+	public function __construct(Query $query, DispatcherInterface $eventDispatcher, User $user)
 	{
 		$this->_query 			= $query;
 		$this->_eventDispatcher = $eventDispatcher;
+		$this->_user = $user;
 	}
 
 	/**
@@ -40,8 +43,8 @@ class Delete
 	 */
 	public function delete(File $file)
 	{
-	
-		$file->authorship->delete(new \Datetime, 1);
+
+		$file->authorship->delete(new \Datetime, $this->_user->id);
 
 		/** Query to set deletion info */
 		$result = $this->_query->run('
@@ -71,7 +74,7 @@ class Delete
 		$file->authorship->restore();
 
 		$result = $this->_query->run('
-			UPDATE 
+			UPDATE
 				file
 			SET
 				deleted_at = NULL,

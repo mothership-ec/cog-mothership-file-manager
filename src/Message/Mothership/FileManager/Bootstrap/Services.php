@@ -41,12 +41,12 @@ class Services implements ServicesInterface
 			);
 		});
 
-
-		// $serviceContainer['filesystem.file.edit'] = $serviceContainer->share(function($c) {
-		// 	return new \Message\Mothership\FileManager\File\Delete(
-		// 		$c['db.query'],
-		// 		$c['event.dispatcher']
-		// 	);
-		// });
+		$serviceContainer['filesystem.file.delete'] = $serviceContainer->share(function($c) {
+			return new \Message\Mothership\FileManager\File\Delete(
+				$c['db.query'],
+				$c['event.dispatcher'],
+				$c['user.current']
+			);
+		});
 	}
 }

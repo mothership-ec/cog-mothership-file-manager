@@ -45,6 +45,6 @@ class Detail extends \Message\Cog\Controller\Controller
 		if ($delete = $this->_services['request']->get('delete')) {
 			$file = $this->_services['filesystem.file.delete']->delete($file);
 		}
-		return $this->redirect($this->generateUrl('filemanager.listing',array('fileID' => $file->fileID)));
+		return $this->redirect($this->generateUrl('filemanager.listing'));
 	}
 }
