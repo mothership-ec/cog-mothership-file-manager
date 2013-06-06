@@ -23,5 +23,8 @@ class Routes implements RoutesInterface
 
 		$router['files']->add('ms.file_manager.delete', '/{fileID}/delete', '::Controller:Detail#delete')
 			->setRequirement('fileID', '\d+');
+
+		$router['files']->add('ms.file_manager.restore', '/{fileID}/restore', '::Controller:Detail#restore')
+			->setRequirement('fileID', '\d+');
 	}
 }

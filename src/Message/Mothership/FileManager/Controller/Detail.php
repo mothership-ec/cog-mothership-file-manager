@@ -31,7 +31,12 @@ class Detail extends \Message\Cog\Controller\Controller
 			// Turn the tags into an array and trim the values
 			$file->tags = array_filter(array_map('trim', explode(',',$edits['tags'])));
 			// Save the file
-			$file = $this->_services['filesystem.file.edit']->save($file);
+			if ($file = $this->_services['filesystem.file.edit']->save($file)) {
+				$this->addFlash('success', $file->file->getBasename().' was updated successfully');
+			} else {
+				$this->addFlash('error', $file->file->getBasename().' could not be updated.');
+			}
+
 		}
 		// Redirect the page to where is was
 		return $this->redirect($this->generateUrl('ms.file_manager.detail',array('fileID' => $file->fileID)));
@@ -41,13 +46,31 @@ class Detail extends \Message\Cog\Controller\Controller
 	{
 		// Load the file object
 		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
+
 		// Check that the delete request has been sent
 		if ($delete = $this->_services['request']->get('delete')) {
-			$file = $this->_services['filesystem.file.delete']->delete($file);
+
+			if ($file = $this->_services['filesystem.file.delete']->delete($file)) {
+				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.file_manager.restore',array('fileID' => $file->fileID)).'">Undo</a>');
+			} else {
+				$this->addFlash('error', $file->file->getBasename().' could not be deleted.');
+			}
+
 		}
 
-		$this->addFlash('notice', $file->file->getBasename().' was deleted. <a href="">Undo</a>');
-
 		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
+	}
+
+	public function restore($fileID)
+	{
+		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
+
+		if ($this->_services['filesystem.file.delete']->restore($file)) {
+			$this->addFlash('success', $file->file->getBasename().' was restored successfully');
+		} else {
+			$this->addFlash('error', $file->file->getBasename().' could not be restored.');
+		}
+		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
+
 	}
 }
