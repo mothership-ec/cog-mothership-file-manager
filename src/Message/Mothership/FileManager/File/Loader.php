@@ -74,7 +74,23 @@ class Loader
 
 	public function getBySearchTerm($term)
 	{
-		// We would want to do something clever in here.
+		$result = $this->_query->run('
+			SELECT
+				file.file_id
+			FROM
+				file
+			LEFT JOIN
+				file_tag USING (file_id)
+			WHERE
+				`name` SOUNDS LIKE "% ? %"
+				OR tag_name SOUNDS LIKE "% ? %"',
+			array(
+				$term,
+				$term
+			)
+		);
+
+		return count($result) ? $this->getByID($result->flatten()) : false;
 
 	}
 

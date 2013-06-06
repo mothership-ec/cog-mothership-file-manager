@@ -11,8 +11,11 @@
 	<select name="sort">
 		<option value="">Filter by...</option>
 	</select>
+</form>
 
-	<input type="search" name="search" placeholder="Search" />
+<form action="/files/view" method="get">
+	<input type="search" name="search" placeholder="Search" value="{{ search }}" />
+	<button type="submit">Search</button>
 </form>
 
 {% for file in files %}

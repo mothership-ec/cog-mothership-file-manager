@@ -17,11 +17,16 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function index()
 	{
-
-		$allFiles = $this->_services['filesystem.file.loader']->getAll();
+		if ($searchTerm = $this->get('request')->query->get('search')) {
+			$files = $this->_services['filesystem.file.loader']->getBySearchTerm($searchTerm);
+			$search = $searchTerm;
+		} else {
+			$files = $this->_services['filesystem.file.loader']->getAll();
+		}
 
 		$data = array(
-			'files' => $allFiles,
+			'files' => $files,
+			'search' => isset($search) ? $search : '',
 		);
 		return $this->render('::listing', $data);
 	}
