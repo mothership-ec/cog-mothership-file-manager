@@ -236,18 +236,18 @@ class Loader
 				continue;
 			}
 
-			$files[$key]->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
+			$files[$key]->authorship->create(new \DateTime('@'.$result->createdAt), $result->createdBy);
 
 			if ($result->updatedAt) {
-				$files[$key]->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
+				$files[$key]->authorship->update(new \DateTime('@'.$result->updatedAt), $result->updatedBy);
 			}
 
 			if ($result->deletedAt) {
-				$files[$key]->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
+				$files[$key]->authorship->delete(new \DateTime('@'.$result->deletedAt), $result->deletedBy);
 			}
 
-			$files[$key]->tags = $this->_loadTags($files[$k]);
-			$files[$k]->file = new FileSystemFile($files[$k]->url);
+			$files[$key]->tags = $this->_loadTags($files[$key]);
+			$files[$key]->file = new FileSystemFile($files[$key]->url);
 		}
 
 		return count($files) == 1 ? $files[0] : $files;
