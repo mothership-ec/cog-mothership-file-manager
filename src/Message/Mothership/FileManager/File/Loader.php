@@ -5,6 +5,7 @@ namespace Message\Mothership\FileManager\File;
 use Message\Cog\DB\Query;
 use Message\Cog\ValueObject\Authorship;
 use Message\Cog\Filesystem\File as FileSystemFile;
+use Message\Cog\DB\Result;
 
 class Loader
 {
@@ -35,17 +36,7 @@ class Loader
 	 */
 	public function getByID($fileID)
 	{
-		$return = array();
-
-		if (!is_array($fileID)) {
-			return $this->_load($fileID);
-		} else {
-			foreach ($fileID as $id) {
-				$return[] = $this->_load($id);
-			}
-		}
-
-		return array_filter($return);
+		return $this->_load($fileID);
 	}
 
 	/**
@@ -184,12 +175,13 @@ class Loader
 	/**
 	 * Loads the file data out of the table and loads in into a File Object.
 	 *
-	 * @param  int $fileID fileId of the file to be loaded
+	 * @param  int|array $fileID fileId of the file to be loaded
 	 *
 	 * @return File|false return instance of the file is loaded else false
 	 */
 	protected function _load($fileID)
 	{
+		$fileIDs = (array) $fileID;
 		$result = $this->_query->run('
 			SELECT
 				file.file_id AS fileID,
@@ -213,35 +205,53 @@ class Loader
 			FROM
 				file
 			WHERE
-				file.file_id = ?i', array($fileID)
+				file.file_id IN (?ij)',
+				array(
+					$fileIDs
+				)
 		);
 
 		if (count($result)) {
-			$file = new File;
-			$file = $result->bind($file);
-			$result = $result->first();
-			$file->authorship = new Authorship;
+			return $this->_loadPage($result);
+		}
+		return false;
+
+	}
+
+	/**
+	 * This will load file objects for the results of _load
+	 *
+	 * @param  Result $results 	results of files that need to be loaded
+	 * @return array|File 		array or single Page object if only one result
+	 */
+	protected function _loadPage(Result $results)
+	{
+		$files = array();
+		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
+
+		foreach ($results as $k => $result) {
+
+			$files[$k]->authorship = new Authorship;
 
 			if ($result->deletedAt && !$this->_loadDeleted) {
-				return false;
+				continue;
 			}
 
-			$file->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
+			$files[$k]->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
 
 			if ($result->updatedAt) {
-				$file->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
+				$files[$k]->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
 			}
 
 			if ($result->deletedAt) {
-				$file->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
+				$files[$k]->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
 			}
 
-			$file->tags = $this->_loadTags($file);
-			$file->file = new FileSystemFile($file->url);
-
-			return $file;
+			$files[$k]->tags = $this->_loadTags($files[$k]);
+			$files[$k]->file = new FileSystemFile($files[$k]->url);
 		}
-		return false;
+
+		return count($files) == 1 ? $files[0] : $files;
 
 	}
 
