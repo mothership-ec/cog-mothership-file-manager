@@ -226,28 +226,27 @@ class Loader
 	 */
 	protected function _loadPage(Result $results)
 	{
-		$files = array();
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
-		foreach ($results as $k => $result) {
+		foreach ($results as $key => $result) {
 
-			$files[$k]->authorship = new Authorship;
+			$files[$key]->authorship = new Authorship;
 
 			if ($result->deletedAt && !$this->_loadDeleted) {
 				continue;
 			}
 
-			$files[$k]->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
+			$files[$key]->authorship->create(new \DateTime(date('c',$result->createdAt)), $result->createdBy);
 
 			if ($result->updatedAt) {
-				$files[$k]->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
+				$files[$key]->authorship->update(new \DateTime(date('c',$result->updatedAt)), $result->updatedBy);
 			}
 
 			if ($result->deletedAt) {
-				$files[$k]->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
+				$files[$key]->authorship->delete(new \DateTime(date('c',$result->deletedAt)), $result->deletedBy);
 			}
 
-			$files[$k]->tags = $this->_loadTags($files[$k]);
+			$files[$key]->tags = $this->_loadTags($files[$k]);
 			$files[$k]->file = new FileSystemFile($files[$k]->url);
 		}
 
