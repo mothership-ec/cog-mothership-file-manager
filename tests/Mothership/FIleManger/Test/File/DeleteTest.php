@@ -42,25 +42,40 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
 		$this->_loader
 			 ->expects($this->any())
-			 ->method('save')
+			 ->method('getByID')
 			 ->with(self::FILE_ID)
 			 ->will($this->returnValue($this->_file));
 	}
 
 	public function testDelete()
 	{
-
-		var_dump($this->_loader->getByID(self::FILE_ID));
-
 		$deletedFile = $this->_delete->delete($this->_loader->getByID(self::FILE_ID));
 
 		$dateTime = new \DateTime;
 
 		$this->assertEquals($deletedFile->authorship->deletedAt()->getTimestamp(),
-			$dateTime->getTime(), 2
+			$dateTime->getTimestamp(), 2
 		);
-		$this->assertTrue(!is_null($deletedFile->authorship->deletedBy()));
-		$this->assertTrue($deletedFile->fileID == self::FILE_ID);
+		$this->assertNotNull($deletedFile->authorship->deletedBy());
+		$this->assertSame($deletedFile->fileID, self::FILE_ID);
+	}
+
+	public function testRestore()
+	{
+
+
+		$this->_file = new File;
+		$this->_file->fileID = self::FILE_ID;
+		$this->_file->authorship = new Authorship;
+		$this->_file->authorship->delete(new \DateTime, 1);
+
+		$restoredFile = $this->_delete->restore($this->_file);
+
+		$dateTime = new \DateTime;
+
+		$this->assertNull($restoredFile->authorship->deletedAt());
+		$this->assertNull($restoredFile->authorship->deletedBy());
+		$this->assertSame($restoredFile->fileID, self::FILE_ID);
 	}
 }
 

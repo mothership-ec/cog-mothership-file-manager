@@ -3,6 +3,7 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
+use Message\Mothership\FileManager\Event\FileEvent;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as Query;
 
@@ -54,7 +55,7 @@ class Delete
 		', array(
 				'dl_at' 	=> $file->authorship->deletedAt()->getTimestamp(),
 				'dl_by' 	=> $file->authorship->deletedBy(),
-				'file_id' 	=> $file->id,
+				'file_id' 	=> $file->fileID,
 			));
 
 		$this->_eventDispatcher->dispatch(
@@ -62,12 +63,11 @@ class Delete
 			new FileEvent($file)
 		);
 
-		return $eventDispatcher->getFile();
+		return $result->affected() ? $file : false;
 	}
 
-	public function restore()
+	public function restore(File $file)
 	{
-
 		$file->authorship->restore();
 
 		$result = $this->_query->run('
@@ -79,9 +79,7 @@ class Delete
 			WHERE
 				file_id = file_id?i
 		', array(
-				'up_at'		=> $file->authorship->updated_at()->getTimestamp(),
-				'up_by' 	=> $file->authorship->updated_by()->getTimestamp(),
-				'file_id' 	=> $file-id,
+				'file_id' 	=> $file->fileID,
 			));
 
 		$this->_eventDispatcher->dispatch(
@@ -89,7 +87,7 @@ class Delete
 			new FileEvent($file)
 		);
 
-		return $eventDispatcher->getFile();
+		return $result->affected() ? $file : false;
 	}
 }
 
