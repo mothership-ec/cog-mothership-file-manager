@@ -24,12 +24,9 @@ class Listing extends \Message\Cog\Controller\Controller
 			$files = $this->get('filesystem.file.loader')->getAll();
 		}
 
-		$data = array(
-			'files' => $files,
+		return $this->render('::listing', array(
+			'files'  => $files,
 			'search' => isset($search) ? $search : '',
-			'flash' => $this->get('http.session')->getFlashBag()->all(),
-		);
-
-		return $this->render('::listing', $data);
+		));
 	}
 }
