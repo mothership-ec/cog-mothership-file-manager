@@ -14,21 +14,30 @@ use Message\Cog\Filesystem\File as FilesystemFile;
  */
 class Listing extends \Message\Cog\Controller\Controller
 {
-
 	public function index()
 	{
-		if ($searchTerm = $this->get('request')->query->get('search')) {
-			$files = $this->get('filesystem.file.loader')->getBySearchTerm($searchTerm);
-			$search = $searchTerm;
-		} else {
-			$files = $this->get('filesystem.file.loader')->getAll();
+		return $this->render('::listing', array(
+			'files'      => $this->get('filesystem.file.loader')->getAll(),
+			'searchTerm' => null,
+		));
+	}
+
+	public function searchRedirect()
+	{
+		if ($search = $this->get('request')->request->get('file_search')) {
+			return $this->redirect($this->generateURL('ms.cp.file_manager.search', array(
+				'term' => $search['term'],
+			)));
 		}
 
-		$data = array(
-			'files' => $files,
-			'search' => isset($search) ? $search : '',
-		);
+		return $this->redirect($this->generateURL('ms.cp.file_manager.listing'));
+	}
 
-		return $this->render('::listing', $data);
+	public function search($term)
+	{
+		return $this->render('::listing', array(
+			'files'      => $this->get('filesystem.file.loader')->getBySearchTerm($term),
+			'searchTerm' => $term,
+		));
 	}
 }

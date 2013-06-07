@@ -39,7 +39,7 @@ class Detail extends \Message\Cog\Controller\Controller
 
 		}
 		// Redirect the page to where is was
-		return $this->redirect($this->generateUrl('ms.file_manager.detail',array('fileID' => $file->fileID)));
+		return $this->redirect($this->generateUrl('ms.cp.file_manager.detail',array('fileID' => $file->fileID)));
 	}
 
 	public function delete($fileID)
@@ -51,14 +51,14 @@ class Detail extends \Message\Cog\Controller\Controller
 		if ($delete = $this->_services['request']->get('delete')) {
 
 			if ($file = $this->_services['filesystem.file.delete']->delete($file)) {
-				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.file_manager.restore',array('fileID' => $file->fileID)).'">Undo</a>');
+				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->fileID)).'">Undo</a>');
 			} else {
 				$this->addFlash('error', $file->file->getBasename().' could not be deleted.');
 			}
 
 		}
 
-		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
+		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 	}
 
 	public function restore($fileID)
@@ -70,7 +70,7 @@ class Detail extends \Message\Cog\Controller\Controller
 		} else {
 			$this->addFlash('error', $file->file->getBasename().' could not be restored.');
 		}
-		return $this->redirect($this->generateUrl('ms.file_manager.listing'));
+		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 
 	}
 }

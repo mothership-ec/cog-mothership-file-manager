@@ -14,7 +14,7 @@
 	{% endif %}
 </ul>
 
-<form action="{{ url('ms.file_manager.edit', {fileID: file.fileID}) }}" method="post">
+<form action="{{ url('ms.cp.file_manager.edit', {fileID: file.fileID}) }}" method="post">
 	<label for="file-tags">Tags</label>
 	<textarea id="file-tags" name="file[tags]">{% for tag in file.tags %}
 {{ tag }}{% if loop.last != true %}, {% endif %}
@@ -24,7 +24,7 @@
 	<button name="update" type="submit" value="Submit">Update</button>
 </form>
 
-<form action="{{ url('ms.file_manager.delete', {fileID: file.fileID}) }}" method="post">
+<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.fileID}) }}" method="post">
 	<input type="hidden" name="_method" value="DELETE">
 	<button name="delete[delete]" value="delete" id="delete" type="submit">Delete</button>
 </form>
