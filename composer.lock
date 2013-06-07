@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog.git",
-                "reference": "8d7df37330e5a72a046980f46ff1cfcd00cb5d0a"
+                "reference": "c97ee5b5d9420fe22b2edf076ac3d35d18bc8020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog/zipball/8d7df37330e5a72a046980f46ff1cfcd00cb5d0a",
-                "reference": "8d7df37330e5a72a046980f46ff1cfcd00cb5d0a",
+                "url": "https://api.github.com/repos/messagedigital/cog/zipball/c97ee5b5d9420fe22b2edf076ac3d35d18bc8020",
+                "reference": "c97ee5b5d9420fe22b2edf076ac3d35d18bc8020",
                 "shasum": ""
             },
             "require": {
@@ -75,9 +75,9 @@
             "support": {
                 "wiki": "http://server.local/wiki/projects/cog",
                 "issues": "http://server.local:3000/cog/issues",
-                "source": "https://github.com/messagedigital/cog/tree/image-resizer"
+                "source": "https://github.com/messagedigital/cog/tree/master"
             },
-            "time": "2013-06-06 16:49:54"
+            "time": "2013-06-07 09:10:13"
         },
         {
             "name": "message/cog-mothership-cp",
@@ -85,12 +85,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog-mothership-cp.git",
-                "reference": "b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45"
+                "reference": "ae08fcb46b69516ec39c67d09c6cf2d8083e1cb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog-mothership-cp/zipball/b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45",
-                "reference": "b1e23a6e5f8a719ffc1bb4c6a92a92139444fc45",
+                "url": "https://api.github.com/repos/messagedigital/cog-mothership-cp/zipball/ae08fcb46b69516ec39c67d09c6cf2d8083e1cb2",
+                "reference": "ae08fcb46b69516ec39c67d09c6cf2d8083e1cb2",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
                 "issues": "http://server.local:3000/cog/cog-mothership-cp/issues",
                 "source": "https://github.com/messagedigital/cog-mothership-cp/tree/master"
             },
-            "time": "2013-06-06 17:30:14"
+            "time": "2013-06-07 09:17:26"
         },
         {
             "name": "message/cog-user",
@@ -133,12 +133,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog-user.git",
-                "reference": "d256e324f59fb0fbf8d996c40c3c55cca4761847"
+                "reference": "d28b2680914a46e6c8d1268bfc08270871f85c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog-user/zipball/d256e324f59fb0fbf8d996c40c3c55cca4761847",
-                "reference": "d256e324f59fb0fbf8d996c40c3c55cca4761847",
+                "url": "https://api.github.com/repos/messagedigital/cog-user/zipball/d28b2680914a46e6c8d1268bfc08270871f85c6c",
+                "reference": "d28b2680914a46e6c8d1268bfc08270871f85c6c",
                 "shasum": ""
             },
             "require": {
@@ -172,7 +172,7 @@
                 "issues": "http://server.local:3000/cog/cog-user/issues",
                 "source": "https://github.com/messagedigital/cog-user/tree/master"
             },
-            "time": "2013-06-06 15:23:04"
+            "time": "2013-06-07 11:21:36"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -898,12 +898,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "a14bcf6a4950a98f678f568a7b24d9c308e3a1a8"
+                "reference": "1a6507043782f18e3765b52712cf78d16f3117e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/a14bcf6a4950a98f678f568a7b24d9c308e3a1a8",
-                "reference": "a14bcf6a4950a98f678f568a7b24d9c308e3a1a8",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1a6507043782f18e3765b52712cf78d16f3117e7",
+                "reference": "1a6507043782f18e3765b52712cf78d16f3117e7",
                 "shasum": ""
             },
             "require": {
@@ -939,7 +939,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-06 08:57:56"
+            "time": "2013-06-07 06:24:46"
         }
     ],
     "packages-dev": [
