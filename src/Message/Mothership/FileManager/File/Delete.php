@@ -72,7 +72,6 @@ class Delete
 	public function restore(File $file)
 	{
 		$file->authorship->restore();
-
 		$result = $this->_query->run('
 			UPDATE
 				file
@@ -80,16 +79,15 @@ class Delete
 				deleted_at = NULL,
 				deleted_by = NULL
 			WHERE
-				file_id = file_id?i
+				file_id = :file_id?i
 		', array(
-				'file_id' 	=> $file->fileID,
+				'file_id' => $file->fileID,
 			));
 
 		$this->_eventDispatcher->dispatch(
 			FileEvent::RESTORE,
 			new FileEvent($file)
 		);
-
 		return $result->affected() ? $file : false;
 	}
 }

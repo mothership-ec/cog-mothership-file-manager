@@ -63,7 +63,7 @@ class Detail extends \Message\Cog\Controller\Controller
 
 	public function restore($fileID)
 	{
-		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
+		$file = $this->_services['filesystem.file.loader']->includeDeleted(true)->getByID($fileID);
 
 		if ($this->_services['filesystem.file.delete']->restore($file)) {
 			$this->addFlash('success', $file->file->getBasename().' was restored successfully');
