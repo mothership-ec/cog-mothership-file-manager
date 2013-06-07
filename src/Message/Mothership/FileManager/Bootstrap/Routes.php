@@ -19,12 +19,15 @@ class Routes implements RoutesInterface
 			->setRequirement('fileID', '\d+');
 
 		$router['files']->add('ms.file_manager.edit', '/{fileID}/edit', '::Controller:Detail#edit')
-			->setRequirement('fileID', '\d+');
+			->setRequirement('fileID', '\d+')
+			->setMethod('POST');
 
 		$router['files']->add('ms.file_manager.delete', '/{fileID}/delete', '::Controller:Detail#delete')
-			->setRequirement('fileID', '\d+');
+			->setRequirement('fileID', '\d+')
+			->setMethod('DELETE');
 
 		$router['files']->add('ms.file_manager.restore', '/{fileID}/restore', '::Controller:Detail#restore')
-			->setRequirement('fileID', '\d+');
+			->setRequirement('fileID', '\d+')
+			->setMethod('POST');
 	}
 }
