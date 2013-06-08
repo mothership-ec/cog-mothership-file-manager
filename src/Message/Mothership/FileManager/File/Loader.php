@@ -210,23 +210,21 @@ class Loader
 			WHERE
 				file.file_id IN (?ij)
 			GROUP BY
-				created_at DESC',
-				array(
-					$fileIDs
-				)
-		);
+				created_at DESC
+		', $fileIDs);
 
 		if (count($result)) {
 			return $this->_loadPage($result);
 		}
-		return false;
 
+		return false;
 	}
 
 	/**
 	 * This will load file objects for the results of _load
 	 *
-	 * @param  Result $results 	results of files that need to be loaded
+	 * @param  Result $results 	Results of files that need to be loaded
+	 *
 	 * @return array|File 		array or single Page object if only one result
 	 */
 	protected function _loadPage(Result $results)
@@ -237,8 +235,7 @@ class Loader
 
 			$files[$key]->authorship = new Authorship;
 
-			// Remove the file if it is deleted unless we are loading deleted
-			// files
+			// Remove the file if it is deleted unless we are loading deleted files
 			if ($result->deletedAt && !$this->_loadDeleted) {
 				unset($files[$key]);
 				continue;
