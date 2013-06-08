@@ -21,15 +21,13 @@ class Upload extends \Message\Cog\Controller\Controller
 	{
 		$files = $this->get('request')->files;
 
-		if(!$files->has('upload')) {
+		if (!$files->has('upload')) {
 			return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 		}
 
-		// create a new file
 		$create = $this->_services['filesystem.file.create'];
-		$messages = array();
 
-		foreach($files->get('upload') as $upload) {
+		foreach ($files->get('upload') as $upload) {
 			try {
 				if(is_null($upload)) {
 					continue;
@@ -37,19 +35,17 @@ class Upload extends \Message\Cog\Controller\Controller
 
 				$file    = $create->move($upload);
 				$fileObj = $create->save($file);
-				$messages[] = array('error', $file->getBasename().' was successfully uploaded.');
+				$this->addFlash('success', sprintf('%s was successfully uploaded.', $file->getBasename()));
 			} catch(BannedType $e) {
 				$create->cleanup($file);
-				$messages[] = array('error', $file->getBasename().' is a banned file type.');
+				$this->addFlash('error', sprintf('%s was not uploaded because it is a banned file type.', $file->getBasename()));
 			} catch(FileExists $e) {
 				$create->cleanup($file);
-				$url = $this->generateUrl('ms.cp.file_manager.detail', array('fileID' => $e->getFileId()));
-				$messages[] = array('error', $file->getBasename().' already exists. <a href="'.$url.'">edit</a>');
+				$this->addFlash('notice', sprintf(
+					'%s already exists. <a href="%s">View this file</a>',
+					$this->generateUrl('ms.cp.file_manager.detail', array('fileID' => $e->getFileId()))
+				));
 			}
-		}
-
-		foreach($messages as $message) {
-			$this->get('http.session')->getFlashBag()->add($message[0], $message[1]);
 		}
 
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
