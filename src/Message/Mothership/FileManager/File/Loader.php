@@ -211,7 +211,7 @@ class Loader
 				file.file_id IN (?ij)
 			GROUP BY
 				created_at DESC
-		', $fileIDs);
+		', array($fileIDs));
 
 		if (count($result)) {
 			return $this->_loadPage($result);
