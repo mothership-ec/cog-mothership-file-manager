@@ -23,4 +23,44 @@ class File
 	public $altText;
 	public $duration;
 	public $tags;
+
+	/**
+	 * Check if this file is "image" type.
+	 *
+	 * @return boolean True if this file is an image
+	 */
+	public function isTypeImage()
+	{
+		return Type::IMAGE === $this->typeID;
+	}
+
+	/**
+	 * Check if this file is "document" type.
+	 *
+	 * @return boolean True if this file is a document
+	 */
+	public function isTypeDocument()
+	{
+		return Type::DOCUMENT === $this->typeID;
+	}
+
+	/**
+	 * Check if this file is "video" type.
+	 *
+	 * @return boolean True if this file is a video
+	 */
+	public function isTypeVideo()
+	{
+		return Type::VIDEO === $this->typeID;
+	}
+
+	/**
+	 * Check if this file is "other" type.
+	 *
+	 * @return boolean True if this file is another type of file
+	 */
+	public function isTypeOther()
+	{
+		return Type::OTHER === $this->typeID;
+	}
 }

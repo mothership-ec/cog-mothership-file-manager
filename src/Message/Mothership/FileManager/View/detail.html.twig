@@ -17,8 +17,12 @@
 <form action="{{ url('ms.cp.file_manager.edit', {fileID: file.fileID}) }}" method="post">
 	<label for="file-tags">Tags</label>
 	<textarea id="file-tags" name="file[tags]">{{ file.tags|join(', ') }}</textarea>
+
+	{% if file.isTypeImage() %}
 	<label for="file-alt-text">Alt Text</label>
 	<input id="file-alt-text" type="text" name="file[alt_text]" value="{{ file.altText }}" />
+	{% endif %}
+
 	<button name="update" type="submit" value="Submit">Update</button>
 </form>
 
