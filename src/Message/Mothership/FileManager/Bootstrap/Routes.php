@@ -31,7 +31,7 @@ class Routes implements RoutesInterface
 			->setRequirement('fileID', '\d+')
 			->setMethod('DELETE');
 
-		$router['files']->add('ms.cp.file_manager.restore', '/{fileID}/restore', '::Controller:Detail#restore')
+		$router['files']->add('ms.cp.file_manager.restore', '/{fileID}/restore/{hash}', '::Controller:Detail#restore')
 			->setRequirement('fileID', '\d+')
 			->setMethod('GET');
 	}
