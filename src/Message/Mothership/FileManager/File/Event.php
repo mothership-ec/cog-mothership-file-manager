@@ -2,14 +2,12 @@
 
 namespace Message\Mothership\FileManager\Event;
 
-use Message\Mothership\FileManager\File\File;
-
 /**
- * Event class for events relating to FileManager File.
+ * Event class for events relating to files.
  *
  * @author Danny Hannah <danny@message.co.uk>
  */
-class FileEvent extends Event
+class Event extends \Message\Cog\Event\Event
 {
 	const CREATE  = 'file_manager.file.create';
 	const EDIT    = 'file_manager.file.edit';
@@ -23,7 +21,7 @@ class FileEvent extends Event
 	 *
 	 * @see setFile()
 	 *
-	 * @param File $file The relevant file for this event.
+	 * @param File $file The relevant file for this event
 	 */
 	public function __construct(File $file)
 	{

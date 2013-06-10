@@ -2,8 +2,6 @@
 
 namespace Message\Mothership\FileManager\File;
 
-use Message\Mothership\FileManager\Event\Event;
-use Message\Mothership\FileManager\Event\FileEvent;
 use Message\Mothership\FileManager\File\Loader;
 
 use Message\Cog\Event\DispatcherInterface;
@@ -14,25 +12,31 @@ use Message\User\User;
 use Symfony\Component\HttpFoundation\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Decorator for creating files in the file manager.
+ *
+ * @author Danny Hannah <danny@message.co.uk>
+ */
 class Create
 {
-
 	protected $_query;
 	protected $_eventDispatcher;
+	protected $_loader;
+	protected $_currentUser;
 
 	/**
-	 * Initiallise the object and load dependancies.
+	 * Initialise the object and load dependancies.
 	 *
-	 * @param Loader             $loader load the File
+	 * @param Loader              $loader load the File
 	 * @param DBQuery             $query run the DB queries
 	 * @param DispatcherInterface $eventDispatcher fire an event
 	 */
 	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher, User $user)
 	{
-		$this->_loader = $loader;
-		$this->_query  = $query;
+		$this->_loader          = $loader;
+		$this->_query           = $query;
 		$this->_eventDispatcher = $eventDispatcher;
-		$this->_user = $user;
+		$this->_currentUser     = $user;
 	}
 
 	/**
@@ -45,20 +49,19 @@ class Create
 	public function save(FilesystemFile $file)
 	{
 		// Instead of allowing the file to be uploaded again we thrown an exception
-		if($id = $this->existsInFileManager($file)) {
+		if ($id = $this->existsInFileManager($file)) {
 			throw new Exception\FileExists('File already exists in File Manager', $id);
 		}
 
-		// detect the type
+		// Detect the file type
 		$type = new Type;
 		$typeID = $type->guess($file);
 
 		$dimensionX = null;
 		$dimensionY = null;
 
-		// This should be abstracted at some point.
-		if($typeID === Type::IMAGE) {
-			// get the dimensions for an image
+		// This should be abstracted at some point
+		if (Type::IMAGE === $typeID) {
 			list($dimensionX, $dimensionY) = getimagesize($file->getPathname());
 		}
 
@@ -66,44 +69,46 @@ class Create
 			INSERT INTO
 				file
 			SET
-				url         = ?s,
-				name        = ?s,
-				extension   = ?s,
-				file_size   = ?s,
+				url         = :url?s,
+				name        = :name?s,
+				extension   = :extension?s,
+				file_size   = :size?i,
 				created_at  = UNIX_TIMESTAMP(),
-				created_by  = ?i,
-				type_id     = ?i,
-				checksum    = ?s,
-				preview_url = ?sn,
-				dimension_x = ?in,
-				dimension_y = ?in,
-				alt_text    = ?s,
-				duration    = ?in
+				created_by  = :createdBy?i,
+				type_id     = :typeID?i,
+				checksum    = :checksum?s,
+				preview_url = :previewUrl?sn,
+				dimension_x = :dimX?in,
+				dimension_y = :dimY?in,
+				duration    = :duration?in
 		', array(
-			$file->getPathname(),
-			$file->getFilename(),
-			$file->getExtension(),
-			$file->getSize(),
-			$this->_user->id,
-			$typeID,
-			$file->getChecksum(),
-			null, // Preview image for videos
-			$dimensionX, // Image or video dimensions in x
-			$dimensionY, // Image or video dimensions in y
-			'', // Alt text is always empty
-			null, // Duration in seconds for videos
+			'url'        => $file->getPathname(),
+			'name'       => $file->getFilename(),
+			'extension'  => $file->getExtension(),
+			'size'       => $file->getSize(),
+			'createdBy'  => $this->_currentUser->id,
+			'typeID'     => $typeID,
+			'checksum'   => $file->getChecksum(),
+			'previewUrl' => null,        // Preview image for videos
+			'dimX'       => $dimensionX, // Image or video dimensions in x
+			'dimY'       => $dimensionY, // Image or video dimensions in y
+			'duration'   => null,        // Duration in seconds for video/audio
 		));
 
-		// Get the fileID from the insertID
-		$fileID = $result->id();
+		// Load the file we just saved as an object
+		$file = $this->_loader->getByID($result->id());
 
-		// Load the file we just saved as an object and return it.
-		$file = $this->_loader->getByID($fileID);
+		// Initiate the event
+		$event = new Event($file);
 
-		$this->_dispatchEvents($file);
+		// Dispatch the file created event
+		$this->_eventDispatcher->dispatch(
+			$event::CREATE,
+			$event
+		);
 
-		// Return the object
-		return $file;
+		// Return the File object from the event
+		return $event->getFile();
 	}
 
 	public function move(UploadedFile $upload)
@@ -145,7 +150,7 @@ class Create
 	 *
 	 * @param  Filesystem\File $file The file to check
 	 *
-	 * @return boolean|int          Returns the file ID if the checksum already 
+	 * @return boolean|int          Returns the file ID if the checksum already
 	 *                              exists, false if it doesn't.
 	 */
 	public function existsInFileManager(FilesystemFile $file)
@@ -163,32 +168,5 @@ class Create
 		', $checksum);
 
 		return count($result) ? $result->value() : false;
-	}
-
-	/**
-	 * Fires off file create events
-	 *
-	 * @param  FileSystem\File $file The newly create file
-	 *
-	 * @return void
-	 */
-	protected function _dispatchEvents($file)
-	{
-		// Initiate the event file
-		$event = new FileEvent($file);
-
-		// Dispatch the file created event
-		$this->_eventDispatcher->dispatch(
-			FileEvent::CREATE,
-			$event
-		);
-	}
-
-	protected function _detectType(FilesystemFile $file)
-	{
-		// Get the files mimetype
-		
-
-
 	}
 }
