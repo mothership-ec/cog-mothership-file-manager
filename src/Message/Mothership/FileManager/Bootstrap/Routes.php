@@ -10,14 +10,15 @@ class Routes implements RoutesInterface
 	{
 		$router['files']->setPrefix('/files')->setParent('ms.cp');
 
-		$router['files']->add('ms.cp.file_manager.listing', '/', '::Controller:Listing#index');
+		$router['files']->add('ms.cp.file_manager.listing', '/', '::Controller:Listing#index')
+			->setMethod('GET');
 
 		$router['files']->add('ms.cp.file_manager.search.forward', '/search', '::Controller:Listing#searchRedirect')
 			->setMethod('POST');
 
 		$router['files']->add('ms.cp.file_manager.search', '/search/{term}', '::Controller:Listing#search');
 
-		$router['files']->add('ms.cp.file_manager.upload', '/', '::Controller:Upload#index')
+		$router['files']->add('ms.cp.file_manager.upload', '/upload', '::Controller:Upload#index')
 			->setMethod('POST');
 
 		$router['files']->add('ms.cp.file_manager.detail', '/{fileID}', '::Controller:Detail#index')

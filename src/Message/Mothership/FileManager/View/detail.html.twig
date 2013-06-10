@@ -2,7 +2,7 @@
 
 {% block main %}
 <h1>File Detail</h1>
-<img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="max-width: 300px; height: auto;" />
+<img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
 <ul>
 	<li>Name: {{ file.name }}</li>
 	<li>Type: {{ file.typeID }}</li>

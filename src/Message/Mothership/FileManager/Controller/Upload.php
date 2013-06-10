@@ -13,7 +13,7 @@ use Message\Cog\Filesystem\File as FilesystemFile;
 /**
  * Controller listing files from file manager
  *
- * @author Daniel Hannah <danny@message.co.uk>
+ * @author James Moss <james@message.co.uk>
  */
 class Upload extends \Message\Cog\Controller\Controller
 {
@@ -25,7 +25,7 @@ class Upload extends \Message\Cog\Controller\Controller
 			return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 		}
 
-		$create = $this->_services['filesystem.file.create'];
+		$create = $this->get('filesystem.file.create');
 
 		foreach ($files->get('upload') as $upload) {
 			try {
