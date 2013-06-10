@@ -9,6 +9,11 @@ namespace Message\Mothership\FileManager\Controller;
 class Detail extends \Message\Cog\Controller\Controller
 {
 
+	/**
+	 * Display the details of the given file
+	 *
+	 * @param  int $fileID fileID to be loaded and displayed
+	 */
 	public function index($fileID)
 	{
 		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
@@ -20,6 +25,11 @@ class Detail extends \Message\Cog\Controller\Controller
 		return $this->render('::detail', $data);
 	}
 
+	/**
+	 * Edit the given file attributes
+	 *
+	 * @param  int $fileID fileID to be updated
+	 */
 	public function edit($fileID)
 	{
 		// Load the file object
@@ -36,12 +46,16 @@ class Detail extends \Message\Cog\Controller\Controller
 			} else {
 				$this->addFlash('error', $file->file->getBasename().' could not be updated.');
 			}
-
 		}
 		// Redirect the page to where is was
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.detail',array('fileID' => $file->fileID)));
 	}
 
+	/**
+	 * Delete a fileID
+	 *
+	 * @param  int 	$fileID id of the file to be marked as deleted
+	 */
 	public function delete($fileID)
 	{
 		// Load the file object
@@ -62,6 +76,11 @@ class Detail extends \Message\Cog\Controller\Controller
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 	}
 
+	/**
+	 * Restore an image that has been deleted
+	 * @param  int $fileID 		fileID of the file to be restored
+	 * @param  [type] $hash   	hash of the fileID and userID to stop CSRF attacks
+	 */
 	public function restore($fileID, $hash)
 	{
 		// Load the file
@@ -82,6 +101,12 @@ class Detail extends \Message\Cog\Controller\Controller
 
 	}
 
+	/**
+	 * Generate a hash of the userID and the fileID
+	 *
+	 * @param  int 		$fileID fileID to be hashed
+	 * @return string 			the encyrptyed hash
+	 */
 	protected function _generateHash($fileID)
 	{
 		$hash = new \Message\Cog\Security\Hash\SHA1($this->_services['security.salt']);
@@ -94,6 +119,13 @@ class Detail extends \Message\Cog\Controller\Controller
 
 	}
 
+	/**
+	 * Compare the given hash and check it against what we expect
+	 *
+	 * @param  int 		$fileID The file to be restorted
+	 * @param  string 	$hash   The hash to comapre against
+	 * @return bool        		Resuklt of the hash comparison
+	 */
 	protected function _compareHash($fileID, $hash)
 	{
 		$check = implode('-', array(
