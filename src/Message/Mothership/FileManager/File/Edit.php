@@ -2,8 +2,8 @@
 
 namespace Message\Mothership\FileManager\File;
 
-use Message\Mothership\FileManager\Event\FileEvent;
-
+use Message\Mothership\FileManager\File\Event;
+use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\User\User;
@@ -37,9 +37,8 @@ class Edit
 	 */
 	public function save(File $file)
 	{
-
 		// Set the updated date on the object
-		$date = new \DateTime;
+		$date = new DateTimeImmutable;
 		$file->authorship->update($date, $this->_user->id);
 
 		$result = $this->_query->run('
@@ -55,7 +54,7 @@ class Edit
 			'updatedAt' => $file->authorship->updatedAt()->getTimestamp(),
 			'updatedBy' => $file->authorship->updatedBy(),
 			'altText' 	=> $file->altText,
-			'fileID'	=> $file->fileID,
+			'fileID'	=> $file->id,
 		));
 
 		// Delete all the tags and then add the new ones in
@@ -65,7 +64,7 @@ class Edit
 					file_tag
 				WHERE
 					file_id = ?',
-				array($file->fileID)
+				array($file->id)
 			);
 
 			$inserts = array();
@@ -74,7 +73,7 @@ class Edit
 			$lastKey = key($file->tags);
 			foreach ($file->tags as $k => $tagName) {
 				$values .= '(?i, ?s)'.($lastKey == $k ? '' : ',');
-				$inserts[] = $file->fileID;
+				$inserts[] = $file->id;
 				$inserts[] = $tagName;
 			}
 
@@ -88,11 +87,11 @@ class Edit
 		}
 
 		// Initiate the event file
-		$event = new FileEvent($file);
+		$event = new Event($file);
 
 		// Dispatch the file created event
 		$this->_eventDispatcher->dispatch(
-			FileEvent::EDIT,
+			Event::EDIT,
 			$event
 		);
 

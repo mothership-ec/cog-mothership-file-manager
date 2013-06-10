@@ -188,7 +188,7 @@ class Loader
 
 		$result = $this->_query->run('
 			SELECT
-				file.file_id AS fileID,
+				file.file_id AS id,
 				file.url AS url,
 				file.name AS name,
 				file.extension AS extension,
@@ -270,7 +270,7 @@ class Loader
 			FROM
 				file_tag
 			WHERE
-				file_tag.file_id = ?i', array($file->fileID)
+				file_tag.file_id = ?i', array($file->id)
 		);
 
 		if (count($result)) {

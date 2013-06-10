@@ -59,7 +59,7 @@ class Delete
 		', array(
 				'dl_at' 	=> $file->authorship->deletedAt()->getTimestamp(),
 				'dl_by' 	=> $file->authorship->deletedBy(),
-				'file_id' 	=> $file->fileID,
+				'file_id' 	=> $file->id,
 			));
 
 		$this->_eventDispatcher->dispatch(
@@ -82,7 +82,7 @@ class Delete
 			WHERE
 				file_id = :file_id?i
 		', array(
-				'file_id' => $file->fileID,
+				'file_id' => $file->id,
 			));
 
 		$this->_eventDispatcher->dispatch(

@@ -22,6 +22,6 @@
 </form>
 
 {% for file in files %}
-	<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.fileID}) }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
+	<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}"><img src="{{ file.file.getPublicUrl }}" alt="{{ file.altText }}" style="width: 200px; height: auto;" /></a>
 {% endfor %}
 {% endblock %}

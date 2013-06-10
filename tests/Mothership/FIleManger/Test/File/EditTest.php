@@ -36,7 +36,7 @@ class EditTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->_file = new File;
-		$this->_file->fileID = self::FILE_ID;
+		$this->_file->id = self::FILE_ID;
 		$this->_file->authorship = new Authorship;
 
 		$this->_loader
@@ -59,7 +59,7 @@ class EditTest extends \PHPUnit_Framework_TestCase
 		$dateTime = new \DateTime;
 		$this->assertEquals($updatedFile->authorship->updatedAt()->getTimestamp(), $dateTime->getTimestamp(), 2);
 		$this->assertTrue(!is_null($updatedFile->authorship->updatedBy()));
-		$this->assertTrue($updatedFile->fileID == self::FILE_ID);
+		$this->assertTrue($updatedFile->id == self::FILE_ID);
     }
 
 }

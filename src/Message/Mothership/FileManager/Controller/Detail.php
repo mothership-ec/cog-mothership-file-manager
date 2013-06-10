@@ -48,7 +48,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			}
 		}
 		// Redirect the page to where is was
-		return $this->redirect($this->generateUrl('ms.cp.file_manager.detail',array('fileID' => $file->fileID)));
+		return $this->redirect($this->generateUrl('ms.cp.file_manager.detail',array('fileID' => $file->id)));
 	}
 
 	/**
@@ -58,15 +58,14 @@ class Detail extends \Message\Cog\Controller\Controller
 	 */
 	public function delete($fileID)
 	{
-		// Load the file object
-		$file = $this->_services['filesystem.file.loader']->getByID($fileID);
-
 		// Check that the delete request has been sent
 		if ($delete = $this->_services['request']->get('delete')) {
+			// Load the file object
+			$file = $this->_services['filesystem.file.loader']->getByID($fileID);
 
 			if ($file = $this->_services['filesystem.file.delete']->delete($file)) {
 				$hash = $this->_generateHash($fileID);
-				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->fileID,'hash' => $hash)).'">Undo</a>');
+				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id,'hash' => $hash)).'">Undo</a>');
 			} else {
 				$this->addFlash('error', $file->file->getBasename().' could not be deleted.');
 			}

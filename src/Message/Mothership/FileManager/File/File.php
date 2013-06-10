@@ -9,7 +9,7 @@ namespace Message\Mothership\FileManager\File;
  */
 class File
 {
-	public $fileID;
+	public $id;
 	public $url;
 	public $name;
 	public $authorship;

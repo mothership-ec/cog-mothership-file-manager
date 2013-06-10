@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Message\Mothership\FileManager\Test\File;
 
@@ -37,7 +37,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$this->_file = new File;
-		$this->_file->fileID = self::FILE_ID;
+		$this->_file->id = self::FILE_ID;
 		$this->_file->authorship = new Authorship;
 
 		$this->_loader
@@ -57,7 +57,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 			$dateTime->getTimestamp(), 2
 		);
 		$this->assertNotNull($deletedFile->authorship->deletedBy());
-		$this->assertSame($deletedFile->fileID, self::FILE_ID);
+		$this->assertSame($deletedFile->id, self::FILE_ID);
 	}
 
 	public function testRestore()
@@ -65,7 +65,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
 
 		$this->_file = new File;
-		$this->_file->fileID = self::FILE_ID;
+		$this->_file->id = self::FILE_ID;
 		$this->_file->authorship = new Authorship;
 		$this->_file->authorship->delete(new \DateTime, 1);
 
@@ -75,7 +75,7 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
 		$this->assertNull($restoredFile->authorship->deletedAt());
 		$this->assertNull($restoredFile->authorship->deletedBy());
-		$this->assertSame($restoredFile->fileID, self::FILE_ID);
+		$this->assertSame($restoredFile->id, self::FILE_ID);
 	}
 }
 

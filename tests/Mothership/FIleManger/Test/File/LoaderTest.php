@@ -28,7 +28,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 		// For testDuplicateFieldNameException
 		$connection->setPattern('/file_id([\s]+?)= [0-9]/us', array(
 			array(
-				'fileID'		=> 1,
+				'id'		=> 1,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -40,7 +40,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> 1,
 			),
 			array(
-				'fileID'		=> 1,
+				'id'		=> 1,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -52,7 +52,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> null,
 			),
 			array(
-				'fileID'		=> 2,
+				'id'		=> 2,
 				'name'     		=> 'pest',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -64,7 +64,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> null,
 			),
 			array(
-				'fileID'		=> 3,
+				'id'		=> 3,
 				'name'     		=> 'rest',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -76,7 +76,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> null,
 			),
 			array(
-				'fileID'		=> 4,
+				'id'		=> 4,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -96,7 +96,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$file = $this->_loader->includeDeleted(true)->getByID(1);
 		$this->assertTrue($file instanceof File);
-		$this->assertTrue($file->fileID == 1);
+		$this->assertTrue($file->id == 1);
 
 		$ids = array(1,2,3,4);
 		$files = $this->_loader->includeDeleted(true)->getByID($ids);
@@ -108,7 +108,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 		$connection = new FauxConnection;
 		$connection->setPattern('/file_id([\s]+?)= [0-9]/us', array(
 			array(
-				'fileID'		=> 1,
+				'id'		=> 1,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -155,7 +155,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
 		$connection->setPattern('/file_id([\s]+?)= [0-9]/us', array(
 			array(
-				'fileID'		=> 1,
+				'id'		=> 1,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -167,7 +167,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> null,
 			),
 			array(
-				'fileID'		=> 2,
+				'id'		=> 2,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -205,7 +205,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
 		$connection->setPattern('/file_id([\s]+?)= [0-9]/us', array(
 			array(
-				'fileID'		=> 1,
+				'id'		=> 1,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
@@ -217,7 +217,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 				'deletedBy'		=> null,
 			),
 			array(
-				'fileID'		=> 2,
+				'id'		=> 2,
 				'name'     		=> 'test',
 				'extension'     => 'jpg',
 				'fileSize'   	=> 12344,
