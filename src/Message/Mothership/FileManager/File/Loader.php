@@ -4,6 +4,7 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
 use Message\Cog\ValueObject\Authorship;
+use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\Filesystem\File as FileSystemFile;
 use Message\Cog\DB\Result;
 
@@ -241,14 +242,14 @@ class Loader
 				continue;
 			}
 
-			$files[$key]->authorship->create(new \DateTime('@'.$result->createdAt), $result->createdBy);
+			$files[$key]->authorship->create(new DateTimeImmutable('@'.$result->createdAt), $result->createdBy);
 
 			if ($result->updatedAt) {
-				$files[$key]->authorship->update(new \DateTime('@'.$result->updatedAt), $result->updatedBy);
+				$files[$key]->authorship->update(new DateTimeImmutable('@'.$result->updatedAt), $result->updatedBy);
 			}
 
 			if ($result->deletedAt) {
-				$files[$key]->authorship->delete(new \DateTime('@'.$result->deletedAt), $result->deletedBy);
+				$files[$key]->authorship->delete(new DateTimeImmutable('@'.$result->deletedAt), $result->deletedBy);
 			}
 
 			$files[$key]->tags = $this->_loadTags($files[$key]);
