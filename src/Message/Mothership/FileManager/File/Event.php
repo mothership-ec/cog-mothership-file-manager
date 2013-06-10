@@ -1,6 +1,6 @@
 <?php
 
-namespace Message\Mothership\FileManager\Event;
+namespace Message\Mothership\FileManager\File;
 
 /**
  * Event class for events relating to files.

@@ -3,8 +3,9 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
-use Message\Mothership\FileManager\Event\FileEvent;
+use Message\Mothership\FileManager\File\Event;
 use Message\Cog\Event\DispatcherInterface;
+use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\DB\Query as Query;
 use Message\User\User;
 
@@ -44,7 +45,7 @@ class Delete
 	public function delete(File $file)
 	{
 
-		$file->authorship->delete(new \Datetime, $this->_user->id);
+		$file->authorship->delete(new DateTimeImmutable, $this->_user->id);
 
 		/** Query to set deletion info */
 		$result = $this->_query->run('
@@ -62,8 +63,8 @@ class Delete
 			));
 
 		$this->_eventDispatcher->dispatch(
-			FileEvent::DELETE,
-			new FileEvent($file)
+			Event::DELETE,
+			new Event($file)
 		);
 
 		return $result->affected() ? $file : false;
@@ -85,8 +86,8 @@ class Delete
 			));
 
 		$this->_eventDispatcher->dispatch(
-			FileEvent::RESTORE,
-			new FileEvent($file)
+			Event::RESTORE,
+			new Event($file)
 		);
 		return $result->affected() ? $file : false;
 	}
