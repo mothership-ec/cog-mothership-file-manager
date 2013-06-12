@@ -64,8 +64,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			$file = $this->_services['filesystem.file.loader']->getByID($fileID);
 
 			if ($file = $this->_services['filesystem.file.delete']->delete($file)) {
-				$hash = $this->_generateHash($fileID);
-				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id,'hash' => $hash)).'">Undo</a>');
+				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Undo</a>');
 			} else {
 				$this->addFlash('error', $file->file->getBasename().' could not be deleted.');
 			}
@@ -76,65 +75,21 @@ class Detail extends \Message\Cog\Controller\Controller
 	}
 
 	/**
-	 * Restore an image that has been deleted
+	 * Restore an image that has been deleted.
+	 * 
 	 * @param  int $fileID 		fileID of the file to be restored
-	 * @param  [type] $hash   	hash of the fileID and userID to stop CSRF attacks
 	 */
-	public function restore($fileID, $hash)
+	public function restore($fileID)
 	{
 		// Load the file
 		$file = $this->_services['filesystem.file.loader']->includeDeleted(true)->getByID($fileID);
-
-		// If it doesn't match then redirect to the listing
-		if (!$this->_compareHash($fileID, $hash)) {
-			$this->addFlash('error', $file->file->getBasename().' could not be restored.');
-			$this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
-		}
 
 		if ($this->_services['filesystem.file.delete']->restore($file)) {
 			$this->addFlash('success', $file->file->getBasename().' was restored successfully');
 		} else {
 			$this->addFlash('error', $file->file->getBasename().' could not be restored.');
 		}
+
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
-
-	}
-
-	/**
-	 * Generate a hash of the userID and the fileID
-	 *
-	 * @param  int 		$fileID fileID to be hashed
-	 * @return string 			the encyrptyed hash
-	 */
-	protected function _generateHash($fileID)
-	{
-		$hash = new \Message\Cog\Security\Hash\SHA1($this->_services['security.salt']);
-		return $hash->encrypt(
-			implode('-', array(
-				$this->_services['user.current']->id,
-				$fileID,
-			))
-		);
-
-	}
-
-	/**
-	 * Compare the given hash and check it against what we expect
-	 *
-	 * @param  int 		$fileID The file to be restorted
-	 * @param  string 	$hash   The hash to comapre against
-	 * @return bool        		Resuklt of the hash comparison
-	 */
-	protected function _compareHash($fileID, $hash)
-	{
-		$check = implode('-', array(
-			$this->_services['user.current']->id,
-			$fileID,
-		));
-		// Compare the given hash with the one we expect
-		$hashObj = new \Message\Cog\Security\Hash\SHA1($this->_services['security.salt']);
-		// If it doesn't match then redirect to the listing
-		return $hashObj->check($check, $hash);
-
 	}
 }
