@@ -1,6 +1,6 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
 
-{% block main %}
+{% block content %}
 <h1>File Detail</h1>
 <img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
 <ul>
