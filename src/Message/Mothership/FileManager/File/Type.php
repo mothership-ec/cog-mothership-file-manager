@@ -14,6 +14,21 @@ class Type
 	const VIDEO    = 3;
 	const OTHER    = 4;
 
+	/**
+	 * Get all file types.
+	 *
+	 * @return array Array of all file types
+	 */
+	public function getAll()
+	{
+		return array(
+			self::IMAGE,
+			self::VIDEO,
+			self::DOCUMENT,
+			self::OTHER,
+		);
+	}
+
 	public function guess(\SplFileInfo $file)
 	{
 		// Get the mimetype
