@@ -4,94 +4,101 @@ namespace Message\Mothership\FileManager\File;
 
 use Message\Mothership\FileManager\File\File;
 use Message\Mothership\FileManager\File\Event;
+
+use Message\User\UserInterface;
+
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\DB\Query as Query;
-use Message\User\User;
 
-	/**
-	 * Author Ewan Valentine <ewan@message.co.uk>
-	 * Copyright Message 2013
-	 *
-	 * Basic file deletion class for database records
-	 * Saves who deleted a file and when.
-	 */
+/**
+ * Decorator for deleting & restoring files.
+ *
+ * @author Ewan Valentine <ewan@message.co.uk>
+ */
 class Delete
 {
-
 	protected $_query;
 	protected $_eventDispatcher;
-	protected $_user;
+	protected $_currentUser;
 
 	/**
-	 * @access public
-	 * @param Query $query
+	 * Constructor.
+	 *
+	 * @param Query               $query           Database query instance
+	 * @param DispatcherInterface $eventDispatcher The event dispatcher
+	 * @param UserInterface       $user            The currently logged in user
 	 */
-	public function __construct(Query $query, DispatcherInterface $eventDispatcher, User $user)
+	public function __construct(Query $query, DispatcherInterface $eventDispatcher, UserInterface $user)
 	{
 		$this->_query 			= $query;
 		$this->_eventDispatcher = $eventDispatcher;
-		$this->_user = $user;
+		$this->_currentUser     = $user;
 	}
 
 	/**
-	 * Sets file in database marked as deleted.
-	 * Keeps a record of who a file was deleted by and when.
+	 * Mark a file as deleted.
 	 *
-	 * @return $this->_file
-	 * @access public
-	 * @param $user
+	 * @param File $file The file to be deleted
+	 *
+	 * @return File      The deleted file returned from the delete event
 	 */
 	public function delete(File $file)
 	{
+		$file->authorship->delete(new DateTimeImmutable, $this->_currentUser->id);
 
-		$file->authorship->delete(new DateTimeImmutable, $this->_user->id);
-
-		/** Query to set deletion info */
-		$result = $this->_query->run('
+		$this->_query->run('
 			UPDATE
 				file
 			SET
 				deleted_at = :dl_at?i,
-				deleted_by = :dl_by?i
+				deleted_by = :dl_by?in
 			WHERE
 				file_id = :file_id?i
 		', array(
-				'dl_at' 	=> $file->authorship->deletedAt()->getTimestamp(),
-				'dl_by' 	=> $file->authorship->deletedBy(),
-				'file_id' 	=> $file->id,
-			));
+			'dl_at'   => $file->authorship->deletedAt()->getTimestamp(),
+			'dl_by'   => $file->authorship->deletedBy(),
+			'file_id' => $file->id,
+		));
+
+		$event = new Event($file);
 
 		$this->_eventDispatcher->dispatch(
 			Event::DELETE,
-			new Event($file)
+			$event
 		);
 
-		return $result->affected() ? $file : false;
+		return $event->getFile();
 	}
 
+	/**
+	 * Restore a previously deleted file.
+	 *
+	 * @param  File   $file The file to restore
+	 *
+	 * @return File         The restored file returned from the restore event
+	 */
 	public function restore(File $file)
 	{
 		$file->authorship->restore();
-		$result = $this->_query->run('
+
+		$this->_query->run('
 			UPDATE
 				file
 			SET
 				deleted_at = NULL,
 				deleted_by = NULL
 			WHERE
-				file_id = :file_id?i
-		', array(
-				'file_id' => $file->id,
-			));
+				file_id = ?i
+		', $file->id);
+
+		$event = new Event($file);
 
 		$this->_eventDispatcher->dispatch(
 			Event::RESTORE,
-			new Event($file)
+			$event
 		);
-		return $result->affected() ? $file : false;
+
+		return $event->getFile();
 	}
 }
-
-
-

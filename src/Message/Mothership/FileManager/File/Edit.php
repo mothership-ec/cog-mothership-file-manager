@@ -6,47 +6,52 @@ use Message\Mothership\FileManager\File\Event;
 use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
-use Message\User\User;
+use Message\User\UserInterface;
 
+/**
+ * Decorator for editing files.
+ *
+ * @author Danny Hannah <danny@message.co.uk>
+ */
 class Edit
 {
-
 	protected $_query;
 	protected $_eventDispatcher;
-	protected $_user;
+	protected $_currentUser;
 
 	/**
-	 * Populate the class with the dependencies.
+	 * Constructor.
 	 *
 	 * @param DBQuery             $query to run the DB queries
-	 * @param DispatcherInterface $eventDispatcher To fire the events
+	 * @param DispatcherInterface $eventDispatcher The event dispatcher
+	 * @param UserInterface       $user            To fire the events
 	 */
-	public function __construct(DBQuery $query, DispatcherInterface $eventDispatcher, User $user)
+	public function __construct(DBQuery $query, DispatcherInterface $eventDispatcher, UserInterface $user)
 	{
-		$this->_query = $query;
+		$this->_query           = $query;
 		$this->_eventDispatcher = $eventDispatcher;
-		$this->_user = $user;
+		$this->_currentUser     = $user;
 	}
 
 	/**
-	 * Update changes to a file object into the DB. Method also fires FileEvent
+	 * Update a file in the database.
 	 *
-	 * @param  File   	$file The $file with updated properties
+	 * Only alt text and tags are updated.
 	 *
-	 * @return File|false 	updated instance of the $file or false is the file couldn't be updated
+	 * @param  File $file The file with updated properties
+	 *
+	 * @return File|false The updated instance returned from the edit event
 	 */
 	public function save(File $file)
 	{
-		// Set the updated date on the object
-		$date = new DateTimeImmutable;
-		$file->authorship->update($date, $this->_user->id);
+		$file->authorship->update(new DateTimeImmutable, $this->_currentUser->id);
 
-		$result = $this->_query->run('
+		$this->_query->run('
 			UPDATE
 				file
 			SET
 				updated_at = :updatedAt?i,
-				updated_by = :updatedBy?i,
+				updated_by = :updatedBy?in,
 				alt_text = :altText?s
 			WHERE
 				file_id = :fileID?i
@@ -59,13 +64,12 @@ class Edit
 
 		// Delete all the tags and then add the new ones in
 		if ($file->tags) {
-			$result = $this->_query->run('
+			$this->_query->run('
 				DELETE FROM
 					file_tag
 				WHERE
-					file_id = ?',
-				array($file->id)
-			);
+					file_id = ?i
+			', $file->id);
 
 			$inserts = array();
 			$values = '';
@@ -77,25 +81,23 @@ class Edit
 				$inserts[] = $tagName;
 			}
 
-			$result = $this->_query->run('
+			$this->_query->run('
 				INSERT INTO
 					file_tag (file_id, tag_name)
 				VALUES
-					'.$values.'',
-				$inserts
-			);
+					' . $values
+			, $inserts);
 		}
 
 		// Initiate the event file
 		$event = new Event($file);
 
-		// Dispatch the file created event
+		// Dispatch the file edited event
 		$this->_eventDispatcher->dispatch(
 			Event::EDIT,
 			$event
 		);
 
-		return $result->affected() ? $file : false;
-
+		return $event->getFile();
 	}
 }

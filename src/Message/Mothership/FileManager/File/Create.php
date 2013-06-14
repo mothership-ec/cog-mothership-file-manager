@@ -7,7 +7,7 @@ use Message\Mothership\FileManager\File\Loader;
 use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\Cog\Filesystem\File as FilesystemFile;
-use Message\User\User;
+use Message\User\UserInterface;
 
 use Symfony\Component\HttpFoundation\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,7 +31,8 @@ class Create
 	 * @param DBQuery             $query run the DB queries
 	 * @param DispatcherInterface $eventDispatcher fire an event
 	 */
-	public function __construct(Loader $loader, DBQuery $query, DispatcherInterface $eventDispatcher, User $user)
+	public function __construct(Loader $loader, DBQuery $query,
+		DispatcherInterface $eventDispatcher, UserInterface $user)
 	{
 		$this->_loader          = $loader;
 		$this->_query           = $query;
@@ -118,7 +119,7 @@ class Create
 		$fileName = $upload->getClientOriginalName();
 
 		// Check that the file doesnt exist in the destination
-		if(file_exists($filePath.$fileName)) {
+		if (file_exists($filePath.$fileName)) {
 			// make a new (probably) unique filename
 			$parts = pathinfo($fileName);
 			$fileName = $parts['filename'].'-'.substr(uniqid(), 0, 8).'.'.$parts['extension'];
@@ -140,7 +141,7 @@ class Create
 	 */
 	public function cleanup(\SplFileInfo $file)
 	{
-		if(file_exists($file->getPathname())) {
+		if (file_exists($file->getPathname())) {
 			unlink($file->getPathname());
 		}
 	}
