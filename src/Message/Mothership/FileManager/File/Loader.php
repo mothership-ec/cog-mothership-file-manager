@@ -242,14 +242,14 @@ class Loader
 				continue;
 			}
 
-			$files[$key]->authorship->create(new DateTimeImmutable('@'.$result->createdAt), $result->createdBy);
+			$files[$key]->authorship->create(new DateTimeImmutable('c', $result->createdAt), $result->createdBy);
 
 			if ($result->updatedAt) {
-				$files[$key]->authorship->update(new DateTimeImmutable('@'.$result->updatedAt), $result->updatedBy);
+				$files[$key]->authorship->update(new DateTimeImmutable('c', $result->updatedAt), $result->updatedBy);
 			}
 
 			if ($result->deletedAt) {
-				$files[$key]->authorship->delete(new DateTimeImmutable('@'.$result->deletedAt), $result->deletedBy);
+				$files[$key]->authorship->delete(new DateTimeImmutable('c', $result->deletedAt), $result->deletedBy);
 			}
 
 			$files[$key]->tags = $this->_loadTags($files[$key]);
