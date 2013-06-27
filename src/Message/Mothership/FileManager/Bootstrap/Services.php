@@ -16,7 +16,7 @@ class Services implements ServicesInterface
 			return $mapping;
 		});
 
-		$serviceContainer['filesystem.file.loader'] = $serviceContainer->share(function($c) {
+		$serviceContainer['file_manager.file.loader'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Loader(
 				'Locale class',
 				$c['db.query'],
@@ -24,16 +24,16 @@ class Services implements ServicesInterface
 			);
 		});
 
-		$serviceContainer['filesystem.file.create'] = $serviceContainer->share(function($c) {
+		$serviceContainer['file_manager.file.create'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Create(
-				$c['filesystem.file.loader'],
+				$c['file_manager.file.loader'],
 				$c['db.query'],
 				$c['event.dispatcher'],
 				$c['user.current']
 			);
 		});
 
-		$serviceContainer['filesystem.file.edit'] = $serviceContainer->share(function($c) {
+		$serviceContainer['file_manager.file.edit'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Edit(
 				$c['db.query'],
 				$c['event.dispatcher'],
@@ -41,7 +41,7 @@ class Services implements ServicesInterface
 			);
 		});
 
-		$serviceContainer['filesystem.file.delete'] = $serviceContainer->share(function($c) {
+		$serviceContainer['file_manager.file.delete'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Delete(
 				$c['db.query'],
 				$c['event.dispatcher'],

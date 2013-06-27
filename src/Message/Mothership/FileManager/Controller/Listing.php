@@ -17,7 +17,7 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function index()
 	{
 		return $this->render('::listing', array(
-			'files'      => $this->get('filesystem.file.loader')->getAll(),
+			'files'      => $this->get('file_manager.file.loader')->getAll(),
 			'searchTerm' => null,
 		));
 	}
@@ -36,7 +36,7 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function search($term)
 	{
 		return $this->render('::listing', array(
-			'files'      => $this->get('filesystem.file.loader')->getBySearchTerm($term),
+			'files'      => $this->get('file_manager.file.loader')->getBySearchTerm($term),
 			'searchTerm' => $term,
 		));
 	}
