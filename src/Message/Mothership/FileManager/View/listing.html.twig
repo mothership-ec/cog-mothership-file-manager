@@ -3,7 +3,12 @@
 {% block content %}
 <h1>File Manager</h1>
 
-<form action="{{ url('ms.cp.file_manager.upload') }}" method="post" enctype="multipart/form-data">
+{{ form_start(form) }}
+{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
+	<button type="submit">Upload</button>
+{{ form_end(form) }}
+
+<!-- <form action="{{ url('ms.cp.file_manager.upload') }}" method="post" enctype="multipart/form-data">
 	<input type="file" name="upload[]" multiple />
 	<input type="submit" name="submit" value="Upload" />
 
@@ -14,7 +19,7 @@
 	<select name="sort">
 		<option value="">Filter by...</option>
 	</select>
-</form>
+</form> -->
 
 <form action="{{ url('ms.cp.file_manager.search.forward') }}" method="post">
 	<input type="search" name="file_search[term]" id="file_search-term" placeholder="Enter search term&hellip;" value="{{ searchTerm }}">

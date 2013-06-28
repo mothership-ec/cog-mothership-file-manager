@@ -17,8 +17,9 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function index()
 	{
 		return $this->render('::listing', array(
-			'files'      => $this->get('file_manager.file.loader')->getAll(),
-			'searchTerm' => null,
+			'files'      	=> $this->get('filesystem.file.loader')->getAll(),
+			'searchTerm' 	=> null,
+			'form'			=> $this->_getUploadForm(),
 		));
 	}
 
@@ -36,8 +37,19 @@ class Listing extends \Message\Cog\Controller\Controller
 	public function search($term)
 	{
 		return $this->render('::listing', array(
-			'files'      => $this->get('file_manager.file.loader')->getBySearchTerm($term),
+			'files'      => $this->get('filesystem.file.loader')->getBySearchTerm($term),
 			'searchTerm' => $term,
 		));
+	}
+
+	protected function _getUploadForm()
+	{
+		$form = $this->get('form')
+			->setName('upload')
+			->setMethod('POST')
+			->setAction($this->generateUrl('ms.cp.file_manager.upload'));
+		$form->add('new_upload', 'file', 'upload an image', array('attr' => array('multiple' => 'multiple')));
+
+		return $form;
 	}
 }

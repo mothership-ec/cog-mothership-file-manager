@@ -25,9 +25,9 @@ class Upload extends \Message\Cog\Controller\Controller
 			return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 		}
 
-		$create = $this->get('file_manager.file.create');
-
-		foreach ($files->get('upload') as $upload) {
+		$create = $this->get('filesystem.file.create');
+		$uploads = $files->get('upload');
+		foreach ($uploads['new_upload'] as $upload) {
 			try {
 				if(is_null($upload)) {
 					continue;
