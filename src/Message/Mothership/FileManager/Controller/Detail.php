@@ -1,6 +1,9 @@
 <?php
 
 namespace Message\Mothership\FileManager\Controller;
+
+use Message\Mothership\FileManager\File\File;
+
 /**
  * Controller listing files from file manager
  *
@@ -21,6 +24,7 @@ class Detail extends \Message\Cog\Controller\Controller
 		$data = array(
 			'file' => $file,
 			'author' => $author,
+			'form' => $this->_getDetailForm($file),
 		);
 		return $this->render('::detail', $data);
 	}
@@ -91,5 +95,21 @@ class Detail extends \Message\Cog\Controller\Controller
 		}
 
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
+	}
+
+	protected function _getDetailForm(File $file)
+	{
+		$form = $this->get('form')
+			->setName('file')
+			->setMethod('POST')
+			->setAction($this->generateUrl('ms.cp.file_manager.edit', array('fileID' => $file->id)))
+			->setDefaultValues(array(
+				'tags'		=> implode(',', $file->tags),
+				'alt_text'	=> $file->altText,
+				));
+		$form->add('tags', 'textarea');
+		$form->add('alt_text', 'text');
+
+		return $form;
 	}
 }
