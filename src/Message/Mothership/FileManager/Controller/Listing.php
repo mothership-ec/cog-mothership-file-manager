@@ -10,16 +10,17 @@ use Message\Cog\Filesystem\File as FilesystemFile;
 /**
  * Controller listing files from file manager
  *
- * @author Daniel Hannah <danny@message.co.uk>
+ * @author Danny Hannah <danny@message.co.uk>
  */
 class Listing extends \Message\Cog\Controller\Controller
 {
 	public function index()
 	{
 		return $this->render('::listing', array(
-			'files'      	=> $this->get('file_manager.file.loader')->getAll(),
-			'searchTerm' 	=> null,
-			'form'			=> $this->_getUploadForm(),
+			'files'       => $this->get('file_manager.file.loader')->getAll(),
+			'searchTerm'  => null,
+			'form'        => $this->_getUploadForm(),
+			'search_form' => $this->_getSearchForm(),
 		));
 	}
 
@@ -36,9 +37,12 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function search($term)
 	{
+
 		return $this->render('::listing', array(
-			'files'      => $this->get('file_manager.file.loader')->getBySearchTerm($term),
-			'searchTerm' => $term,
+			'files'       => $this->get('file_manager.file.loader')->getBySearchTerm($term),
+			'searchTerm'  => $term,
+			'form'        => $this->_getUploadForm(),
+			'search_form' => $this->_getSearchForm(),
 		));
 	}
 
@@ -49,6 +53,17 @@ class Listing extends \Message\Cog\Controller\Controller
 			->setMethod('POST')
 			->setAction($this->generateUrl('ms.cp.file_manager.upload'));
 		$form->add('new_upload', 'file', 'upload an image', array('attr' => array('multiple' => 'multiple')));
+
+		return $form;
+	}
+
+	protected function _getSearchForm()
+	{
+		$form = $this->get('form')
+			->setName('file_search')
+			->setMethod('POST')
+			->setAction($this->generateUrl('ms.cp.file_manager.search.forward'));
+		$form->add('term', 'search', 'Enter search term...');
 
 		return $form;
 	}
