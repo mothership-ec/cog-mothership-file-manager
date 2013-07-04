@@ -25,10 +25,11 @@
 			"url" : "http://packages.message.co.uk"
 		}
 	],
+	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.3.0",
 
-		"message/cog-mothership-cp": "1.0.*@dev"
+		"message/cog-mothership-cp": "dev-master"
 	},
 	"suggest": {
 	},
