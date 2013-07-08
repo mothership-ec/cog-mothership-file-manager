@@ -36,5 +36,11 @@ class Routes implements RoutesInterface
 			->setRequirement('fileID', '\d+')
 			->setMethod('GET')
 			->enableCsrf('hash');
+
+		# TODO: put modal routes in nested group when 3 levels of collection nesting works properly
+		#$router['ms.cp.file_manager.modal']->setPrefix('/modal')->setParent('ms.cp.file_manager');
+
+		$router['ms.cp.file_manager']->add('ms.cp.file_manager.modal.index', '/modal', '::Controller:Listing#index')
+			->setMethod('GET');
 	}
 }
