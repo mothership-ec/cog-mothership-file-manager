@@ -23,7 +23,9 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function searchRedirect()
 	{
-		if ($search = $this->get('request')->request->get('file_search')) {
+		$valid = ($this->_getUploadForm()->isValid() && $this->_getSearchForm()->isValid());
+		if ($valid && ($search = $this->get('request')->request->get('file_search'))) {
+
 			return $this->search($search['term']);
 		}
 
@@ -68,7 +70,7 @@ class Listing extends \Message\Cog\Controller\Controller
 		$form = $this->get('form')
 			->setName('file_search')
 			->setMethod('POST')
-			->setAction($this->generateUrl('ms.cp.file_manager.search.forward'))
+			->setAction($this->generateUrl('ms.cp.file_manager.search.forward'));
 
 		$form->add('term', 'search', 'Enter search term...');
 
