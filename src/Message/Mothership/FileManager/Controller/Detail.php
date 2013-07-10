@@ -21,11 +21,10 @@ class Detail extends \Message\Cog\Controller\Controller
 	{
 		$file = $this->get('file_manager.file.loader')->getByID($fileID);
 		$author = $this->get('user.loader')->getByID($file->authorship->createdBy());
-		$form = $this->_getDetailForm($file);
 		$data = array(
 			'file' => $file,
 			'author' => $author,
-			'form' => $form,
+			'form' => $this->_getDetailForm($file),
 		);
 
 		return $this->render('::detail', $data);
