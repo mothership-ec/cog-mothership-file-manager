@@ -57,6 +57,7 @@ class Listing extends \Message\Cog\Controller\Controller
 			->setName('upload')
 			->setMethod('POST')
 			->setAction($this->generateUrl('ms.cp.file_manager.upload'));
+
 		$form->add('new_upload', 'file', 'upload an image', array('attr' => array('multiple' => 'multiple')));
 
 		return $form;
@@ -67,7 +68,8 @@ class Listing extends \Message\Cog\Controller\Controller
 		$form = $this->get('form')
 			->setName('file_search')
 			->setMethod('POST')
-			->setAction($this->generateUrl('ms.cp.file_manager.search.forward'));
+			->setAction($this->generateUrl('ms.cp.file_manager.search.forward'))
+
 		$form->add('term', 'search', 'Enter search term...');
 
 		return $form;
