@@ -41,10 +41,18 @@ class Upload extends \Message\Cog\Controller\Controller
 				$this->addFlash('error', sprintf('%s was not uploaded because it is a banned file type.', $file->getBasename()));
 			} catch(FileExists $e) {
 				$create->cleanup($file);
-				$this->addFlash('notice', sprintf(
-					'%s already exists. <a href="%s">View this file</a>',
-					$this->generateUrl('ms.cp.file_manager.detail', array('fileID' => $e->getFileId()))
-				));
+
+				$file = $this->get('file_manager.file.loader')
+							->includeDeleted(true)
+							->getByID($e->getFileID());
+				if ($file->authorship->deletedAt()) {
+					$this->addFlash('notice', $file->file->getBasename().' already exists, but was deleted. Do you want to <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Restore it?</a>');
+				} else {
+					$this->addFlash('notice', sprintf(
+						'%s already exists. <a href="%s">View this file</a>',
+						$this->generateUrl('ms.cp.file_manager.detail', array('fileID' => $e->getFileId()))
+					));
+				}
 			}
 		}
 
