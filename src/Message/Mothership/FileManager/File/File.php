@@ -24,6 +24,8 @@ class File
 	public $duration;
 	public $tags;
 
+	public $file;
+
 	/**
 	 * Check if this file is "image" type.
 	 *

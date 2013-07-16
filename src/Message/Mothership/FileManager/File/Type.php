@@ -35,7 +35,7 @@ class Type
 		$guesser = MimeTypeGuesser::getInstance();
 		$mimetype = $guesser->guess($file->getPathname());
 
-		if($this->_isBannedMimetype($mimetype)) {
+		if($this->_isBannedMimetype($mimetype) || $this->_isBannedFiletype($file)) {
 			throw new Exception\BannedType(sprintf('`%s` is not an allowed file type', $file->getBasename()), $file);
 		}
 
@@ -166,5 +166,16 @@ class Type
 		);
 
 		return in_array($mimetype, $banned);
+	}
+
+	protected function _isBannedFiletype(\SplFileInfo $file)
+	{
+		$banned = array(
+			'sql',
+			'php',
+			'css',
+		);
+
+		return in_array($file->getExtension(), $banned);
 	}
 }

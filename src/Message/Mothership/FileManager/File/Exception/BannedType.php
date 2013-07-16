@@ -11,9 +11,4 @@ class BannedType extends \Exception
 		parent::__construct($message, $code, $previous);
 		$this->_file = $file;
 	}
-
-	public function getFile()
-	{
-		return $this->_file;
-	}
 }
