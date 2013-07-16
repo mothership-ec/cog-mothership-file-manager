@@ -1,27 +1,28 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
 
 {% block content %}
-<h1>File Detail</h1>
+<h1>{{ 'ms.cp.file_manager.detail.title'|trans }}</h1>
 <img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
+
 <ul>
-	<li>Name: {{ file.name }}</li>
-	<li>Type: {{ file.typeID }}</li>
-	<li>Size: {{ file.fileSize }}</li>
-	<li>Dimensions: {{ file.dimensionX }} x {{ file.dimensionY }}</li>
-	<li>Uploaded By: {{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
+	<li>{{ 'ms.cp.file_manager.detail.labels.name'|trans }}: {{ file.name }}</li>
+	<li>{{ 'ms.cp.file_manager.detail.labels.type'|trans }}: {{ file.typeID }}</li>
+	<li>{{ 'ms.cp.file_manager.detail.labels.size'|trans }}: {{ file.fileSize }}</li>
+	<li>{{ 'ms.cp.file_manager.detail.labels.dimensions'|trans }}: {{ file.dimensionX }} x {{ file.dimensionY }}</li>
+	<li>{{ 'ms.cp.file_manager.detail.labels.author'|trans }}: {{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
 	{% if file.authorship.updatedAt != NULL %}
-		<li>Editied By: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
+		<li>{{ 'ms.cp.file_manager.detail.labels.edit-by'|trans }}: {{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
 	{% endif %}
 </ul>
 
 {{ form_start(form) }}
 	{{ form_row(form.tags) }}
 	{{ form_row(form.alt_text) }}
-	<button name="update" type="submit" value="Submit">Update</button>
+	<button name="update" type="submit" value="Submit">{{ 'ms.cp.file_manager.detail.buttons.update'|trans }}</button>
 {{ form_end(form) }}
 
 <form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 	<input type="hidden" name="_method" value="DELETE">
-	<button name="delete[delete]" value="delete" id="delete" type="submit">Delete</button>
+	<button name="delete[delete]" value="delete" id="delete" type="submit">{{ 'ms.cp.file_manager.detail.buttons.delete'|trans }}</button>
 </form>
 {% endblock %}

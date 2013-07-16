@@ -107,8 +107,8 @@ class Detail extends \Message\Cog\Controller\Controller
 				'tags'		=> implode(',', $file->tags),
 				'alt_text'	=> $file->altText,
 				));
-		$form->add('tags', 'textarea');
-		$form->add('alt_text', 'text');
+		$form->add('tags', 'textarea', $this->trans('ms.cp.file_manager.detail.labels.tags'));
+		$form->add('alt_text', 'text', $this->trans('ms.cp.file_manager.detail.labels.alt-text'));
 
 		return $form;
 	}

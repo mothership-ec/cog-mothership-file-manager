@@ -1,0 +1,15 @@
+ms.cp.file_manager:
+  detail:
+    title: File Detail
+    labels:
+      name: Name
+      type: Type
+      dimensions: Dimenions
+      author: Uploaded By
+      tags: Tags
+      alt-text: Alt Text
+      size: Size
+      edit-by: Edited By
+    buttons:
+      update: Update
+      delete: Delete
