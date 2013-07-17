@@ -1,8 +1,9 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
 
 {% block content %}
-<h1>File Manager</h1>
-
+<hgroup class="title">
+	<h1>File Manager</h1>
+</hgroup>
 {{ form_start(form) }}
 	{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
 	<button type="submit">Upload</button>
