@@ -1,7 +1,7 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/left_sidebar' %}
 
 {% block sidebar %}
-	<a href="{{ url('ms.cp.file_manager.listing') }}">Back to file list</a>
+	<a href="{{ url('ms.cp.file_manager.listing') }}" class="back">Back to file list</a>
 {% endblock %}
 
 {% block main %}
@@ -10,10 +10,19 @@
 </hgroup>
 
 <div class="container-file-manager">
-	<img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
+	<div class="file-details">
+		<img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
+		<h1>{{ 'ms.cp.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
+		{{ form_start(form) }}
+			{{ form_row(form.alt_text) }}
+			{{ form_row(form.tags) }}
+			<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
+		{{ form_end(form) }}
+	</div>
+
 
 	<ul>
-		<li>{{ 'ms.cp.file_manager.detail.labels.name'|trans }}: {{ file.name }}</li>
+		<li></li>
 		<li>{{ 'ms.cp.file_manager.detail.labels.type'|trans }}: {{ file.typeID }}</li>
 		<li>{{ 'ms.cp.file_manager.detail.labels.size'|trans }}: {{ file.fileSize }}</li>
 		<li>{{ 'ms.cp.file_manager.detail.labels.dimensions'|trans }}: {{ file.dimensionX }} x {{ file.dimensionY }}</li>
@@ -23,16 +32,11 @@
 		{% endif %}
 	</ul>
 
-	{{ form_start(form) }}
-		{{ form_row(form.tags) }}
-		{{ form_row(form.alt_text) }}
-		<button name="update" type="submit" value="Submit">{{ 'ms.cp.file_manager.detail.buttons.update'|trans }}</button>
-	{{ form_end(form) }}
-
-	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
+	<fo	rm action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
 		<button name="delete[delete]" value="delete" id="delete" type="submit">{{ 'ms.cp.file_manager.detail.buttons.delete'|trans }}</button>
 	</form>
+
 </div>
 
 {% endblock %}
