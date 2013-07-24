@@ -24,7 +24,7 @@
 	<div class="container-file-manager">
 		<div class="listing">
 		{% for file in files %}
-			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}"><img src="{{ resize(file.file.getPublicUrl, 200, 200) }}" alt="{{ file.altText }}" /></a>
+			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live><img src="{{ resize(file.file.getPublicUrl, 200, 200) }}" alt="{{ file.altText }}" /></a>
 		{% endfor %}
 		</div>
 	</div>
