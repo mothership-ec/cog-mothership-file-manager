@@ -16,7 +16,7 @@
 		{{ form_start(form) }}
 			{{ form_row(form.alt_text) }}
 			{{ form_row(form.tags) }}
-			<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
+			<button name="update" type="submit" value="Submit" id="save-content" class="button save">Save changes</button>
 		{{ form_end(form) }}
 	</div>
 
@@ -33,7 +33,7 @@
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
-		<button name="delete[delete]" value="delete" id="delete" type="submit" class="delete-file">{{ 'ms.cp.file_manager.detail.buttons.delete'|trans }}</button>
+		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button delete">{{ 'ms.cp.file_manager.detail.buttons.delete'|trans }}</button>
 	</form>
 
 </div>
