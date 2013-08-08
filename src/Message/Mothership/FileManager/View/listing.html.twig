@@ -1,7 +1,7 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/left_sidebar' %}
 
 {% block sidebar %}
-	<div class="search file">
+	<div class="search files">
 	{{ form_start(search_form) }}
 		{{ form_row(search_form.term, { 'attr': {'placeholder': 'Search files...' } }) }}
 		<button type="submit">Search</button>

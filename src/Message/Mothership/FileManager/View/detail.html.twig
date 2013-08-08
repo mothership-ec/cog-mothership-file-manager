@@ -11,7 +11,10 @@
 
 <div class="container-content file-manager">
 	<div class="file-attributes">
-		<img src="{{ resize(file.file.getPublicUrl, 300, null) }}" alt="{{ file.altText }}" />
+		<div class="file">
+			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />	
+		</div>
+
 		<h1>{{ 'ms.cp.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
 		{{ form_start(form) }}
 			{{ form_row(form.alt_text) }}
@@ -20,16 +23,35 @@
 		{{ form_end(form) }}
 	</div>
 
+	<table class="file-details">
+		<tbody>
+			<tr>
+				<td>{{ 'ms.cp.file_manager.detail.labels.type'|trans }}</td>
+				<td>{{ file.typeID }}</td>
+			</tr>
+			<tr>
+				<td>{{ 'ms.cp.file_manager.detail.labels.size'|trans }}</td>
+				<td>{{ file.fileSize }}</td>
+			</tr>
+			<tr>
+				<td>{{ 'ms.cp.file_manager.detail.labels.dimensions'|trans }}</td>
+				<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
+			</tr>
+			<tr>
+				<td>{{ 'ms.cp.file_manager.detail.labels.author'|trans }}</td>
+				<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
+			</tr>
 
-	<ul class="file-details">
-		<li><span>{{ 'ms.cp.file_manager.detail.labels.type'|trans }}</span>{{ file.typeID }}</li>
-		<li><span>{{ 'ms.cp.file_manager.detail.labels.size'|trans }}</span>{{ file.fileSize }}</li>
-		<li><span>{{ 'ms.cp.file_manager.detail.labels.dimensions'|trans }}</span>{{ file.dimensionX }} x {{ file.dimensionY }}</li>
-		<li><span>{{ 'ms.cp.file_manager.detail.labels.author'|trans }}</span>{{ author.getName }} at {{ file.authorship.createdAt|date }}</li>
-		{% if file.authorship.updatedAt != NULL %}
-			<li><span>{{ 'ms.cp.file_manager.detail.labels.edit-by'|trans }}</span>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</li>
-		{% endif %}
-	</ul>
+			{% if file.authorship.updatedAt != NULL %}
+
+				<tr>
+					<td>{{ 'ms.cp.file_manager.detail.labels.edit-by'|trans }}</td>
+					<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
+				</tr>
+
+			{% endif %}
+		</tbody>
+	</table>
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
