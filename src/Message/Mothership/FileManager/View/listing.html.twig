@@ -8,6 +8,18 @@
 	{{ form_end(search_form) }}
 	</div>
 
+	<div class="filter">
+		<select name="Sort" id="sortBy">
+			<option value="">Sort by...</option>
+			<option value="name">Name</option>
+			<option value="file-type">File Type</option>
+			<option value="date-uploaded">Date uploaded</option>
+		</select>
+		<select name="filter" id="filter">
+			<option value="">Filter by...</option>
+		</select>
+	</div>
+
 	<div class="file-upload">
 	{{ form_start(form) }}
 		{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
