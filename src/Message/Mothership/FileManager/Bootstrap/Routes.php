@@ -8,7 +8,7 @@ class Routes implements RoutesInterface
 {
 	public function registerRoutes($router)
 	{
-		$router['ms.cp.file_manager']->setPrefix('/files')->setParent('ms.cp');
+		$router['ms.cp.file_manager']->setPrefix('/file')->setParent('ms.cp');
 
 		$router['ms.cp.file_manager']->add('ms.cp.file_manager.listing', '/', '::Controller:Listing#index')
 			->setMethod('GET');
