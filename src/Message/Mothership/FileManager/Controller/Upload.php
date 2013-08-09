@@ -27,6 +27,7 @@ class Upload extends \Message\Cog\Controller\Controller
 
 		$create = $this->get('file_manager.file.create');
 		$uploads = $files->get('upload');
+
 		foreach ($uploads['new_upload'] as $upload) {
 			try {
 				if(is_null($upload)) {
@@ -50,6 +51,7 @@ class Upload extends \Message\Cog\Controller\Controller
 				} else {
 					$this->addFlash('notice', sprintf(
 						'%s already exists. <a href="%s">View this file</a>',
+						$file->name,
 						$this->generateUrl('ms.cp.file_manager.detail', array('fileID' => $e->getFileId()))
 					));
 				}

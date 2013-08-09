@@ -210,7 +210,7 @@ class Loader
 				file
 			WHERE
 				file.file_id IN (?ij)
-			GROUP BY
+			ORDER BY
 				created_at DESC
 		', array($fileIDs));
 
