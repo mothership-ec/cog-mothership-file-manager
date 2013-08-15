@@ -6,16 +6,16 @@
 
 {% block main %}
 <hgroup class="title">
-	<h1>{{ 'ms.cp.file_manager.detail.title'|trans }}</h1>
+	<h1>{{ 'ms.file_manager.detail.title'|trans }}</h1>
 </hgroup>
 
 <div class="container-content file-manager">
 	<div class="file-attributes">
 		<div class="file">
-			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />	
+			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
 		</div>
 
-		<h1>{{ 'ms.cp.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
+		<h1>{{ 'ms.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
 		{{ form_start(form) }}
 			{{ form_row(form.alt_text) }}
 			{{ form_row(form.tags) }}
@@ -26,26 +26,26 @@
 	<table class="file-details">
 		<tbody>
 			<tr>
-				<td>{{ 'ms.cp.file_manager.detail.labels.type'|trans }}</td>
+				<td>{{ 'ms.file_manager.detail.labels.type'|trans }}</td>
 				<td>{{ file.typeID }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.cp.file_manager.detail.labels.size'|trans }}</td>
+				<td>{{ 'ms.file_manager.detail.labels.size'|trans }}</td>
 				<td>{{ file.fileSize }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.cp.file_manager.detail.labels.dimensions'|trans }}</td>
+				<td>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</td>
 				<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.cp.file_manager.detail.labels.author'|trans }}</td>
+				<td>{{ 'ms.file_manager.detail.labels.author'|trans }}</td>
 				<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
 			</tr>
 
 			{% if file.authorship.updatedAt != NULL %}
 
 				<tr>
-					<td>{{ 'ms.cp.file_manager.detail.labels.edit-by'|trans }}</td>
+					<td>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</td>
 					<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
 				</tr>
 
@@ -55,7 +55,7 @@
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
-		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button delete">{{ 'ms.cp.file_manager.detail.buttons.delete'|trans }}</button>
+		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button delete">{{ 'ms.file_manager.detail.buttons.delete'|trans }}</button>
 	</form>
 
 </div>

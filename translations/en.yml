@@ -1,4 +1,6 @@
-ms.cp.file_manager:
+ms.file_manager:
+  select:
+    default: Select a file…
   detail:
     title: File Detail
     labels:
