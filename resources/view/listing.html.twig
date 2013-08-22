@@ -33,7 +33,7 @@
 		<h1>File Manager</h1>
 	</hgroup>
 
-	<div class="container-content file-manager">
+	<div class="container-content file-manager extended">
 		<div class="listing">
 		{% for file in files %}
 			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live><img src="{{ resize(file.file.getPublicUrl, 200, 200) }}" alt="{{ file.altText }}" /></a>

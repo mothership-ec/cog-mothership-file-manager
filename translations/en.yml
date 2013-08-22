@@ -4,7 +4,7 @@ ms.file_manager:
   detail:
     title: File Detail
     labels:
-      name: Name
+      name: File Name
       type: Type
       dimensions: Dimenions
       author: Uploaded By

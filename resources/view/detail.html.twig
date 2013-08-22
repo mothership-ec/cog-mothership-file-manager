@@ -6,20 +6,19 @@
 
 {% block main %}
 <hgroup class="title">
-	<h1>{{ 'ms.file_manager.detail.title'|trans }}</h1>
+	<h1>{{ 'ms.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
 </hgroup>
 
-<div class="container-content file-manager">
+<div class="container-content file-manager extended">
 	<div class="file-attributes">
 		<div class="file">
 			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
 		</div>
 
-		<h1>{{ 'ms.file_manager.detail.labels.name'|trans }}: {{ file.name }}</h1>
 		{{ form_start(form) }}
 			{{ form_row(form.alt_text) }}
 			{{ form_row(form.tags) }}
-			<button name="update" type="submit" value="Submit" id="save-content" class="button save">Save changes</button>
+			<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
 		{{ form_end(form) }}
 	</div>
 
@@ -55,7 +54,7 @@
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
-		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button delete">{{ 'ms.file_manager.detail.buttons.delete'|trans }}</button>
+		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button small delete">{{ 'ms.file_manager.detail.buttons.delete'|trans }}</button>
 	</form>
 
 </div>
