@@ -10,6 +10,9 @@
 </hgroup>
 
 <div class="container-content file-manager extended">
+
+<div class="container-details">
+
 	<div class="file-attributes">
 		<div class="file">
 			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
@@ -21,8 +24,13 @@
 			<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
 		{{ form_end(form) }}
 	</div>
+</div>	
 
-	<table class="file-details">
+<div class="widget-sidebar">
+	
+	<div class="widget">
+	<h3>Additional Information</h3>
+	<table>
 		<tbody>
 			<tr>
 				<td>{{ 'ms.file_manager.detail.labels.type'|trans }}</td>
@@ -51,6 +59,9 @@
 			{% endif %}
 		</tbody>
 	</table>
+	</div>
+
+</div>
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
