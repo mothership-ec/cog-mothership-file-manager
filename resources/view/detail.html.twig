@@ -33,26 +33,26 @@
 	<table>
 		<tbody>
 			<tr>
-				<td>{{ 'ms.file_manager.detail.labels.type'|trans }}</td>
+				<td><strong>{{ 'ms.file_manager.detail.labels.type'|trans }}</strong></td>
 				<td>{{ file.typeID }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.file_manager.detail.labels.size'|trans }}</td>
+				<td><strong>{{ 'ms.file_manager.detail.labels.size'|trans }}</strong></td>
 				<td>{{ file.fileSize }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</td>
+				<td><strong>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</strong></td>
 				<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
 			</tr>
 			<tr>
-				<td>{{ 'ms.file_manager.detail.labels.author'|trans }}</td>
+				<td><strong>{{ 'ms.file_manager.detail.labels.author'|trans }}</strong></td>
 				<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
 			</tr>
 
 			{% if file.authorship.updatedAt != NULL %}
 
 				<tr>
-					<td>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</td>
+					<td><strong>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</strong></td>
 					<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
 				</tr>
 
