@@ -11,57 +11,53 @@
 
 <div class="container-content file-manager extended">
 
-<div class="container-details">
-
-	<div class="file-attributes">
-		<div class="file">
-			<img src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
+	<div class="container-details dual-column">
+		
+		<div class="column">
+			<img class="file" src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
 		</div>
+		<div class="column">
+			<div class="section">
+				{{ form_start(form) }}
+					{{ form_row(form.alt_text) }}
+					{{ form_row(form.tags) }}
+					<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
+				{{ form_end(form) }}			
+			</div>
+			<div class="section">
+				<h3 class="title">Additional Information</h3>
+				<table>
+					<tbody>
+						<tr>
+							<td><strong>{{ 'ms.file_manager.detail.labels.type'|trans }}</strong></td>
+							<td>{{ file.typeID }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'ms.file_manager.detail.labels.size'|trans }}</strong></td>
+							<td>{{ file.fileSize }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</strong></td>
+							<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
+						</tr>
+						<tr>
+							<td><strong>{{ 'ms.file_manager.detail.labels.author'|trans }}</strong></td>
+							<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
+						</tr>
 
-		{{ form_start(form) }}
-			{{ form_row(form.alt_text) }}
-			{{ form_row(form.tags) }}
-			<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
-		{{ form_end(form) }}
-	</div>
-</div>	
+						{% if file.authorship.updatedAt != NULL %}
 
-<div class="widget-sidebar">
-	
-	<div class="widget">
-	<h3>Additional Information</h3>
-	<table>
-		<tbody>
-			<tr>
-				<td><strong>{{ 'ms.file_manager.detail.labels.type'|trans }}</strong></td>
-				<td>{{ file.typeID }}</td>
-			</tr>
-			<tr>
-				<td><strong>{{ 'ms.file_manager.detail.labels.size'|trans }}</strong></td>
-				<td>{{ file.fileSize }}</td>
-			</tr>
-			<tr>
-				<td><strong>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</strong></td>
-				<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
-			</tr>
-			<tr>
-				<td><strong>{{ 'ms.file_manager.detail.labels.author'|trans }}</strong></td>
-				<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
-			</tr>
+							<tr>
+								<td><strong>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</strong></td>
+								<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
+							</tr>
 
-			{% if file.authorship.updatedAt != NULL %}
-
-				<tr>
-					<td><strong>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</strong></td>
-					<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
-				</tr>
-
-			{% endif %}
-		</tbody>
-	</table>
-	</div>
-
-</div>
+						{% endif %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>	
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">
