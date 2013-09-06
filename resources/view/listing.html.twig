@@ -9,7 +9,12 @@
 	</div>
 
 	<div class="filter-by">
-		<select name="Sort" id="sortBy">
+		{{ form_start(filter_sort_form) }}
+			{{ form_row(filter_sort_form.sort) }}
+			{{ form_row(filter_sort_form.filter) }}
+		{{ form_end(filter_sort_form) }}
+
+		{#<select name="Sort" id="sortBy">
 			<option value="">Sort by...</option>
 			<option value="name">Name</option>
 			<option value="file-type">File Type</option>
