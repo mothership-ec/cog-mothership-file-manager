@@ -58,6 +58,14 @@ class Upload extends \Message\Cog\Controller\Controller
 			}
 		}
 
+		// If only a single file was uploaded, redirect to it's detail page.
+		if (count($uploads['new_upload']) == 1 and isset($fileObj) and $fileObj->id) {
+			return $this->redirect($this->generateUrl('ms.cp.file_manager.detail', array(
+				'fileID' => $fileObj->id
+			)));
+		}
+
+		// Otherwise redirect back to the main listing page.
 		return $this->redirect($this->generateUrl('ms.cp.file_manager.listing'));
 	}
 }
