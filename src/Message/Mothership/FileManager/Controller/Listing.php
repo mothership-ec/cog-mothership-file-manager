@@ -43,10 +43,10 @@ class Listing extends \Message\Cog\Controller\Controller
 		}
 
 		return $this->render('::listing', array(
-			'files'       => $files,
-			'searchTerm'  => null,
-			'form'        => $this->_getUploadForm(),
-			'search_form' => $this->_getSearchForm(),
+			'files'            => $files,
+			'searchTerm'       => null,
+			'form'             => $this->_getUploadForm(),
+			'search_form'      => $this->_getSearchForm(),
 			'filter_sort_form' => $filterSortForm,
 		));
 	}
@@ -64,12 +64,13 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function search($term)
 	{
-
+		
 		return $this->render('::listing', array(
-			'files'       => $this->get('file_manager.file.loader')->getBySearchTerm($term),
-			'searchTerm'  => $term,
-			'form'        => $this->_getUploadForm(),
-			'search_form' => $this->_getSearchForm(),
+			'files'            => $this->get('file_manager.file.loader')->getBySearchTerm($term),
+			'searchTerm'       => $term,
+			'form'             => $this->_getUploadForm(),
+			'search_form'      => $this->_getSearchForm(),
+			'filter_sort_form' => $this->_getFilterSortForm(),
 		));
 	}
 
