@@ -102,7 +102,6 @@ class Listing extends \Message\Cog\Controller\Controller
 		$form->add('sort', 'choice', 'Sort By', array(
 			'choices' => array(
 				'name' => 'Name',
-				'file-type' => 'File type',
 				'date-uploaded' => 'Date uploaded',
 			),
 			'empty_value' => 'Sort by...',
@@ -147,13 +146,6 @@ class Listing extends \Message\Cog\Controller\Controller
 			case 'name':
 				$sortFn = function($a, $b) {
 					return strcmp($a->name, $b->name);
-				};
-				break;
-
-			case 'file-type':
-				$sortFn = function($a, $b) {
-					if ($a->typeID == $b->typeID) return 0;
-					return ($a->typeIDy < $b->typeID) ? -1 : 1;
 				};
 				break;
 
