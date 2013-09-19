@@ -2,7 +2,7 @@
 
 namespace Message\Mothership\FileManager\File;
 
-use Message\Cog\ImageResize\Resizable;
+use Message\Cog\ImageResize\ResizableInterface;
 use Message\Cog\ValueObject\Authorship;
 
 /**
@@ -10,7 +10,7 @@ use Message\Cog\ValueObject\Authorship;
  *
  * @author Danny Hannah <danny@message.co.uk>
  */
-class File implements Resizable
+class File implements ResizableInterface
 {
 	public $id;
 	public $url;
