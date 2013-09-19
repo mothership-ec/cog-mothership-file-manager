@@ -12,9 +12,9 @@
 <div class="container-content file-manager extended">
 
 	<div class="container-details dual-column">
-		
+
 		<div class="column">
-			<img class="file" src="{{ resize(file.file.getPublicUrl, 500, null) }}" alt="{{ file.altText }}" />
+			<img class="file" src="{{ resize(file, 500, null) }}" alt="{{ file.altText }}" />
 		</div>
 		<div class="column">
 			<div class="section">
@@ -22,7 +22,7 @@
 					{{ form_row(form.alt_text) }}
 					{{ form_row(form.tags) }}
 					<button name="update" type="submit" value="Submit" id="save-content" class="button small save">Save changes</button>
-				{{ form_end(form) }}			
+				{{ form_end(form) }}
 			</div>
 			<div class="section">
 				<h3 class="title">Additional Information</h3>
@@ -57,7 +57,7 @@
 				</table>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
 		<input type="hidden" name="_method" value="DELETE">

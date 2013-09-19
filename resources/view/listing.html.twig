@@ -33,7 +33,7 @@
 		{% for file in files %}
 			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live>
 				{% if file.isTypeImage() %}
-					<img src="{{ resize(file.file.getPublicUrl, 200, 200) }}" alt="{{ file.altText }}" />
+					<img src="{{ resize(file, 200, 200) }}" alt="{{ file.altText }}" />
 				{% else %}
 					<img src="/path/to/file/type/icon.png" alt="{{ file.altText }}" />
 				{% endif %}

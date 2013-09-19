@@ -2,12 +2,14 @@
 
 namespace Message\Mothership\FileManager\File;
 
+use Message\Cog\ImageResize\Resizable;
+
 /**
  * Represents the properties of a single File.
  *
  * @author Danny Hannah <danny@message.co.uk>
  */
-class File
+class File implements Resizable
 {
 	public $id;
 	public $url;
@@ -25,6 +27,16 @@ class File
 	public $tags;
 
 	public $file;
+
+	public function getUrl()
+	{
+		return $this->file->getPublicUrl();
+	}
+
+	public function getAltText()
+	{
+		return $this->altText;
+	}
 
 	/**
 	 * Check if this file is "image" type.
