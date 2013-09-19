@@ -2,6 +2,8 @@
 
 namespace Message\Mothership\FileManager\File;
 
+use Message\Cog\ValueObject\Authorship;
+
 /**
  * Represents the properties of a single File.
  *
@@ -25,6 +27,11 @@ class File
 	public $tags;
 
 	public $file;
+
+	public function __construct()
+	{
+		$this->authorship = new Authorship;
+	}
 
 	/**
 	 * Check if this file is "image" type.
