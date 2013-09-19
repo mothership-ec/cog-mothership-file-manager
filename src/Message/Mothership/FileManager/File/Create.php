@@ -49,6 +49,14 @@ class Create
 	 */
 	public function save(FilesystemFile $file)
 	{
+		// Set created metadata if not already set
+		if (!$file->authorship->createdAt()) {
+			$file->authorship->create(
+				new DateTimeImmutable,
+				$this->_currentUser->id
+			);
+		}
+
 		// Instead of allowing the file to be uploaded again we thrown an exception
 		if ($id = $this->existsInFileManager($file)) {
 			throw new Exception\FileExists('File already exists in File Manager', $id);
@@ -74,7 +82,7 @@ class Create
 				name        = :name?s,
 				extension   = :extension?s,
 				file_size   = :size?i,
-				created_at  = UNIX_TIMESTAMP(),
+				created_at  = :createdAt?d,
 				created_by  = :createdBy?i,
 				type_id     = :typeID?i,
 				checksum    = :checksum?s,
@@ -87,7 +95,8 @@ class Create
 			'name'       => $file->getFilename(),
 			'extension'  => $file->getExtension(),
 			'size'       => $file->getSize(),
-			'createdBy'  => $this->_currentUser->id,
+			'createdAt'  => $this->authorship->createdAt(),
+			'createdBy'  => $this->authorship->createdBy(),
 			'typeID'     => $typeID,
 			'checksum'   => $file->getChecksum(),
 			'previewUrl' => null,        // Preview image for videos

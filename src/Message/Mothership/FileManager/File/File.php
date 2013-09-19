@@ -3,6 +3,7 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\ImageResize\Resizable;
+use Message\Cog\ValueObject\Authorship;
 
 /**
  * Represents the properties of a single File.
@@ -27,6 +28,11 @@ class File implements Resizable
 	public $tags;
 
 	public $file;
+
+	public function __construct()
+	{
+		$this->authorship = new Authorship;
+	}
 
 	public function getUrl()
 	{

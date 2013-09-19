@@ -3,7 +3,6 @@
 namespace Message\Mothership\FileManager\File;
 
 use Message\Cog\DB\Query;
-use Message\Cog\ValueObject\Authorship;
 use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\Filesystem\File as FileSystemFile;
 use Message\Cog\DB\Result;
@@ -233,8 +232,6 @@ class Loader
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
 		foreach ($results as $key => $result) {
-
-			$files[$key]->authorship = new Authorship;
 
 			// Remove the file if it is deleted unless we are loading deleted files
 			if ($result->deletedAt && !$this->_loadDeleted) {
