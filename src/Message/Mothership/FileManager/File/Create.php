@@ -8,6 +8,8 @@ use Message\Cog\Event\DispatcherInterface;
 use Message\Cog\DB\Query as DBQuery;
 use Message\Cog\Filesystem\File as FilesystemFile;
 use Message\User\UserInterface;
+use Message\Cog\ValueObject\Authorship;
+use Message\Cog\ValueObject\DateTimeImmutable;
 
 use Symfony\Component\HttpFoundation\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -49,14 +51,6 @@ class Create
 	 */
 	public function save(FilesystemFile $file)
 	{
-		// Set created metadata if not already set
-		if (!$file->authorship->createdAt()) {
-			$file->authorship->create(
-				new DateTimeImmutable,
-				$this->_currentUser->id
-			);
-		}
-
 		// Instead of allowing the file to be uploaded again we thrown an exception
 		if ($id = $this->existsInFileManager($file)) {
 			throw new Exception\FileExists('File already exists in File Manager', $id);
@@ -68,6 +62,12 @@ class Create
 
 		$dimensionX = null;
 		$dimensionY = null;
+
+		$authorship = new Authorship;
+		$authorship->create(
+			new DateTimeImmutable,
+			$this->_currentUser->id
+		);
 
 		// This should be abstracted at some point
 		if (Type::IMAGE === $typeID) {
@@ -95,8 +95,8 @@ class Create
 			'name'       => $file->getFilename(),
 			'extension'  => $file->getExtension(),
 			'size'       => $file->getSize(),
-			'createdAt'  => $this->authorship->createdAt(),
-			'createdBy'  => $this->authorship->createdBy(),
+			'createdAt'  => $authorship->createdAt(),
+			'createdBy'  => $authorship->createdBy(),
 			'typeID'     => $typeID,
 			'checksum'   => $file->getChecksum(),
 			'previewUrl' => null,        // Preview image for videos
