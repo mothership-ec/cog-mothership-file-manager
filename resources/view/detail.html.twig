@@ -14,7 +14,7 @@
 	<div class="container-details dual-column">
 
 		<div class="column">
-			<img class="file" src="{{ resize(file, 500, null) }}" alt="{{ file.altText }}" />
+			{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
 		</div>
 		<div class="column">
 			<div class="section">
