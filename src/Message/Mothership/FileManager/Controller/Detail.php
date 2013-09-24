@@ -20,10 +20,8 @@ class Detail extends \Message\Cog\Controller\Controller
 	public function index($fileID)
 	{
 		$file = $this->get('file_manager.file.loader')->getByID($fileID);
-		$author = $this->get('user.loader')->getByID($file->authorship->createdBy());
 		$data = array(
 			'file' => $file,
-			'author' => $author,
 			'form' => $this->_getDetailForm($file),
 		);
 		return $this->render('::detail', $data);
