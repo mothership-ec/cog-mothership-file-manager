@@ -15,3 +15,8 @@ ms.file_manager:
     buttons:
       update: Update
       delete: Delete
+  type:
+    1: Image
+    2: Document
+    3: Video
+    4: Other
