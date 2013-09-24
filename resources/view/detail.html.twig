@@ -14,7 +14,11 @@
 	<div class="container-details dual-column">
 
 		<div class="column">
-			{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
+			{% if file.isTypeImage() %}
+				{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
+			{% else %}
+				<img src="/path/to/file/type/icon.png" alt="{{ file.altText }}" />
+			{% endif %}
 		</div>
 		<div class="column">
 			<div class="section">
