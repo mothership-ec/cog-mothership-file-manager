@@ -84,8 +84,8 @@ class Loader
 
 		// Loop over the terms and add them to an array to implode in the query
 		foreach ($terms as $term) {
-			$whereName[] = ' name SOUNDS LIKE "%?%"';
-			$whereTag[] = ' tag_name SOUNDS LIKE "%?%"';
+			$whereName[] = ' name LIKE "%?%"';
+			$whereTag[] = ' tag_name LIKE "%?%"';
 			$whereTerms[] = trim($term);
 		}
 		// Duplciate and add the same array again and merge it to one, this is
