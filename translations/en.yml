@@ -15,3 +15,5 @@ ms.file_manager:
     buttons:
       update: Update
       delete: Delete
+    delete:
+      confirm: Are you sure you want to delete this file?
