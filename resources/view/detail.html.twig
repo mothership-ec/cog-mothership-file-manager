@@ -14,7 +14,11 @@
 	<div class="container-details dual-column">
 
 		<div class="column">
-			{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
+			{% if file.isTypeImage() %}
+				{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
+			{% else %}
+				<img src="/path/to/file/type/icon.png" alt="{{ file.altText }}" />
+			{% endif %}
 		</div>
 		<div class="column">
 			<div class="section">
@@ -30,11 +34,11 @@
 					<tbody>
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.type'|trans }}</strong></td>
-							<td>{{ file.typeID }}</td>
+							<td>{{ ('ms.file_manager.type.' ~ file.typeID)|trans }}</td>
 						</tr>
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.size'|trans }}</strong></td>
-							<td>{{ file.fileSize }}</td>
+							<td>{{ file.fileSize }} bytes</td>
 						</tr>
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</strong></td>
@@ -42,14 +46,14 @@
 						</tr>
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.author'|trans }}</strong></td>
-							<td>{{ author.getName }} at {{ file.authorship.createdAt|date }}</td>
+							<td>{{ file.authorship.createdUser.name }} at {{ file.authorship.createdAt|date }}</td>
 						</tr>
 
-						{% if file.authorship.updatedAt != NULL %}
+						{% if file.authorship.updatedAt is not empty %}
 
 							<tr>
 								<td><strong>{{ 'ms.file_manager.detail.labels.edit-by'|trans }}</strong></td>
-								<td>{{ file.authorship.updatedBy }} at {{ file.authorship.updatedAt|date }}</td>
+								<td>{{ file.authorship.updatedUser.name }} at {{ file.authorship.updatedAt|date }}</td>
 							</tr>
 
 						{% endif %}
