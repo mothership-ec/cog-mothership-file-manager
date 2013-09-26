@@ -68,6 +68,11 @@ class Delete
 			$event
 		);
 
+		// Delete the filesystem file if it is found
+		if (is_file($file->file->getRealPath())) {
+			unlink($file->file->getRealPath());
+		}
+
 		return $event->getFile();
 	}
 
