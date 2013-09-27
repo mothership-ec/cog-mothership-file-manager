@@ -6,7 +6,7 @@ ms.file_manager:
     labels:
       name: File Name
       type: Type
-      dimensions: Dimenions
+      dimensions: Dimensions
       author: Uploaded By
       tags: Tags
       alt-text: Alt Text

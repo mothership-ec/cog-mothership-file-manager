@@ -40,10 +40,12 @@
 							<td><strong>{{ 'ms.file_manager.detail.labels.size'|trans }}</strong></td>
 							<td>{{ file.fileSize }} bytes</td>
 						</tr>
+						{% if file.isTypeImage %}
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.dimensions'|trans }}</strong></td>
 							<td>{{ file.dimensionX }} x {{ file.dimensionY }}</td>
 						</tr>
+						{% endif %}
 						<tr>
 							<td><strong>{{ 'ms.file_manager.detail.labels.author'|trans }}</strong></td>
 							<td>{{ file.authorship.createdUser.name }} at {{ file.authorship.createdAt|date }}</td>
