@@ -65,7 +65,7 @@
 		</div>
 	</div>
 
-	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post">
+	<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post" data-confirm="{{ 'ms.file_manager.delete.confirm'|trans }}" >
 		<input type="hidden" name="_method" value="DELETE">
 		<button name="delete[delete]" value="delete" id="delete" type="submit" class="button small delete">{{ 'ms.file_manager.detail.buttons.delete'|trans }}</button>
 	</form>
