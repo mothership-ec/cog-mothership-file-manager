@@ -7,7 +7,7 @@ class _1379411088_SetUp extends Migration
 	public function up()
 	{
 		$this->run("
-			CREATE TABLE `file` (
+			CREATE TABLE IF NOT EXISTS `file` (
 			  `file_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 			  `created_at` int(11) unsigned NOT NULL,
 			  `created_by` int(11) unsigned DEFAULT NULL,
@@ -40,7 +40,7 @@ class _1379411088_SetUp extends Migration
 		");
 
 		$this->run("
-			CREATE TABLE `file_tag` (
+			CREATE TABLE IF NOT EXISTS `file_tag` (
 			  `file_id` int(11) unsigned NOT NULL,
 			  `tag_name` varchar(255) NOT NULL DEFAULT '',
 			  PRIMARY KEY (`file_id`,`tag_name`),
@@ -50,7 +50,7 @@ class _1379411088_SetUp extends Migration
 		");
 
 		$this->run("
-			CREATE TABLE `file_translation` (
+			CREATE TABLE IF NOT EXISTS `file_translation` (
 			  `file_id` int(11) unsigned NOT NULL,
 			  `locale` varchar(50) NOT NULL DEFAULT '',
 			  `created_at` int(11) unsigned NOT NULL,
