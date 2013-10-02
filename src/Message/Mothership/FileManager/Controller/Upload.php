@@ -47,7 +47,7 @@ class Upload extends \Message\Cog\Controller\Controller
 							->includeDeleted(true)
 							->getByID($e->getFileID());
 				if ($file->authorship->deletedAt()) {
-					$this->addFlash('notice', $file->file->getBasename().' already exists, but was deleted. Do you want to <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Restore it?</a>');
+//					$this->addFlash('notice', $file->file->getBasename().' already exists, but was deleted. Do you want to <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Restore it?</a>');
 				} else {
 					$this->addFlash('notice', sprintf(
 						'%s already exists. <a href="%s">View this file</a>',

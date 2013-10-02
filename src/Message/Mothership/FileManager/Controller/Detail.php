@@ -66,7 +66,10 @@ class Detail extends \Message\Cog\Controller\Controller
 			$file = $this->get('file_manager.file.loader')->getByID($fileID);
 
 			if ($file = $this->get('file_manager.file.delete')->delete($file)) {
-				$this->addFlash('success', $file->file->getBasename().' was deleted. <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Undo</a>');
+				$this->addFlash('success', $file->file->getBasename().' was deleted.'
+					// Undo removed until restore functionality is working.
+					//. ' <a href="'.$this->generateUrl('ms.cp.file_manager.restore',array('fileID' => $file->id)).'">Undo</a>'
+					);
 			} else {
 				$this->addFlash('error', $file->file->getBasename().' could not be deleted.');
 			}
