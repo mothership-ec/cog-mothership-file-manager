@@ -34,8 +34,10 @@
 			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live>
 				{% if file.isTypeImage() %}
 					{{ getResizedImage(file, 200, 200) }}
+					<div class="file-overlay">{{ file.name }}</div>
 				{% else %}
 					<img src="/path/to/file/type/icon.png" alt="{{ file.altText }}" />
+					<div class="file-overlay">{{ file.name }}</div>
 				{% endif %}
 			</a>
 		{% else %}
