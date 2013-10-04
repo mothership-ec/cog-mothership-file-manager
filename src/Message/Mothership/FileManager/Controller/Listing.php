@@ -64,7 +64,6 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function search($term)
 	{
-		
 		return $this->render('::listing', array(
 			'files'            => $this->get('file_manager.file.loader')->getBySearchTerm($term),
 			'searchTerm'       => $term,
@@ -120,7 +119,7 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	/**
 	 * Get the list of file types.
-	 * 
+	 *
 	 * @return array
 	 */
 	protected function _getFileTypes()
@@ -135,10 +134,10 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	/**
 	 * Sort the files against the chosen method.
-	 * 
+	 *
 	 * @param  array  $files  Files to sort
 	 * @param  string $sortBy Sorting method
-	 * 
+	 *
 	 * @return array          Sorted files
 	 */
 	protected function _sortFiles($files, $sortBy)

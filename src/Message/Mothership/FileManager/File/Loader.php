@@ -84,13 +84,18 @@ class Loader
 
 		// Loop over the terms and add them to an array to implode in the query
 		foreach ($terms as $term) {
-			$whereName[] = ' name LIKE "%?%"';
-			$whereTag[] = ' tag_name LIKE "%?%"';
+			$whereName[]  = ' name LIKE ?s';
+			$whereTag[]   = ' tag_name LIKE ?s';
 			$whereTerms[] = trim($term);
 		}
 		// Duplciate and add the same array again and merge it to one, this is
 		// because we are looking at both the name and tag name in the query
 		$where = array_merge($whereTerms, $whereTerms);
+
+		// Add the wildcard modifiers to each search term
+		foreach ($where as $key => $value) {
+			$where[$key] = '%' . $value . '%';
+		}
 
 		$result = $this->_query->run('
 			SELECT
@@ -100,9 +105,9 @@ class Loader
 			LEFT JOIN
 				file_tag USING (file_id)
 			WHERE
-				('.implode(' OR',$whereName).')
+				('.implode(' OR', $whereName).')
 				OR
-				('.implode(' OR',$whereTag).')',
+				('.implode(' OR', $whereTag).')',
 			$where
 		);
 
