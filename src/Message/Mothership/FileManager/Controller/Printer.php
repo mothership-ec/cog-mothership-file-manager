@@ -24,9 +24,15 @@ class Printer extends Controller
 
 		$contents = file_get_contents($path);
 
-		return $this->render('::print', array(
+		$response = $this->render('::print', array(
 			'contents' => $contents,
 		));
+
+		if ("pdf" === pathinfo($path, PATHINFO_EXTENSION)) {
+			$response->headers->set('Content-type', 'application/pdf');
+		}
+
+		return $response;
 	}
 
 	/**
@@ -43,8 +49,14 @@ class Printer extends Controller
 
 		$contents = file_get_contents($path);
 
-		return $this->render('::print', array(
+		$response = $this->render('::print', array(
 			'contents' => $contents,
 		));
+
+		if ("pdf" === pathinfo($path, PATHINFO_EXTENSION)) {
+			$response->headers->set('Content-type', 'application/pdf');
+		}
+
+		return $response;
 	}
 }
