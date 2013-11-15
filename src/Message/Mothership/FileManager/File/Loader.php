@@ -13,6 +13,7 @@ class Loader
 	protected $_locale;
 	protected $_query;
 	protected $_returnAsArray;
+	protected $_tags = array();
 
 	/**
 	 * var to toggle the loading of deleted files
@@ -264,6 +265,10 @@ class Loader
 
 	protected function _loadTags(File $file)
 	{
+		if (array_key_exists($file->id, $this->_tags)) {
+			return $this->_tags[$file->id];
+		}
+
 		$tags = array();
 
 		$result = $this->_query->run('
@@ -278,6 +283,8 @@ class Loader
 		if (count($result)) {
 			$tags = $result->flatten();
 		}
+
+		$this->_tags[$file->id] = $tags;
 
 		return $tags;
 
