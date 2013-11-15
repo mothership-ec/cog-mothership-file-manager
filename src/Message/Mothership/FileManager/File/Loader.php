@@ -13,7 +13,10 @@ class Loader
 	protected $_locale;
 	protected $_query;
 	protected $_returnAsArray;
+
 	protected $_tags = array();
+	protected $_types = array();
+	protected $_files = array();
 
 	/**
 	 * var to toggle the loading of deleted files
@@ -50,6 +53,10 @@ class Loader
 	 */
 	public function getByType($typeID)
 	{
+		if (array_key_exists($typeID, $this->_types)) {
+			return $this->_types[$typeID];
+		}
+
 		$result = $this->_query->run('
 			SELECT
 				file_id
@@ -189,6 +196,10 @@ class Loader
 	 */
 	protected function _load($fileID)
 	{
+		if (array_key_exists($fileID, $this->_files)) {
+			return $this->_loadPage($this->_files[$fileID]);
+		}
+
 		$fileIDs = (array) $fileID;
 
 		$result = $this->_query->run('
@@ -220,6 +231,7 @@ class Loader
 		', array($fileIDs));
 
 		if (count($result)) {
+			$this->_files[$fileID] = $result;
 			return $this->_loadPage($result);
 		}
 
