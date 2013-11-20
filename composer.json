@@ -3,6 +3,7 @@
 	"description": "Cog module for file/asset management in Mothership",
 	"keywords": ["file", "mothership", "asset", "assets", "files", "upload", "uploads", "image", "images", "cog"],
 	"homepage": "http://message.co.uk",
+	"license": "proprietary",
 	"authors": [
 		{
 			"name" : "The Message Development Team",
@@ -28,7 +29,7 @@
 	"require": {
 		"php": ">=5.3.0",
 
-		"message/cog-mothership-cp": "1.0.*"
+		"message/cog-mothership-cp": "1.*"
 	},
 	"suggest": {
 	},
