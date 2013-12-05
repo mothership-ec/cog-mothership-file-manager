@@ -6,7 +6,7 @@
 
 {% block main %}
 <hgroup class="title">
-	<h1>{{ file.name }}</h1>
+	<h1>{{ file.name }} <span>{{ ('ms.file_manager.type.' ~ file.typeID)|trans }}</span></h1>
 </hgroup>
 
 <div class="container-content file-manager extended">
@@ -17,7 +17,7 @@
 			{% if file.isTypeImage() %}
 				{{ getResizedImage(file, 500, null, {'class': 'file'}) }}
 			{% else %}
-				<img src="/path/to/file/type/icon.png" alt="{{ file.altText }}" />
+				<img src="/cogules/Message:Mothership:ControlPanel/images/document.gif" alt="{{ file.altText }}" class="file" />
 			{% endif %}
 		</div>
 		<div class="column">
