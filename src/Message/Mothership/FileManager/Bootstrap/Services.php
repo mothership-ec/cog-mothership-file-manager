@@ -19,8 +19,7 @@ class Services implements ServicesInterface
 		$serviceContainer['file_manager.file.loader'] = $serviceContainer->share(function($c) {
 			return new \Message\Mothership\FileManager\File\Loader(
 				'Locale class',
-				$c['db.query'],
-				$c['user.current']
+				$c['db.query']
 			);
 		});
 
