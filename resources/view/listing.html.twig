@@ -18,14 +18,14 @@
 	<div class="file-upload">
 	{{ form_start(form) }}
 		{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
-		<button type="submit" class="button small upload">Upload</button>
+		<button type="submit" class="button small upload">Upload a new file</button>
 	{{ form_end(form) }}
 	</div>
 {% endblock %}
 
 {% block main %}
 	<hgroup class="title">
-		<h1>File Manager</h1>
+		<h1>File manager</h1>
 	</hgroup>
 	<div class="container-content file-manager">
 		<div class="listing">
