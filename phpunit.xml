@@ -10,13 +10,13 @@
 	bootstrap="vendor/autoload.php"
 >
 	<testsuites>
-		<testsuite name="Cog Mothership File Manager Module Test Suite">
+		<testsuite name="Mothership File Manager Cogule Test Suite">
 			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist>
-			<directory>./src/Message</directory>
+			<directory>./src</directory>
 		</whitelist>
 	</filter>
 	<php>

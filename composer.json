@@ -15,9 +15,9 @@
 		"issues": "http://github.com/messagedigital/cog-mothership-file-manager/issues"
 	},
 	"autoload": {
-		"psr-0": {
-			"Message\\Mothership\\FileManager"      : "src",
-			"Message\\Mothership\\FileManager\\Test": "tests"
+		"psr-4": {
+			"Message\\Mothership\\FileManager\\"      : "src",
+			"Message\\Mothership\\FileManager\\Test\\": "tests"
 		}
 	},
 	"repositories": [
