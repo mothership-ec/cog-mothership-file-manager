@@ -2,7 +2,8 @@
 
 namespace Message\Mothership\FileManager\File;
 
-use Message\Cog\ImageResize\ResizableInterface;
+use Message\ImageResize\ResizableInterface;
+
 use Message\Cog\ValueObject\Authorship;
 
 /**
