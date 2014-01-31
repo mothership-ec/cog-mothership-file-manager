@@ -219,7 +219,7 @@ class Loader
 		', array($fileIDs));
 
 		if (count($result)) {
-			return $this->_loadPage($result);
+			return $this->_loadFile($result);
 		}
 
 		return false;
@@ -232,7 +232,7 @@ class Loader
 	 *
 	 * @return array|File 		array or single Page object if only one result
 	 */
-	protected function _loadPage(Result $results)
+	protected function _loadFile(Result $results)
 	{
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
