@@ -219,7 +219,7 @@ class Loader
 		', array($fileIDs));
 
 		if (count($result)) {
-			return $this->_loadPage($result);
+			return $this->_loadFile($result);
 		}
 
 		return false;
@@ -232,7 +232,7 @@ class Loader
 	 *
 	 * @return array|File 		array or single Page object if only one result
 	 */
-	protected function _loadPage(Result $results)
+	protected function _loadFile(Result $results)
 	{
 		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
 
@@ -256,6 +256,9 @@ class Loader
 
 			$files[$key]->tags = $this->_loadTags($files[$key]);
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
+
+			// Force type to be an integer
+			$files[$key]->typeID = (int) $files[$key]->typeID;
 		}
 
 		return count($files) == 1 && !$this->_returnAsArray ? $files[0] : $files;
