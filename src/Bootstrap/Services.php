@@ -8,7 +8,7 @@ class Services implements ServicesInterface
 {
 	public function registerServices($services)
 	{
-		$services['filesystem.stream_wrapper_mapping'] = $services->extend('filesystem.stream_wrapper_mapping', function($mapping, $services) {
+		$services->extend('filesystem.stream_wrapper_mapping', function($mapping, $services) {
 			$baseDir = $services['app.loader']->getBaseDir();
 			// Maps cog://ms/file/* to /files/* (in the installation)
 			$mapping["/^\/ms\/file\/(.*)/us"] = $baseDir.'files/$1';
