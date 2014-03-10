@@ -6,24 +6,24 @@ use Message\Cog\Bootstrap\ServicesInterface;
 
 class Services implements ServicesInterface
 {
-	public function registerServices($serviceContainer)
+	public function registerServices($services)
 	{
-		$serviceContainer['filesystem.stream_wrapper_mapping'] = $serviceContainer->extend('filesystem.stream_wrapper_mapping', function($mapping, $serviceContainer) {
-			$baseDir = $serviceContainer['app.loader']->getBaseDir();
+		$services->extend('filesystem.stream_wrapper_mapping', function($mapping, $services) {
+			$baseDir = $services['app.loader']->getBaseDir();
 			// Maps cog://ms/file/* to /files/* (in the installation)
 			$mapping["/^\/ms\/file\/(.*)/us"] = $baseDir.'files/$1';
 
 			return $mapping;
 		});
 
-		$serviceContainer['file_manager.file.loader'] = $serviceContainer->share(function($c) {
+		$services['file_manager.file.loader'] = $services->factory(function($c) {
 			return new \Message\Mothership\FileManager\File\Loader(
 				'Locale class',
 				$c['db.query']
 			);
 		});
 
-		$serviceContainer['file_manager.file.create'] = $serviceContainer->share(function($c) {
+		$services['file_manager.file.create'] = $services->factory(function($c) {
 			return new \Message\Mothership\FileManager\File\Create(
 				$c['file_manager.file.loader'],
 				$c['db.query'],
@@ -32,7 +32,7 @@ class Services implements ServicesInterface
 			);
 		});
 
-		$serviceContainer['file_manager.file.edit'] = $serviceContainer->share(function($c) {
+		$services['file_manager.file.edit'] = $services->factory(function($c) {
 			return new \Message\Mothership\FileManager\File\Edit(
 				$c['db.query'],
 				$c['event.dispatcher'],
@@ -40,7 +40,7 @@ class Services implements ServicesInterface
 			);
 		});
 
-		$serviceContainer['file_manager.file.delete'] = $serviceContainer->share(function($c) {
+		$services['file_manager.file.delete'] = $services->factory(function($c) {
 			return new \Message\Mothership\FileManager\File\Delete(
 				$c['db.query'],
 				$c['event.dispatcher'],
