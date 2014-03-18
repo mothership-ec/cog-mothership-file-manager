@@ -7,11 +7,11 @@ ms.file_manager:
       name: File Name
       type: Type
       dimensions: Dimensions
-      author: Uploaded By
+      author: Uploaded by
       tags: Tags
       alt-text: Alt Text
       size: Size
-      edit-by: Edited By
+      edit-by: Edited by
     buttons:
       update: Update
       delete: Delete
