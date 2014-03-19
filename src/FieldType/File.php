@@ -74,12 +74,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getFormField(Handler $form)
 	{
-		$form->add($this->getName(), 'ms_file', $this->getLabel(), array(
-			'attr'          => array('data-help-key' => $this->_getHelpKeys()),
-			'choices'       => $this->_getChoices(),
-			'allowed_types' => $this->_allowedTypes ?: false,
-			'empty_value'   => $this->_services['translator']->trans('ms.file_manager.select.default'),
-		));
+		$form->add($this->getName(), 'ms_file', $this->getLabel(), $this->_getOptions());
 	}
 
 	public function setAllowedTypes($types)
@@ -123,5 +118,16 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		}
 
 		return $choices;
+	}
+
+	protected function _getOptions()
+	{
+		$defaults = [
+			'choices'       => $this->_getChoices(),
+			'allowed_types' => $this->_allowedTypes ?: false,
+			'empty_value'   => $this->_services['translator']->trans('ms.file_manager.select.default'),
+		];
+
+		return array_merge($defaults, $this->getFieldOptions());
 	}
 }
