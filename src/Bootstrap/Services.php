@@ -48,10 +48,10 @@ class Services implements ServicesInterface
 			);
 		});
 
-		$serviceContainer['field.collection'] = $serviceContainer->share($serviceContainer->extend('field.collection', function($fields, $c) {
+		$services->extend('field.collection', function($fields, $c) {
 			$fields->add(new \Message\Mothership\FileManager\FieldType\File($c['validator']));
 
 			return $fields;
-		}));
+		});
 	}
 }
