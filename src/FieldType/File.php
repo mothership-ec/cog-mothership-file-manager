@@ -8,10 +8,10 @@ use Message\Mothership\FileManager\File\Type as FileType;
 
 use Message\ImageResize\ResizableInterface;
 
-use Message\Cog\Form\Handler;
 use Message\Cog\Filesystem;
 use Message\Cog\Service\ContainerInterface;
 use Message\Cog\Service\ContainerAwareInterface;
+use Symfony\Component\Form\FormBuilder;
 
 /**
  * A field for a file in the file manager database.
@@ -72,9 +72,14 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		$this->_services = $container;
 	}
 
-	public function getFormField(Handler $form)
+	public function getFormField(FormBuilder $form)
 	{
-		$form->add($this->getName(), 'ms_file', $this->getLabel(), $this->_getOptions());
+		$form->add($this->getName(), 'ms_file', $this->_getOptions());
+	}
+
+	public function getFormType()
+	{
+		return 'ms_file';
 	}
 
 	public function setAllowedTypes($types)
