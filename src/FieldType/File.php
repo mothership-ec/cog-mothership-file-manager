@@ -34,7 +34,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 	 */
 	public function __toString()
 	{
-		if ($file = $this->_services['file_manager.file.loader']->getByID((int) $this->_value)) {
+		if ($file = $this->_services['file_manager.file.loader']->getByID((int)$this->_value)) {
 			$cogFile = new Filesystem\File($file->url);
 
 			return $cogFile->getPublicUrl();
@@ -95,17 +95,28 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getFile()
 	{
-		return $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
+		return $this->_services['file_manager.file.loader']->getByID((int)$this->_value);
 	}
 
-	// public function getValue()
-	// {
-	// 	return $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
-	// }
+	public function getValue()
+	{
+		return $this->_services['file_manager.file.loader']->getByID((int)$this->_value)->id;
+	}
+
+	public function getFieldOptions()
+	{
+		$defaults = [
+			'choices' => $this->_getChoices(),
+			'allowed_types' => $this->_allowedTypes ? : false,
+			'empty_value' => $this->_services['translator']->trans('ms.file_manager.select.default'),
+		];
+
+		return array_merge($defaults, parent::getFieldOptions());
+	}
 
 	protected function _getChoices()
 	{
-		$files   = $this->_services['file_manager.file.loader']->getAll();
+		$files = $this->_services['file_manager.file.loader']->getAll();
 		$choices = array();
 
 		if (!$files) {
@@ -125,14 +136,4 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		return $choices;
 	}
 
-	protected function _getOptions()
-	{
-		$defaults = [
-			'choices'       => $this->_getChoices(),
-			'allowed_types' => $this->_allowedTypes ?: false,
-			'empty_value'   => $this->_services['translator']->trans('ms.file_manager.select.default'),
-		];
-
-		return array_merge($defaults, $this->getFieldOptions());
-	}
 }
