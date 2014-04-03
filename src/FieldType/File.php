@@ -74,7 +74,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getFormField(FormBuilder $form)
 	{
-		$form->add($this->getName(), 'ms_file', $this->_getOptions());
+		$form->add($this->getName(), 'ms_file', $this->getFieldOptions());
 	}
 
 	public function getFormType()
@@ -95,12 +95,20 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getFile()
 	{
-		return $this->_services['file_manager.file.loader']->getByID((int)$this->_value);
+		if ($this->_value) {
+			return $this->_services['file_manager.file.loader']->getByID((int)$this->_value);
+		}
+
+		return null;
 	}
 
 	public function getValue()
 	{
-		return $this->_services['file_manager.file.loader']->getByID((int)$this->_value)->id;
+		if ($this->_value) {
+			return $this->_services['file_manager.file.loader']->getByID((int)$this->_value)->id;
+		}
+
+		return null;
 	}
 
 	public function getFieldOptions()
