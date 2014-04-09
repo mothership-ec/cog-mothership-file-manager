@@ -76,6 +76,7 @@ class SyncFiles extends Task
 	{
 		foreach ($this->_files as $file) {
 			try {
+				$this->writeln('Saving <info>' . $file->getFilename() . '</info>');
 				$this->get('file_manager.file.create')->save($file);
 			}
 			catch (Exception\FileExists $e) {
