@@ -47,5 +47,11 @@ class Services implements ServicesInterface
 				$c['user.current']
 			);
 		});
+
+		$services->extend('field.collection', function($fields, $c) {
+			$fields->add(new \Message\Mothership\FileManager\FieldType\File($c['validator']));
+
+			return $fields;
+		});
 	}
 }
