@@ -13,7 +13,7 @@
 			<div class="content">
 				<div class="column">
 					{% if file.isTypeImage() %}
-						{{ getResizedImage(file, null, null, {'class': 'file'}) }}
+						{{ getResizedImage(file, null, 500, {'class': 'file'}) }}
 					{% else %}
 						<img src="/cogules/Message:Mothership:ControlPanel/images/document.gif" alt="{{ file.altText }}" class="file" />
 					{% endif %}
@@ -56,9 +56,9 @@
 								{% endif %}
 							</tbody>
 						</table>
-					</div>		
+					</div>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<form action="{{ url('ms.cp.file_manager.delete', {fileID: file.id}) }}" method="post" data-confirm="{{ 'ms.file_manager.delete.confirm'|trans }}" >
 			<input type="hidden" name="_method" value="DELETE">
