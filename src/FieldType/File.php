@@ -34,7 +34,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 	 */
 	public function __toString()
 	{
-		if ($file = $this->_services['file_manager.file.loader']->getByID((int)$this->_value)) {
+		if ($file = $this->getFile()) {
 			$cogFile = new Filesystem\File($file->url);
 
 			return $cogFile->getPublicUrl();
@@ -96,7 +96,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 	public function getFile()
 	{
 		if ($this->_value) {
-			return $this->_services['file_manager.file.loader']->getByID((int)$this->_value);
+			return $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
 		}
 
 		return null;
@@ -104,11 +104,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getValue()
 	{
-		if ($this->_value) {
-			return $this->_services['file_manager.file.loader']->getByID((int)$this->_value)->id;
-		}
-
-		return null;
+		return $this->_value;
 	}
 
 	public function getFieldOptions()
