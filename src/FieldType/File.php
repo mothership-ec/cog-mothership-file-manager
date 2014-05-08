@@ -12,6 +12,7 @@ use Message\ImageResize\ResizableInterface;
 use Message\Cog\Filesystem;
 use Message\Cog\Service\ContainerInterface;
 use Message\Cog\Service\ContainerAwareInterface;
+use Message\Cog\Localisation\Translator;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -19,13 +20,29 @@ use Symfony\Component\Form\FormBuilder;
  *
  * @author Joe Holdcroft <joe@message.co.uk>
  */
-class File extends Field implements ContainerAwareInterface, ResizableInterface
+class File extends Field implements ResizableInterface
 {
-	protected $_services;
-
 	protected $_allowedTypes;
 
 	protected $_file;
+
+	/**
+	 * @var \Message\Mothership\FileManager\File\Loader
+	 */
+	protected $_loader;
+
+	/**
+	 * @var \Message\Cog\Localisation\Translator
+	 */
+	protected $_translator;
+
+	public function __construct(Loader $loader, Translator $translator)
+	{
+		$this->_loader     = $loader;
+		$this->_translator = $translator;
+
+		parent::__construct();
+	}
 
 	/**
 	 * Cast this field to a string.
@@ -61,14 +78,6 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		return $this->getFile() ? $this->getFile()->getAltText() : '';
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setContainer(ContainerInterface $container)
-	{
-		$this->_services = $container;
-	}
-
 	public function getFormField(FormBuilder $form)
 	{
 		$form->add($this->getName(), 'ms_file', $this->getFieldOptions());
@@ -93,7 +102,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 	public function getFile()
 	{
 		if (!$this->_file && $this->_value) {
-			$this->_file = $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
+			$this->_file = $this->_loader->getByID((int) $this->_value);
 		}
 
 		return $this->_file;
@@ -109,7 +118,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		$defaults = [
 			'choices' => $this->_getChoices(),
 			'allowed_types' => $this->_allowedTypes ? : false,
-			'empty_value' => $this->_services['translator']->trans('ms.file_manager.select.default'),
+			'empty_value' => $this->_translator->trans('ms.file_manager.select.default'),
 		];
 
 		return array_merge($defaults, parent::getFieldOptions());
@@ -120,7 +129,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 		static $files;
 
 		if (null === $files) {
-			$files = $this->_services['file_manager.file.loader']->getAll();
+			$files = $this->_loader->getAll();
 
 			if (!$files) {
 				$files = [];
