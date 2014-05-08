@@ -49,7 +49,7 @@ class Services implements ServicesInterface
 		});
 
 		$services->extend('field.collection', function($fields, $c) {
-			$fields->add(new \Message\Mothership\FileManager\FieldType\File($c['validator']));
+			$fields->add(new \Message\Mothership\FileManager\FieldType\File());
 
 			return $fields;
 		});

@@ -5,6 +5,7 @@ namespace Message\Mothership\FileManager\FieldType;
 use Message\Cog\Field\Field;
 
 use Message\Mothership\FileManager\File\Type as FileType;
+use Message\Mothership\FileManager\File\Loader;
 
 use Message\ImageResize\ResizableInterface;
 
@@ -24,6 +25,8 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	protected $_allowedTypes;
 
+	protected $_file;
+
 	/**
 	 * Cast this field to a string.
 	 *
@@ -34,13 +37,7 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 	 */
 	public function __toString()
 	{
-		if ($file = $this->getFile()) {
-			$cogFile = new Filesystem\File($file->url);
-
-			return $cogFile->getPublicUrl();
-		}
-
-		return '';
+		return $this->getUrl();
 	}
 
 	public function getFieldType()
@@ -95,11 +92,11 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	public function getFile()
 	{
-		if ($this->_value) {
-			return $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
+		if (!$this->_file && $this->_value) {
+			$this->_file = $this->_services['file_manager.file.loader']->getByID((int) $this->_value);
 		}
 
-		return null;
+		return $this->_file;
 	}
 
 	public function getValue()
