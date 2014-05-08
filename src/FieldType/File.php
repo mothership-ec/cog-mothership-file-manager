@@ -120,24 +120,34 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 
 	protected function _getChoices()
 	{
-		$files = $this->_services['file_manager.file.loader']->getAll();
-		$choices = array();
+		static $files;
 
-		if (!$files) {
-			return array();
-		}
+		if (null === $files) {
+			$files = $this->_services['file_manager.file.loader']->getAll();
 
-		foreach ($files as $file) {
-			if ($this->_allowedTypes) {
-				if (!in_array($file->typeID, $this->_allowedTypes)) {
-					continue;
-				}
+			if (!$files) {
+				return [];
 			}
 
-			$choices[$file->id] = $file->name;
+			$choices = [];
+
+			foreach ($files as $file) {
+
+				if ($this->_allowedTypes) {
+					if (!in_array($file->typeID, $this->_allowedTypes)) {
+						continue;
+					}
+				}
+
+				$choices[$file->id] = $file->name;
+			}
+
+			$files = $choices;
 		}
 
-		return $choices;
+		asort($files);
+
+		return $files;
 	}
 
 }
