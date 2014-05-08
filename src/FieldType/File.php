@@ -126,7 +126,8 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 			$files = $this->_services['file_manager.file.loader']->getAll();
 
 			if (!$files) {
-				return [];
+				$files = [];
+				return $files;
 			}
 
 			$choices = [];
@@ -143,9 +144,9 @@ class File extends Field implements ContainerAwareInterface, ResizableInterface
 			}
 
 			$files = $choices;
-		}
 
-		asort($files);
+			asort($files);
+		}
 
 		return $files;
 	}
