@@ -130,31 +130,31 @@ class File extends Field implements ResizableInterface
 
 		if (null === $files) {
 			$files = $this->_loader->getAll();
-
-			if (!$files) {
-				$files = [];
-				return $files;
-			}
-
-			$choices = [];
-
-			foreach ($files as $file) {
-
-				if ($this->_allowedTypes) {
-					if (!in_array($file->typeID, $this->_allowedTypes)) {
-						continue;
-					}
-				}
-
-				$choices[$file->id] = $file->name;
-			}
-
-			$files = $choices;
-
-			asort($files);
 		}
 
-		return $files;
+
+		if (!$files) {
+			$files = [];
+
+			return $files;
+		}
+
+		$choices = [];
+
+		foreach ($files as $file) {
+
+			if ($this->_allowedTypes) {
+				if (!in_array($file->typeID, $this->_allowedTypes)) {
+					continue;
+				}
+			}
+
+			$choices[$file->id] = $file->name;
+		}
+
+		asort($choices);
+
+		return $choices;
 	}
 
 }
