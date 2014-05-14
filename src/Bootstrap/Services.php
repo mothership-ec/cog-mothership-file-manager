@@ -47,5 +47,14 @@ class Services implements ServicesInterface
 				$c['user.current']
 			);
 		});
+
+		$services->extend('field.collection', function($fields, $c) {
+			$fields->add(new \Message\Mothership\FileManager\FieldType\File(
+				$c['file_manager.file.loader'],
+				$c['translator']
+			));
+
+			return $fields;
+		});
 	}
 }
