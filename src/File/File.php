@@ -31,7 +31,7 @@ class File implements ResizableInterface
 
 	public $file;
 
-	protected $_filePath;
+	protected $_fileRef;
 
 	/**
 	 * Constructor.
@@ -54,7 +54,7 @@ class File implements ResizableInterface
 	public function __sleep()
 	{
 		// Save the file path
-		$this->_filePath = $this->file->getRealPath();
+		$this->_fileRef = ($this->file->getReference()) ?: $this->file->getRealPath();
 
 		// Get all properties for this object
 		$vars = get_object_vars($this);
@@ -73,7 +73,7 @@ class File implements ResizableInterface
 	 */
 	public function __wakeup()
 	{
-		$this->file = new FileSystemFile($this->_filePath);
+		$this->file = new FileSystemFile($this->_fileRef);
 	}
 
 	public function getUrl()
