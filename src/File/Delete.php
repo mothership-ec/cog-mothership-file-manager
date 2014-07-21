@@ -50,31 +50,31 @@ class Delete
 	/**
 	 * This code will mark a file as deleted so that it can be restored in future.
 	 */
-		//$this->_query->run('
-		//	UPDATE
-		//		file
-		//	SET
-		//		deleted_at = :dl_at?i,
-		//		deleted_by = :dl_by?in
-		//	WHERE
-		//		file_id = :file_id?i
-		//', array(
-		//	'dl_at'   => $file->authorship->deletedAt()->getTimestamp(),
-		//	'dl_by'   => $file->authorship->deletedBy(),
-		//	'file_id' => $file->id,
-		//));
+		$this->_query->run('
+			UPDATE
+				file
+			SET
+				deleted_at = :dl_at?i,
+				deleted_by = :dl_by?in
+			WHERE
+				file_id = :file_id?i
+		', array(
+			'dl_at'   => $file->authorship->deletedAt()->getTimestamp(),
+			'dl_by'   => $file->authorship->deletedBy(),
+			'file_id' => $file->id,
+		));
 
 	/**
 	 * This code will delete a file from the database.
 	 */
-		$this->_query->run('
-			DELETE FROM
-				file
-			WHERE
-				file_id = :file_id?i
-		', array(
-			'file_id' => $file->id,
-		));
+		// $this->_query->run('
+		// 	DELETE FROM
+		// 		file
+		// 	WHERE
+		// 		file_id = :file_id?i
+		// ', array(
+		// 	'file_id' => $file->id,
+		// ));
 
 
 		$event = new Event($file);
