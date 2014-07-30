@@ -105,7 +105,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			->setMethod('POST')
 			->setAction($this->generateUrl('ms.cp.file_manager.edit', array('fileID' => $file->id)))
 			->setDefaultValues(array(
-				'tags'		=> implode(',', $file->tags),
+				'tags'		=> implode(', ', $file->tags->all()),
 				'alt_text'	=> $file->altText,
 				));
 		$form->add('tags', 'textarea', $this->trans('ms.file_manager.detail.labels.tags'));
