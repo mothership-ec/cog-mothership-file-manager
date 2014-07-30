@@ -178,6 +178,15 @@ class Loader
 		$this->_loadDeleted = $bool;
 		return $this;
 	}
+	/**
+	 * Gets the tags for a file
+	 * @param  File      $file file to load tags for
+	 * @return array     tags for file as an array
+	 */
+	public function getTagsForFile(File $file)
+	{
+		return $this->_loadTags($file);
+	}
 
 	/**
 	 * Loads the file data out of the table and loads in into a File Object.
@@ -234,7 +243,7 @@ class Loader
 	 */
 	protected function _loadFile(Result $results)
 	{
-		$files = $results->bindTo('\Message\Mothership\FileManager\File\File');
+		$files = $results->bindTo('\Message\Mothership\FileManager\File\FileProxy');
 
 		foreach ($results as $key => $result) {
 
@@ -254,7 +263,10 @@ class Loader
 				$files[$key]->authorship->delete(new DateTimeImmutable('@'.$result->deletedAt), $result->deletedBy);
 			}
 
-			$files[$key]->tags = $this->_loadTags($files[$key]);
+
+			// $files[$key]->tags = $this->_loadTags($files[$key]);
+			$files[$key]->tags = new Tag\TagCollection($files[$key], $this);
+
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
 
 			// Force type to be an integer
@@ -262,7 +274,6 @@ class Loader
 		}
 
 		return count($files) == 1 && !$this->_returnAsArray ? $files[0] : $files;
-
 	}
 
 	protected function _loadTags(File $file)
