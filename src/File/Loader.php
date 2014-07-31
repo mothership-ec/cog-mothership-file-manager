@@ -263,8 +263,6 @@ class Loader
 				$files[$key]->authorship->delete(new DateTimeImmutable('@'.$result->deletedAt), $result->deletedBy);
 			}
 
-
-			// $files[$key]->tags = $this->_loadTags($files[$key]);
 			$files[$key]->tags = new Tag\TagCollection($files[$key], $this);
 
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
