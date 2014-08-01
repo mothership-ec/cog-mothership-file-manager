@@ -41,7 +41,8 @@ class Detail extends \Message\Cog\Controller\Controller
 			// Set the alt text
 			$file->altText = $edits['alt_text'];
 			// Turn the tags into an array and trim the values
-			$file->tags = array_filter(array_map('trim', explode(',',$edits['tags'])));
+			$file->setTags(array_filter(array_map('trim', explode(',',$edits['tags']))));
+
 			// Save the file
 			if ($file = $this->get('file_manager.file.edit')->save($file)) {
 				$this->addFlash('success', $file->file->getBasename().' was updated successfully');
@@ -105,7 +106,7 @@ class Detail extends \Message\Cog\Controller\Controller
 			->setMethod('POST')
 			->setAction($this->generateUrl('ms.cp.file_manager.edit', array('fileID' => $file->id)))
 			->setDefaultValues(array(
-				'tags'		=> implode(', ', $file->tags->all()),
+				'tags'		=> implode(', ', $file->getTags()),
 				'alt_text'	=> $file->altText,
 				));
 		$form->add('tags', 'textarea', $this->trans('ms.file_manager.detail.labels.tags'));

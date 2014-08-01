@@ -63,7 +63,7 @@ class Edit
 		));
 
 		// Delete all the tags and then add the new ones in
-		if ($file->tags) {
+		if ($tags = $file->getTags()) {
 			$this->_query->run('
 				DELETE FROM
 					file_tag
@@ -73,9 +73,9 @@ class Edit
 
 			$inserts = array();
 			$values = '';
-			end($file->tags);
-			$lastKey = key($file->tags);
-			foreach ($file->tags as $k => $tagName) {
+			end($tags);
+			$lastKey = key($tags);
+			foreach ($tags as $k => $tagName) {
 				$values .= '(?i, ?s)'.($lastKey == $k ? '' : ',');
 				$inserts[] = $file->id;
 				$inserts[] = $tagName;

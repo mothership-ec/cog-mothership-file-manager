@@ -243,7 +243,10 @@ class Loader
 	 */
 	protected function _loadFile(Result $results)
 	{
-		$files = $results->bindTo('\Message\Mothership\FileManager\File\FileProxy');
+		$files = $results->bindTo(
+			'\Message\Mothership\FileManager\File\FileProxy',
+			[$this]
+		);
 
 		foreach ($results as $key => $result) {
 
@@ -262,8 +265,6 @@ class Loader
 			if ($result->deletedAt) {
 				$files[$key]->authorship->delete(new DateTimeImmutable('@'.$result->deletedAt), $result->deletedBy);
 			}
-
-			$files[$key]->tags = new Tag\TagCollection($files[$key], $this);
 
 			$files[$key]->file = new FileSystemFile($files[$key]->url);
 

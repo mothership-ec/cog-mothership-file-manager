@@ -27,10 +27,10 @@ class File implements ResizableInterface
 	public $dimensionY;
 	public $altText;
 	public $duration;
-	public $tags;
 
 	public $file;
 
+	protected $_tags = array();
 	protected $_fileRef;
 
 	/**
@@ -74,6 +74,18 @@ class File implements ResizableInterface
 	public function __wakeup()
 	{
 		$this->file = new FileSystemFile($this->_fileRef);
+	}
+
+	public function getTags()
+	{
+		return $this->_tags;
+	}
+
+	public function setTags(array $tags)
+	{
+		$this->_tags = $tags;
+		
+		return $this;
 	}
 
 	public function getUrl()
