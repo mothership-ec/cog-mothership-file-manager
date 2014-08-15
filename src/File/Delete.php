@@ -47,19 +47,19 @@ class Delete
 	{
 		$file->authorship->delete(new DateTimeImmutable, $this->_currentUser->id);
 
-	/*
-	 * This code will mark a file as deleted so that it can be restored in future.
-	 */
+	
+		// This code will mark a file as deleted so that it can be restored in future.
+
 		$this->_query->run('
 			UPDATE
 				file
 			SET
-				deleted_at = :dl_at?i,
+				deleted_at = :dl_at?d,
 				deleted_by = :dl_by?in
 			WHERE
 				file_id = :file_id?i
 		', array(
-			'dl_at'   => $file->authorship->deletedAt()->getTimestamp(),
+			'dl_at'   => $file->authorship->deletedAt(),
 			'dl_by'   => $file->authorship->deletedBy(),
 			'file_id' => $file->id,
 		));
