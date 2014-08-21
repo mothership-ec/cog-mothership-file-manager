@@ -11,7 +11,6 @@ use Message\User\UserInterface;
 use Message\Cog\ValueObject\Authorship;
 use Message\Cog\ValueObject\DateTimeImmutable;
 
-use Symfony\Component\HttpFoundation\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -158,7 +157,7 @@ class Create
 	/**
 	 * Checks to see if a file is already in the system based on it's checksum.
 	 *
-	 * @param  Filesystem\File $file The file to check
+	 * @param  FilesystemFile $file The file to check
 	 *
 	 * @return boolean|int          Returns the file ID if the checksum already
 	 *                              exists, false if it doesn't.
