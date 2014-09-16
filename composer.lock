@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e3434e40689b580a51c82d4f164f0b5",
+    "hash": "ed71fc623f033a5265be74b9ca1d6d84",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -456,16 +456,16 @@
         },
         {
             "name": "message/cog",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:messagedigital/cog.git",
-                "reference": "3.3.0"
+                "reference": "3.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/messagedigital/cog/zipball/3.3.0",
-                "reference": "3.3.0",
+                "url": "https://api.github.com/repos/messagedigital/cog/zipball/3.4.0",
+                "reference": "3.4.0",
                 "shasum": ""
             },
             "require": {
@@ -541,9 +541,9 @@
             "support": {
                 "wiki": "http://server.local/wiki/projects/cog",
                 "issues": "http://github.com/messagedigital/cog/issues",
-                "source": "https://github.com/messagedigital/cog/tree/3.3.0"
+                "source": "https://github.com/messagedigital/cog/tree/3.4.0"
             },
-            "time": "2014-08-08 14:54:59"
+            "time": "2014-09-15 13:56:48"
         },
         {
             "name": "message/cog-imageresize",
@@ -1087,17 +1087,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "d9171137f97e9b14d71f7aa83ba5039b68efb8af"
+                "reference": "a2723f99716c2fa6411e2eb5842edbe680e4b462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/d9171137f97e9b14d71f7aa83ba5039b68efb8af",
-                "reference": "d9171137f97e9b14d71f7aa83ba5039b68efb8af",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a2723f99716c2fa6411e2eb5842edbe680e4b462",
+                "reference": "a2723f99716c2fa6411e2eb5842edbe680e4b462",
                 "shasum": ""
             },
             "require": {
@@ -1126,23 +1126,21 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-07 10:13:42"
+            "time": "2014-08-07 15:55:24"
         },
         {
             "name": "symfony/debug",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/Debug",
             "source": {
                 "type": "git",
@@ -1248,17 +1246,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "cf2e160823bc9a266cd87a6654293f4ac45ffef1"
+                "reference": "007359d2822d5eba4f04f6507bc9b46877c622b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/cf2e160823bc9a266cd87a6654293f4ac45ffef1",
-                "reference": "cf2e160823bc9a266cd87a6654293f4ac45ffef1",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/007359d2822d5eba4f04f6507bc9b46877c622b4",
+                "reference": "007359d2822d5eba4f04f6507bc9b46877c622b4",
                 "shasum": ""
             },
             "require": {
@@ -1281,19 +1279,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-07 10:13:42"
+            "time": "2014-08-31 03:30:23"
         },
         {
             "name": "symfony/finder",
@@ -1346,17 +1342,17 @@
         },
         {
             "name": "symfony/form",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Form",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Form.git",
-                "reference": "36457711c834cdcfd80209029ce044c085c871a6"
+                "reference": "1dcb30f56c77ecceace378c79917ef949fcdf273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Form/zipball/36457711c834cdcfd80209029ce044c085c871a6",
-                "reference": "36457711c834cdcfd80209029ce044c085c871a6",
+                "url": "https://api.github.com/repos/symfony/Form/zipball/1dcb30f56c77ecceace378c79917ef949fcdf273",
+                "reference": "1dcb30f56c77ecceace378c79917ef949fcdf273",
                 "shasum": ""
             },
             "require": {
@@ -1391,33 +1387,31 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Form Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-09 10:39:32"
+            "time": "2014-08-19 09:05:04"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "53296aa0794ebe1e3880e3f2c68fe10ddad6c3e3"
+                "reference": "cec87359655f901a11de336576851d3957449947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/53296aa0794ebe1e3880e3f2c68fe10ddad6c3e3",
-                "reference": "53296aa0794ebe1e3880e3f2c68fe10ddad6c3e3",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/cec87359655f901a11de336576851d3957449947",
+                "reference": "cec87359655f901a11de336576851d3957449947",
                 "shasum": ""
             },
             "require": {
@@ -1456,21 +1450,21 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-08-05 09:00:40"
+            "time": "2014-09-03 09:00:14"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "f956ccec1978d062e41f020e3fddf45d54e9523f"
+                "reference": "a24817f69012b23ce7c554af6b4c7b53235c7c55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/f956ccec1978d062e41f020e3fddf45d54e9523f",
-                "reference": "f956ccec1978d062e41f020e3fddf45d54e9523f",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a24817f69012b23ce7c554af6b4c7b53235c7c55",
+                "reference": "a24817f69012b23ce7c554af6b4c7b53235c7c55",
                 "shasum": ""
             },
             "require": {
@@ -1517,19 +1511,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 14:20:44"
+            "time": "2014-09-03 09:45:27"
         },
         {
             "name": "symfony/icu",
@@ -1582,7 +1574,7 @@
         },
         {
             "name": "symfony/intl",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/Intl",
             "source": {
                 "type": "git",
@@ -1658,7 +1650,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/OptionsResolver",
             "source": {
                 "type": "git",
@@ -1754,7 +1746,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v2.5.3",
+            "version": "v2.5.4",
             "target-dir": "Symfony/Component/PropertyAccess",
             "source": {
                 "type": "git",
@@ -1812,17 +1804,17 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "0ee3c12de95c76f50a71613f329ae0f568ca13c6"
+                "reference": "aa2beef5d5f1d84250b5ca73a4056c0504e5969e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/0ee3c12de95c76f50a71613f329ae0f568ca13c6",
-                "reference": "0ee3c12de95c76f50a71613f329ae0f568ca13c6",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/aa2beef5d5f1d84250b5ca73a4056c0504e5969e",
+                "reference": "aa2beef5d5f1d84250b5ca73a4056c0504e5969e",
                 "shasum": ""
             },
             "require": {
@@ -1856,19 +1848,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-07 10:13:42"
+            "time": "2014-08-15 09:05:55"
         },
         {
             "name": "symfony/templating",
@@ -1916,17 +1906,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
-                "reference": "f8a5a625232dea034cbd793cb623aea60e7e18ed"
+                "reference": "8ef90498bb0bef56257fd6cce7880c8d7b649745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/f8a5a625232dea034cbd793cb623aea60e7e18ed",
-                "reference": "f8a5a625232dea034cbd793cb623aea60e7e18ed",
+                "url": "https://api.github.com/repos/symfony/Translation/zipball/8ef90498bb0bef56257fd6cce7880c8d7b649745",
+                "reference": "8ef90498bb0bef56257fd6cce7880c8d7b649745",
                 "shasum": ""
             },
             "require": {
@@ -1957,33 +1947,31 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Translation Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 13:44:49"
+            "time": "2014-09-02 07:12:49"
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Bridge/Twig",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/TwigBridge.git",
-                "reference": "3ba6f65bccbe5a48c63957786b98d07333def3f3"
+                "reference": "56a553c2b7a6e5a385ae98b31256b8b4faed3d2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/3ba6f65bccbe5a48c63957786b98d07333def3f3",
-                "reference": "3ba6f65bccbe5a48c63957786b98d07333def3f3",
+                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/56a553c2b7a6e5a385ae98b31256b8b4faed3d2e",
+                "reference": "56a553c2b7a6e5a385ae98b31256b8b4faed3d2e",
                 "shasum": ""
             },
             "require": {
@@ -2025,23 +2013,21 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "http://symfony.com",
-            "time": "2014-07-13 17:09:52"
+            "time": "2014-08-05 07:07:37"
         },
         {
             "name": "symfony/twig-bundle",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Bundle/TwigBundle",
             "source": {
                 "type": "git",
@@ -2082,14 +2068,12 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony TwigBundle",
@@ -2098,17 +2082,17 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v2.3.18",
+            "version": "v2.3.19",
             "target-dir": "Symfony/Component/Validator",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Validator.git",
-                "reference": "228f98617e635695ed6b8eafaca60b79a9331207"
+                "reference": "ea8b654cae6ea904588f161900cb15f6f9d0414d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Validator/zipball/228f98617e635695ed6b8eafaca60b79a9331207",
-                "reference": "228f98617e635695ed6b8eafaca60b79a9331207",
+                "url": "https://api.github.com/repos/symfony/Validator/zipball/ea8b654cae6ea904588f161900cb15f6f9d0414d",
+                "reference": "ea8b654cae6ea904588f161900cb15f6f9d0414d",
                 "shasum": ""
             },
             "require": {
@@ -2145,19 +2129,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Validator Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-15 08:15:42"
+            "time": "2014-08-27 08:38:16"
         },
         {
             "name": "symfony/yaml",
