@@ -33,6 +33,13 @@ class SyncFiles extends Task
 	protected $_bannedFiles = [];
 
 	/**
+	 * Array of errors thrown
+	 *
+	 * @var array
+	 */
+	protected $_errors = [];
+
+	/**
 	 * @var Finder
 	 */
 	protected $_finder;
@@ -43,7 +50,9 @@ class SyncFiles extends Task
 			->_loadFiles()
 			->_addToSystem()
 			->_reportExistingFiles()
-			->_reportBannedFiles();
+			->_reportBannedFiles()
+			->_reportErrors()
+		;
 	}
 
 	protected function _setFinder()
@@ -83,7 +92,10 @@ class SyncFiles extends Task
 				$this->_existingFiles[$e->getFileId()] = $file->getFilename();
 			}
 			catch (Exception\BannedType $e){
-				$this->_bannedTypes[] = $file->getFilename();
+				$this->_bannedFiles[] = $file->getFilename();
+			}
+			catch (\Exception $e) {
+				$this->_errors[] = $e->getMessage();
 			}
 		}
 
@@ -103,6 +115,16 @@ class SyncFiles extends Task
 	{
 		foreach ($this->_bannedFiles as $name) {
 			$this->writeln("<error>" . $name .  " is a banned file type</error>");
+		}
+
+		return $this;
+	}
+
+	protected function _reportErrors()
+	{
+		$this->writeln("<error>The following exceptions were thrown!</error>");
+		foreach ($this->_errors as $error) {
+			$this->writeln("<error>- " . $error . "</error>");
 		}
 	}
 }
