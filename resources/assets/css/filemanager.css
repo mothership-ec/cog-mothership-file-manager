@@ -1,0 +1,46 @@
+/* ======================================================= */
+/*                                                         */
+/*                                                         */
+/*    Mothership                                           */
+/*                                                         */
+/*                                                         */
+/* ======================================================= */
+/*
+/*
+/*    http://mothership.ec
+/*
+/*    File Manager - Style Style Sheet v1.0
+/*
+/*
+/* ======================================================= */
+
+.listing a,
+.listing .product-image {
+	position: relative;
+	display: inline-block;
+	margin: 0 23px 23px 0;
+	width: 200px;
+	height: 200px;
+	border: 5px solid #FFF;
+	-webkit-box-shadow: 0 0 0 1px #ccc, 0 1px 3px rgba(000,000,000,0.2);
+	-moz-box-shadow: 0 0 0 1px #ccc, 0 1px 3px rgba(000,000,000,0.2);
+	box-shadow: 0 0 0 1px #ccc, 0 1px 3px rgba(000,000,000,0.2);
+	text-decoration: none;
+}
+
+.listing img {
+	width: 200px;
+	height: 200px;
+	background: #FFF;
+}
+
+.file-overlay {
+	position: absolute;
+	bottom: 0px;
+	z-index: 99px;
+	overflow: hidden;
+	padding: 10px 0 10px 10px;
+	width: 190px;
+	background: rgba(0,0,0,0.5);
+	color: #eee;
+}

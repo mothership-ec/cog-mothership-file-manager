@@ -1,5 +1,17 @@
 {% extends 'Message:Mothership:ControlPanel::_templates/cp' %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{% stylesheets
+		'@Message:Mothership:FileManager::resources/assets/css/filemanager.css'
+
+		output='/assets/css/ms_filemanager.css'
+		filter='csscogulerewrite,?cssmin'
+	%}
+		<link rel="stylesheet" href="{{ asset_url }}">
+	{% endstylesheets %}
+{% endblock %}
+
 {% block main %}
 	<hgroup class="title">
 		<h1>File manager</h1>
@@ -18,7 +30,7 @@
 			</div>
 		</div>
 	</hgroup>
-	<div class="container-content file-manager">
+	<div class="container-content">
 		<div class="listing">
 		{% for file in files %}
 			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live>
