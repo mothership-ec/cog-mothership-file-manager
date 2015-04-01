@@ -1,18 +1,18 @@
 {
-	"name": "message/cog-mothership-file-manager",
+	"name": "mothership-ec/cog-mothership-file-manager",
 	"description": "Cog module for file/asset management in Mothership",
 	"keywords": ["file", "mothership", "asset", "assets", "files", "upload", "uploads", "image", "images", "cog"],
-	"homepage": "http://message.co.uk",
-	"license": "proprietary",
+	"homepage": "http://mothership.ec",
+	"license": "GPL-3.0+",
 	"authors": [
 		{
-			"name" : "The Message Development Team",
-			"email": "dev@message.co.uk"
+			"name" : "The Mothership Development Team",
+			"email": "dev@mothership.ec"
 		}
 	],
 	"support": {
-		"wiki"  : "http://server.local/wiki/projects/cog",
-		"issues": "http://github.com/messagedigital/cog-mothership-file-manager/issues"
+		"wiki"  : "http://wiki.mothership.ec/File_Manager_module",
+		"issues": "http://github.com/mothership-ec/cog-mothership-file-manager/issues"
 	},
 	"autoload": {
 		"psr-4": {
@@ -20,18 +20,12 @@
 			"Message\\Mothership\\FileManager\\Test\\": "tests"
 		}
 	},
-	"repositories": [
-		{
-			"type": "composer",
-			"url" : "http://packages.message.co.uk"
-		}
-	],
 	"require": {
 		"php": ">=5.4.0",
 
-		"message/cog"              : "~3.4",
-		"message/cog-imageresize"  : "~1.0",
-		"message/cog-mothership-cp": "~1.1 | ~2.0"
+		"mothership-ec/cog"              : "~4.0",
+		"mothership-ec/cog-imageresize"  : "~2.0",
+		"mothership-ec/cog-mothership-cp": "~3.0"
 	},
 	"suggest": {
 	}
