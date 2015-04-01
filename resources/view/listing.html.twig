@@ -12,6 +12,19 @@
 	{% endstylesheets %}
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+	{% javascripts
+		'@Message:Mothership:FileManager::resources/assets/js/filemanager.js'
+
+		output='/assets/js/ms_filemanager.js'
+
+	%}
+		{# filter='?jsmin' #}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
 {% block main %}
 	<hgroup class="title">
 		<h1>File manager</h1>
@@ -25,8 +38,9 @@
 			<div class="file-upload">
 				{{ form_start(form) }}
 					{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
-					<button type="submit" class="button small upload">Upload a new file</button>
+					<button class="button small upload">Upload a new file</button>
 				{{ form_end(form) }}
+
 			</div>
 		</div>
 	</hgroup>

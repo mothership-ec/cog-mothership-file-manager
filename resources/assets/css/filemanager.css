@@ -14,6 +14,16 @@
 /*
 /* ======================================================= */
 
+.file-upload {
+	position: relative;
+	float: left;
+}
+
+.file-upload #upload_new_upload {
+	display: none;
+}
+
+
 .listing a,
 .listing .product-image {
 	position: relative;
