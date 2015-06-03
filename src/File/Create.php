@@ -95,8 +95,9 @@ class Create
 					preview_url = :previewUrl?sn,
 					dimension_x = :dimX?in,
 					dimension_y = :dimY?in,
-					duration    = :duration?in
-			', array(
+					duration    = :duration?in,
+					alt_text    = :altText?s
+			', [
 				'id'         => $replace,
 				'url'        => $file->getPathname(),
 				'name'       => $file->getFilename(),
@@ -106,11 +107,12 @@ class Create
 				'createdBy'  => $authorship->createdBy(),
 				'typeID'     => $typeID,
 				'checksum'   => $file->getChecksum(),
-				'previewUrl' => null,        // Preview image for videos
-				'dimX'       => $dimensionX, // Image or video dimensions in x
-				'dimY'       => $dimensionY, // Image or video dimensions in y
-				'duration'   => null,        // Duration in seconds for video/audio
-			));
+				'previewUrl' => null,              // Preview image for videos
+				'dimX'       => $dimensionX,       // Image or video dimensions in x
+				'dimY'       => $dimensionY,       // Image or video dimensions in y
+				'duration'   => null,              // Duration in seconds for video/audio
+				'altText'    => $oldFile->altText, // Preserve alt text
+			]);
 		} else {
 			$result = $this->_query->run('
 				INSERT INTO
