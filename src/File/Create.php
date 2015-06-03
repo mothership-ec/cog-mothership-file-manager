@@ -173,6 +173,8 @@ class Create
 				file
 			WHERE
 				checksum = ?s
+			AND
+				`deleted_at` IS NULL
 			LIMIT 1
 		', $checksum);
 
