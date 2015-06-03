@@ -50,10 +50,7 @@ class Create
 	 */
 	public function save(FilesystemFile $file)
 	{
-		// Instead of allowing the file to be uploaded again we thrown an exception
-		if ($id = $this->existsInFileManager($file)) {
-			throw new Exception\FileExists('File already exists in File Manager', $id);
-		}
+		$replace = $this->existsInFileManager($file);
 
 		// Detect the file type
 		$type = new Type;
@@ -73,36 +70,79 @@ class Create
 			list($dimensionX, $dimensionY) = getimagesize($file->getPathname());
 		}
 
-		$result = $this->_query->run('
-			INSERT INTO
-				file
-			SET
-				url         = :url?s,
-				name        = :name?s,
-				extension   = :extension?s,
-				file_size   = :size?i,
-				created_at  = :createdAt?d,
-				created_by  = :createdBy?i,
-				type_id     = :typeID?i,
-				checksum    = :checksum?s,
-				preview_url = :previewUrl?sn,
-				dimension_x = :dimX?in,
-				dimension_y = :dimY?in,
-				duration    = :duration?in
-		', array(
-			'url'        => $file->getPathname(),
-			'name'       => $file->getFilename(),
-			'extension'  => $file->getExtension(),
-			'size'       => $file->getSize(),
-			'createdAt'  => $authorship->createdAt(),
-			'createdBy'  => $authorship->createdBy(),
-			'typeID'     => $typeID,
-			'checksum'   => $file->getChecksum(),
-			'previewUrl' => null,        // Preview image for videos
-			'dimX'       => $dimensionX, // Image or video dimensions in x
-			'dimY'       => $dimensionY, // Image or video dimensions in y
-			'duration'   => null,        // Duration in seconds for video/audio
-		));
+		if ($replace) {
+			$oldFile = $this->_loader->includeDeleted(true)->getByID($replace);
+			$this->_loader->includeDeleted(false);
+
+			// if file is not deleted then reject
+			if (!$oldFile->authorship->isDeleted()) {
+				throw new Exception\FileExists('File already exists in File Manager', $id);
+			}
+
+			$result = $this->_query->run('
+				REPLACE INTO
+					file
+				SET
+					file_id     = :id?i,
+					url         = :url?s,
+					name        = :name?s,
+					extension   = :extension?s,
+					file_size   = :size?i,
+					created_at  = :createdAt?d,
+					created_by  = :createdBy?i,
+					type_id     = :typeID?i,
+					checksum    = :checksum?s,
+					preview_url = :previewUrl?sn,
+					dimension_x = :dimX?in,
+					dimension_y = :dimY?in,
+					duration    = :duration?in
+			', array(
+				'id'         => $replace,
+				'url'        => $file->getPathname(),
+				'name'       => $file->getFilename(),
+				'extension'  => $file->getExtension(),
+				'size'       => $file->getSize(),
+				'createdAt'  => $authorship->createdAt(),
+				'createdBy'  => $authorship->createdBy(),
+				'typeID'     => $typeID,
+				'checksum'   => $file->getChecksum(),
+				'previewUrl' => null,        // Preview image for videos
+				'dimX'       => $dimensionX, // Image or video dimensions in x
+				'dimY'       => $dimensionY, // Image or video dimensions in y
+				'duration'   => null,        // Duration in seconds for video/audio
+			));
+		} else {
+			$result = $this->_query->run('
+				INSERT INTO
+					file
+				SET
+					url         = :url?s,
+					name        = :name?s,
+					extension   = :extension?s,
+					file_size   = :size?i,
+					created_at  = :createdAt?d,
+					created_by  = :createdBy?i,
+					type_id     = :typeID?i,
+					checksum    = :checksum?s,
+					preview_url = :previewUrl?sn,
+					dimension_x = :dimX?in,
+					dimension_y = :dimY?in,
+					duration    = :duration?in
+			', array(
+				'url'        => $file->getPathname(),
+				'name'       => $file->getFilename(),
+				'extension'  => $file->getExtension(),
+				'size'       => $file->getSize(),
+				'createdAt'  => $authorship->createdAt(),
+				'createdBy'  => $authorship->createdBy(),
+				'typeID'     => $typeID,
+				'checksum'   => $file->getChecksum(),
+				'previewUrl' => null,        // Preview image for videos
+				'dimX'       => $dimensionX, // Image or video dimensions in x
+				'dimY'       => $dimensionY, // Image or video dimensions in y
+				'duration'   => null,        // Duration in seconds for video/audio
+			));
+		} 
 
 		// Load the file we just saved as an object
 		$file = $this->_loader->getByID($result->id());
@@ -173,8 +213,6 @@ class Create
 				file
 			WHERE
 				checksum = ?s
-			AND
-				`deleted_at` IS NULL
 			LIMIT 1
 		', $checksum);
 
