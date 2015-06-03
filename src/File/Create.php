@@ -76,7 +76,7 @@ class Create
 
 			// if file is not deleted then reject
 			if (!$oldFile->authorship->isDeleted()) {
-				throw new Exception\FileExists('File already exists in File Manager', $id);
+				throw new Exception\FileExists('File already exists in File Manager', $replace);
 			}
 
 			$result = $this->_query->run('
