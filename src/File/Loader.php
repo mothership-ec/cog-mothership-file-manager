@@ -157,16 +157,6 @@ class Loader
 
 	}
 
-	public function setSort(\Sorter $sorter)
-	{
-
-	}
-
-	public function setPaging(\Pager $pager)
-	{
-
-	}
-
 	/**
 	 * Toggle whether or not to load deleted files
 	 *
