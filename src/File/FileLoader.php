@@ -221,17 +221,6 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		return $this;
 	}
-	/**
-	 * @deprecated   Do not load tags from the file loader, use the TagLoader instead
-	 *
-	 * Gets the tags for a file
-	 * @param  File      $file file to load tags for
-	 * @return array     tags for file as an array
-	 */
-	public function getTagsForFile(File $file)
-	{
-		return $this->_tagLoader->getByFile($file);
-	}
 
 	/**
 	 * Sets the query builder with the appropriate SELECT and FROM statement
@@ -325,16 +314,4 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		return count($files) == 1 && !$this->_returnAsArray ? array_shift($files) : $files;
 	}
-
-	/**
-	 * @deprecated  Do not load tags from the file loader, use the tag loader directly instead
-	 *
-	 * @param File $file
-	 * @return array
-	 */
-	protected function _loadTags(File $file)
-	{
-		return $this->_tagLoader->getByFile($file);
-	}
-
 }

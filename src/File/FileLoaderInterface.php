@@ -72,11 +72,4 @@ interface FileLoaderInterface
 	 * @return 	$this 		Loader object in order to chain the methods
 	 */
 	public function includeDeleted($bool);
-
-	/**
-	 * Gets the tags for a file
-	 * @param  File      $file file to load tags for
-	 * @return array     tags for file as an array
-	 */
-	public function getTagsForFile(File $file);
 }
