@@ -24,12 +24,12 @@ class FileLoader extends Loader implements FileLoaderInterface
 	/**
 	 * @var DB\QueryBuilderFactory
 	 */
-	private $_queryBuilderFactory;
+	protected $_queryBuilderFactory;
 
 	/**
 	 * @var TagLoader
 	 */
-	private $_tagLoader;
+	protected $_tagLoader;
 
 	/**
 	 * @var bool
@@ -39,7 +39,7 @@ class FileLoader extends Loader implements FileLoaderInterface
 	/**
 	 * @var DB\QueryBuilder
 	 */
-	private $_queryBuilder;
+	protected $_queryBuilder;
 
 	/**
 	 * var to toggle the loading of deleted files
