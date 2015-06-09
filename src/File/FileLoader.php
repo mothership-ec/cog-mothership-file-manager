@@ -13,6 +13,8 @@ use Message\Cog\DB\Result;
  * @package Message\Mothership\FileManager\File
  *
  * @author  Thomas Marchant <thomas@mothership.ec>
+ *
+ * Replacement for File\Loader. Note, in version 4.0.0, this will no longer extend File\Loader
  */
 class FileLoader extends Loader implements FileLoaderInterface
 {
@@ -221,6 +223,23 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		return $this;
 	}
+
+	/**
+	 * Override for method in File\Loader
+	 */
+	public function getByUnused()
+	{
+		throw new \LogicException('This method is not used and will be removed in version 4.0.0');
+	}
+
+	/**
+	 * Override for method in File\Loader
+	 */
+	public function getTagsForFile(File $file)
+	{
+		throw new \LogicException('This method is not used and will be removed in version 4.0.0');
+	}
+
 
 	/**
 	 * Sets the query builder with the appropriate SELECT and FROM statement

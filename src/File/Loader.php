@@ -231,6 +231,7 @@ class Loader implements FileLoaderInterface
 		$this->_loadDeleted = $bool;
 		return $this;
 	}
+
 	/**
 	 * Gets the tags for a file
 	 * @param  File      $file file to load tags for
