@@ -41,7 +41,7 @@ class TagLoader
 		$this->_setQueryBuilder();
 
 		$this->_queryBuilder
-			->where('file_tag.tag_id = ?i', [$file->id])
+			->where('file_tag.file_id = ?i', [$file->id])
 		;
 
 		return $this->_load();
