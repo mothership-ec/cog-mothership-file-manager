@@ -157,8 +157,8 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		// Set a bunch of arrays which are used below, seems a lot but it's
 		// becasue we have to pass through an array to the sql query so we have to do it twice
-		$whereName = array();
-		$whereTag = array();
+		$whereName = [];
+		$whereTag  = [];
 
 		// Loop over the terms and add them to an array to implode in the query
 		foreach ($terms as $key => $term) {
