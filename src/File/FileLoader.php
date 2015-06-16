@@ -162,15 +162,17 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		// Loop over the terms and add them to an array to implode in the query
 		foreach ($terms as $key => $term) {
-			$whereName[]  = ' name LIKE ?s';
-			$whereTag[]   = ' tag_name LIKE ?s';
+			$whereName[]  = ' file.name LIKE ?s';
+			$whereTag[]   = ' file_tag.tag_name LIKE ?s';
 			$terms[$key] = '%' . trim($term) . '%';
 		}
 
 		$this->_setQueryBuilder();
+
 		$this->_queryBuilder
-			->where('(' . implode(' OR ' . $whereName) . ')', $terms)
-			->where('(' . implode(' OR ' . $whereTag) . ')', $terms, false)
+			->leftJoin('file_tag', 'file.file_id = file_tag.file_id')
+			->where('(' . implode(' OR ', $whereName) . ')', $terms)
+			->where('(' . implode(' OR ', $whereTag) . ')', $terms, false)
 		;
 
 		$this->_returnAsArray = true;
