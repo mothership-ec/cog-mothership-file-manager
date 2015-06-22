@@ -2,12 +2,17 @@
 
 namespace Message\Mothership\FileManager\File;
 
+use Message\User;
 use Message\Cog\DB\Query;
 use Message\Cog\ValueObject\DateTimeImmutable;
 use Message\Cog\Filesystem\File as FileSystemFile;
 use Message\Cog\DB\Result;
 
-class Loader
+/**
+ * @deprecated  Preserved for backwards compatibility, and will be removed in version 4.0.0. Use more efficient
+ *              FileLoader instead.
+ */
+class Loader implements FileLoaderInterface
 {
 
 	protected $_locale;
@@ -63,6 +68,60 @@ class Loader
 
 		return count($result) ? $this->getByID($result->flatten()) : false;
 
+	}
+
+	/**
+	 * Load files by their filename
+	 *
+	 * @param string $filename
+	 * @throws \InvalidArgumentException    Throws exception if $filename is not a string
+	 *
+	 * @return array|bool|File
+	 */
+	public function getByFilename($filename)
+	{
+		if (!is_string($filename)) {
+			throw new \InvalidArgumentException('Filename must be a string, ' . gettype($filename) . ' given');
+		}
+
+		$result = $this->_query->run('
+			SELECT
+				file_id
+			FROM
+				file
+			WHERE
+				`name` = ?s
+		', [$filename]);
+
+		return count($result) ? $this->getByID($result->flatten()) : false;
+	}
+
+	/**
+	 * Load all files with a certain extension
+	 *
+	 * @param string $ext
+	 * @throws \InvalidArgumentException    Throws exception if $ext is not a string
+	 *
+	 * @return array|bool|File
+	 */
+	public function getByExtension($ext)
+	{
+		if (!is_string($ext)) {
+			throw new \InvalidArgumentException('Extension must be a string, ' . gettype($ext) . ' given');
+		}
+
+		$result = $this->_query->run('
+			SELECT
+				file_id
+			FROM
+				file
+			WHERE
+				extension = ?s
+		', [$ext]);
+
+		$this->_returnAsArray = true;
+
+		return count($result) ? $this->getByID($result->flatten()) : false;
 	}
 
 	/**
@@ -139,8 +198,12 @@ class Loader
 
 	}
 
-	public function getByUser(\User $user)
+	public function getByUser(User\UserInterface $user)
 	{
+		if ($user instanceof User\AnonymousUser) {
+			return false;
+		}
+
 		$result = $this->_query->run('
 			SELECT
 				file_id
@@ -168,6 +231,7 @@ class Loader
 		$this->_loadDeleted = $bool;
 		return $this;
 	}
+
 	/**
 	 * Gets the tags for a file
 	 * @param  File      $file file to load tags for
@@ -234,7 +298,7 @@ class Loader
 	protected function _loadFile(Result $results)
 	{
 		$files = $results->bindTo(
-			'\Message\Mothership\FileManager\File\FileProxy',
+			'\Message\Mothership\FileManager\File\File',
 			[$this]
 		);
 
@@ -260,6 +324,12 @@ class Loader
 
 			// Force type to be an integer
 			$files[$key]->typeID = (int) $files[$key]->typeID;
+
+			$tags = $this->_loadTags($files[$key]);
+
+			if ($tags) {
+				$files[$key]->setTags($tags);
+			}
 		}
 
 		return count($files) == 1 && !$this->_returnAsArray ? $files[0] : $files;
