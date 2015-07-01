@@ -575,16 +575,16 @@
         },
         {
             "name": "mothership-ec/cog",
-            "version": "4.4.3",
+            "version": "4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mothership-ec/cog.git",
-                "reference": "3dd35d79b6845c968e6eab2b8442fa31f5c5a7d4"
+                "reference": "07c8b68c72d4824e70b7dedbbdf9770d0b2d7ca7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mothership-ec/cog/zipball/3dd35d79b6845c968e6eab2b8442fa31f5c5a7d4",
-                "reference": "3dd35d79b6845c968e6eab2b8442fa31f5c5a7d4",
+                "url": "https://api.github.com/repos/mothership-ec/cog/zipball/07c8b68c72d4824e70b7dedbbdf9770d0b2d7ca7",
+                "reference": "07c8b68c72d4824e70b7dedbbdf9770d0b2d7ca7",
                 "shasum": ""
             },
             "require": {
@@ -609,7 +609,7 @@
                 "php": ">=5.4.0",
                 "pimple/pimple": "~2.0",
                 "swiftmailer/swiftmailer": "~5.2.1 | ~5.3",
-                "symfony/console": "2.3.*",
+                "symfony/console": "2.7.*",
                 "symfony/event-dispatcher": "2.1.*",
                 "symfony/filesystem": "2.3.*",
                 "symfony/finder": "2.2.*",
@@ -666,7 +666,7 @@
                 "cog",
                 "framework"
             ],
-            "time": "2015-06-01 15:31:12"
+            "time": "2015-07-01 09:39:43"
         },
         {
             "name": "mothership-ec/cog-imageresize",
@@ -718,16 +718,16 @@
         },
         {
             "name": "mothership-ec/cog-mothership-cp",
-            "version": "3.4.1",
+            "version": "3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mothership-ec/cog-mothership-cp.git",
-                "reference": "d2411d1607c05fb9c196b545f28809256c400c23"
+                "reference": "1bc859a644624c32229c006593cbb12fb2ca0d40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mothership-ec/cog-mothership-cp/zipball/d2411d1607c05fb9c196b545f28809256c400c23",
-                "reference": "d2411d1607c05fb9c196b545f28809256c400c23",
+                "url": "https://api.github.com/repos/mothership-ec/cog-mothership-cp/zipball/1bc859a644624c32229c006593cbb12fb2ca0d40",
+                "reference": "1bc859a644624c32229c006593cbb12fb2ca0d40",
                 "shasum": ""
             },
             "require": {
@@ -764,7 +764,7 @@
                 "control panel",
                 "mothership"
             ],
-            "time": "2015-05-27 11:51:18"
+            "time": "2015-06-25 15:01:45"
         },
         {
             "name": "mothership-ec/cog-user",
@@ -1087,37 +1087,40 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.3.30",
-            "target-dir": "Symfony/Component/Console",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "4ce3d2a448af346068e799a2182c3010ff2ed651"
+                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/4ce3d2a448af346068e799a2182c3010ff2ed651",
-                "reference": "4ce3d2a448af346068e799a2182c3010ff2ed651",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/564398bc1f33faf92fc2ec86859983d30eb81806",
+                "reference": "564398bc1f33faf92fc2ec86859983d30eb81806",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
             },
             "require-dev": {
+                "psr/log": "~1.0",
                 "symfony/event-dispatcher": "~2.1",
-                "symfony/phpunit-bridge": "~2.7"
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/process": "~2.1"
             },
             "suggest": {
-                "symfony/event-dispatcher": ""
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/process": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.7-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\Console\\": ""
                 }
             },
@@ -1137,7 +1140,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-24 18:51:45"
+            "time": "2015-06-10 15:30:22"
         },
         {
             "name": "symfony/debug",
