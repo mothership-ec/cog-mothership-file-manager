@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+- Resolve issue where `FileLoader::getAll()` would return an instance of `File` instead of an array with a single `File` instance if there is only one file in the file manager
+
 ## 3.1.0
 
 - Added `File\FileLoader` class, which replaces the `File\Loader` class and uses the query builder to generate queries
