@@ -183,11 +183,11 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 	/**
 	 * Return all files in an array
-	 * @return Array|File|false - 	returns either an array of File objects, a
-	 * 								single file object or false
+	 * @return Array|false - 	returns either an array of File objects or false
 	 */
 	public function getAll()
 	{
+		$this->_returnAsArray = true;
 		$this->_setQueryBuilder();
 
 		return $this->_loadFromQuery();
