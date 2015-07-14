@@ -29,12 +29,6 @@
 	<hgroup class="title">
 		<h1>File manager</h1>
 		<div class="controls">
-			<div class="search">
-				{{ form_start(search_form) }}
-					{{ form_row(search_form.term, { 'attr': {'placeholder': 'Search files...' } }) }}
-					<button type="submit">Search</button>
-				{{ form_end(search_form) }}
-			</div>
 			<div class="file-upload">
 				{{ form_start(form) }}
 					{{ form_widget(form.new_upload, { 'attr': { 'multiple': 'multiple' }, 'full_name': form.new_upload.get('full_name') ~ 'upload[new_upload][]' }) }}
@@ -45,6 +39,12 @@
 		</div>
 	</hgroup>
 	<div class="container-content">
+		<div class="search">
+			{{ form_start(search_form) }}
+				{{ form_row(search_form.term, { 'attr': {'placeholder': 'Search files...' } }) }}
+				<button type="submit">Search</button>
+			{{ form_end(search_form) }}
+		</div>
 		<div class="listing">
 		{% for file in files %}
 			<a href="{{ url('ms.cp.file_manager.detail', {fileID: file.id}) }}" data-live>
