@@ -64,8 +64,10 @@ class Listing extends \Message\Cog\Controller\Controller
 
 	public function search($term)
 	{
+		$files = $this->get('file_manager.file.loader')->getBySearchTerm($term);
+
 		return $this->render('::listing', array(
-			'files'            => $this->get('file_manager.file.loader')->getBySearchTerm($term),
+			'files'            => $files,
 			'searchTerm'       => $term,
 			'form'             => $this->_getUploadForm(),
 			'search_form'      => $this->_getSearchForm(),

@@ -171,8 +171,7 @@ class FileLoader extends Loader implements FileLoaderInterface
 
 		$this->_queryBuilder
 			->leftJoin('file_tag', 'file.file_id = file_tag.file_id')
-			->where('(' . implode(' OR ', $whereName) . ')', $terms)
-			->where('(' . implode(' OR ', $whereTag) . ')', $terms, false)
+			->where('(' . implode(' OR ', $whereName) . ' OR ' . implode(' OR ', $whereTag) . ')', array_merge($terms, $terms))
 		;
 
 		$this->_returnAsArray = true;
