@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2
+
+- Resolve issue where deleted files would appear in the search results
+
 ## 3.1.1
 
 - Resolve issue where `FileLoader::getAll()` would return an instance of `File` instead of an array with a single `File` instance if there is only one file in the file manager
